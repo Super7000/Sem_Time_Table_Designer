@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <p>Write something</p>        
+        <input class="inp" type="text">
+
+        <p>Load</p>
+        <input class="load" type="file" accept=".txt" onchange="loadfun()">
+        <br>
+        <a class="btn" href="" onclick="fun(a)">save</a>
+    </body>
+    <script>
+        class teacher {
+            constructor(name,sems,allocated_times,subjects)            
+            {
+                this.name = name.toLowerCase(); //name of the sir 
+                this.sems = sems; //array of semisters that sir takes in form of integer
+                this.allocated_times = allocated_times; //2D array of time and week [max val 7 for 8 preiods, max val 4 for 5 days]
+                this.subjects = subjects; //array of subjects that sir takes in form of string
+            };
+        }
+        var t1 = new teach("skb",[2,4,6],,["c++","co"]);
+        
+        // var b = new teach([545]);
+        // function fun(a)
+        // {
+        //     var text = JSON.stringify([a,b,document.querySelector(".inp").value]);
+        //     var file = new Blob([text], {type: "text/plain"});
+        //     var a = document.querySelector('.btn');
+        //     a.href = URL.createObjectURL(file);
+        //     a.download = "tempsavefile.txt";
+        //     URL.revokeObjectURL(file);
+        // }
+        // async function loadfun()
+        // {
+        //     var file = document.querySelector(".load").files[0];
+        //     var fr=new FileReader();
+        //     fr.onload=function(){
+        //         alert(JSON.parse(fr.result)[0].sems);
+        //         document.querySelector(".inp").value = JSON.parse(fr.result)[2];
+        //     }
+              
+        //     fr.readAsText(file);
+        // }
+    </script>
+</html>
