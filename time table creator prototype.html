@@ -2,27 +2,527 @@
     <head>
         <title></title>
     </head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.2/chart.umd.js" integrity="sha512-KIq/d78rZMlPa/mMe2W/QkRgg+l0/GAAu4mGBacU0OQyPV/7EPoGQChDb269GigVoPQit5CqbNRFbgTjXHHrQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        body{
+            margin: 0;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: row;
+        }
+        .menubar
+        {
+            box-shadow: 0 0 25px rgba(30, 144, 255,0.3);
+            float: left;
+            min-height: 100vh;
+            width: 15%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+        .menubar a {
+            text-decoration: none;
+            width: 70px;
+            height: 90px;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+        .menubar a:hover svg{            
+            background: #1479FF;
+            color: #fff;
+            box-shadow: 5px 10px 15px rgba(30, 144, 255,0.5);
+        }
+        .menubar a:hover p{
+            color: #1479FF;
+        }
+        .menubar a:hover svg path{
+            fill: #fff;
+        }
+        .menubar a svg
+        {
+            width: 25px;
+            height: 25px;
+            padding: 10px;
+            background: #F3F8FF;
+            transition: 0.3s;
+            border-radius: 10px;
+            color: #1479FF;
+        }
+        .menubar a svg path{
+            fill: #1479FF;
+        }
+        .menubar a p{
+            margin: 0;
+            margin-top: 3px;
+            color: #000;
+            transition: 0.3s;
+            font-size: 12px;
+        }
+        .menubar .title
+        {
+            font-size: 20px;
+            color: #1479FF;
+            font-weight: bold;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .container
+        {
+            min-height: calc(100vh-20px);
+            width: 100%;
+            position: relative;
+            padding: 20px;
+        }
+        .container .left
+        {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            width: 40%;
+            height: 100%;
+            margin: 0;
+        }
+        .container .left .scedules
+        {
+            position: relative;
+            top: 0px;
+            width: 100%;
+            height: 30%;
+            background: #fff;
+            grid-column: 1;
+            grid-row: 1 / span 2;            
+            box-shadow: 0 0 25px rgba(30, 144, 255,0.3);
+            border-radius: 20px;
+        }
+        .container .left .chart
+        {
+            height: 60%;
+            background: #fff;
+            grid-column: 1;     
+            grid-row: 3 / span 3;            
+            box-shadow: 0 0 25px rgba(30, 144, 255,0.3);
+            border-radius: 20px;
+        }
+        .container .left .chart div
+        {
+            position: relative;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-60%);
+            margin: 0;
+            width: 70%;
+            height: 70%;
+        }
+        .container .left p 
+        {
+            position: relative;
+            left: 5%;
+            top: 20px;
+            width: 90%;
+            font-size: 22px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+        }
+        .container .left .scedule_container
+        {
+            background: #fff;
+            width: 90%;
+            height: 60%;
+            position: relative;
+            top: 10px;
+            left: 5%;
+            overflow-y: scroll;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        .container .left .scedule_container div{
+            width: 70%;
+            text-align: center;
+            padding: 10px 0px;
+            background: #E6F1FF;
+            border-radius: 5px;
+        }
+        .right
+        {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 55%;
+            height: 94%;
+            border-radius: 25px;
+            box-shadow: 0 0 25px rgba(30, 144, 255,0.3);
+        }
+        .right .teachers 
+        {
+            position: relative;
+            margin: auto;
+            height: 33%;
+            width: 90%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            grid-column: 1;
+            grid-row: 1 / span 2;
+        }
+        .right .teachers div
+        {
+            position: relative;
+            width: 200px;
+            height: 100px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(30, 144, 255,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .right .set_time_chat
+        {
+            position: relative;
+            height: 50%;
+            width: 100%;
+            grid-row: 3 / span 3;
+            grid-column: 1;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            font-size: 22px;
+        }
+        .right .set_time_chat p{
+            position: relative;
+            left: 40px;
+            width: 90%;
+        }
+        .right .set_time_chat div
+        {
+            position: relative;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-60%);
+            margin: 0;
+            width: 70%;
+            height: 70%;
+        }
+        .right .details
+        {
+            position: relative;
+            top: -20px;
+            height: 16%;
+            width: 100%;
+            grid-area: 6;
+            grid-column: 1;
+            grid-row: 6;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .right .details .sems,.right .details .subjects
+        {
+            background: #fff;
+            border: 2px solid #fff;
+            width: 45%;
+            height: 70px;
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(30, 144, 255,0.3);
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+        }        
+        .right .details .sems p,.right .details .subjects p
+        {
+            position: relative;
+            top: -5px;
+            left: 20px;
+        }
+        .right .semnc, .right .snc
+        {
+            position: relative;
+            top: -20px;
+            left: 15px;
+            border-radius: 0;
+            height: 40%;
+            width: 90%;
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            padding: 5px;
+        }
+        .right .semnc div, .right .snc div
+        {
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 5px;
+            background: #d5e5ff;
+            padding: 0 4px;
+        }
+        .right .main_chart
+        {
+            position: relative;
+            max-width: 350px;
+            max-height: 250px;
+            left: 50%;
+            top: 40%;
+            transform: translate(-55%,-50%);
+            margin: 0;
+        }
+    </style>
     <body>
-        <p>Write something</p>        
-        <input class="inp" type="text">
+            <div class="menubar">
+                <div class="title">
+                    <p>Time Table <br>Designer</p>
+                </div>
+                <a href="AddTeacher.html">
+                    <svg height="32px" id="Layer_1" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <path d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"/>
+                    </svg>
+                    <p>Add Teachers</p>
+                </a>
+                <a href="Daskboard.html">
+                    <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z"/>
+                    </svg>
+                    <p>Dashboard</p>
+                </a>
+                <a href="TimeTables.html">
+                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                        fill="#000000" stroke="none">
+                        <path d="M866 5105 c-56 -20 -107 -65 -136 -121 -21 -41 -26 -65 -28 -156 l-4
+                        -108 -201 0 c-190 0 -205 -2 -252 -24 -55 -25 -105 -76 -133 -134 -16 -35 -17
+                        -144 -17 -1827 0 -1631 1 -1793 16 -1826 25 -53 74 -104 127 -130 l47 -24
+                        1112 -3 1112 -3 36 -67 c84 -160 258 -350 417 -455 235 -155 453 -221 733
+                        -222 181 0 264 12 411 60 731 239 1104 1029 825 1750 -80 207 -256 439 -427
+                        561 l-53 39 -3 1050 -3 1050 -23 50 c-30 66 -66 102 -127 131 -47 23 -60 24
+                        -252 24 l-203 0 0 88 c0 146 -36 225 -125 277 -92 55 -205 41 -287 -33 -62
+                        -56 -72 -83 -78 -212 l-5 -115 -1075 0 -1075 0 -5 115 c-4 95 -9 121 -27 150
+                        -67 108 -187 154 -297 115z m123 -160 c16 -8 31 -22 35 -30 3 -9 6 -133 6
+                        -276 l0 -260 -25 -24 c-34 -35 -78 -33 -116 4 l-29 29 0 257 0 257 29 29 c33
+                        32 58 36 100 14z m2662 -14 l29 -29 0 -257 0 -257 -29 -29 c-38 -37 -82 -39
+                        -116 -4 l-25 24 0 266 0 266 25 24 c34 35 78 33 116 -4z m-2951 -458 c0 -107
+                        11 -150 53 -205 87 -116 257 -130 361 -30 61 59 76 101 76 220 l0 102 1080 0
+                        1080 0 0 -102 c0 -124 16 -165 83 -224 77 -68 172 -82 263 -40 99 46 144 134
+                        144 283 l0 83 193 0 193 0 30 -31 29 -30 3 -260 3 -259 -2021 0 -2021 0 3 259
+                        3 260 29 30 30 31 193 0 193 0 0 -87z m3590 -1309 c0 -611 -1 -646 -17 -641
+                        -10 3 -59 22 -108 41 -153 59 -274 80 -465 79 -177 0 -257 -12 -405 -60 -549
+                        -179 -915 -682 -915 -1257 0 -124 18 -263 45 -351 8 -27 15 -53 15 -58 0 -4
+                        -479 -6 -1065 -5 l-1065 3 -27 28 -28 27 -3 1420 -2 1420 2020 0 2020 0 0
+                        -646z m-636 -871 c23 -19 36 -24 60 -19 52 10 66 37 66 129 l0 80 73 -6 c151
+                        -13 363 -95 511 -197 110 -76 108 -71 42 -139 -65 -69 -73 -105 -31 -146 42
+                        -42 80 -32 157 43 40 39 49 43 63 32 23 -19 118 -165 153 -235 55 -111 112
+                        -318 112 -406 l0 -29 -84 0 c-79 0 -86 -2 -105 -26 -29 -36 -27 -75 5 -105 22
+                        -20 38 -24 106 -28 l80 -3 -6 -60 c-23 -198 -114 -415 -244 -576 l-34 -43 -64
+                        62 c-59 56 -68 61 -97 55 -40 -8 -67 -39 -67 -78 0 -22 14 -44 55 -87 30 -32
+                        55 -61 55 -64 0 -9 -108 -89 -175 -130 -114 -68 -316 -135 -452 -150 l-53 -6
+                        0 79 c0 94 -4 106 -41 125 -40 21 -57 19 -90 -14 -27 -28 -29 -34 -29 -110 l0
+                        -80 -27 4 c-16 2 -59 9 -98 15 -154 24 -354 111 -489 212 l-66 50 55 60 c47
+                        50 55 65 55 98 0 30 -6 43 -26 59 -44 34 -69 27 -139 -39 l-63 -61 -51 68
+                        c-117 157 -203 367 -226 556 l-6 57 64 0 c109 0 147 23 147 89 0 55 -28 71
+                        -126 71 l-86 0 7 63 c20 177 117 417 226 560 l51 68 63 -61 c70 -66 95 -73
+                        139 -39 20 15 26 29 26 58 0 31 -8 45 -55 91 -30 30 -55 57 -55 61 0 11 101
+                        84 185 132 134 78 286 130 427 145 l63 7 5 -83 c5 -77 7 -86 34 -109z"/>
+                        <path d="M520 3551 l-30 -29 0 -302 0 -302 30 -29 29 -30 305 3 c303 3 306 3
+                        328 26 23 22 23 23 23 332 0 309 0 310 -23 332 -22 23 -25 23 -328 26 l-305 3
+                        -29 -30z m525 -331 l0 -195 -197 -3 -198 -2 0 200 0 200 198 -2 197 -3 0 -195z"/>
+                        <path d="M1485 3569 c-45 -25 -45 -28 -45 -351 0 -293 1 -309 20 -328 11 -11
+                        30 -22 42 -25 13 -3 155 -5 316 -3 l294 3 19 24 c18 22 19 43 19 331 0 288 -1
+                        309 -19 331 l-19 24 -304 2 c-209 2 -309 -1 -323 -8z m505 -349 l0 -200 -195
+                        0 -195 0 0 200 0 200 195 0 195 0 0 -200z"/>
+                        <path d="M2433 3570 c-12 -5 -26 -18 -32 -29 -7 -13 -11 -128 -11 -324 0 -285
+                        1 -306 19 -328 l19 -24 294 -3 c161 -2 303 0 316 3 12 3 31 14 42 25 19 19 20
+                        35 20 324 0 167 -3 312 -6 321 -16 41 -50 45 -351 44 -158 0 -298 -4 -310 -9z
+                        m507 -350 l0 -200 -195 0 -195 0 0 200 0 200 195 0 195 0 0 -200z"/>
+                        <path d="M3385 3570 c-50 -19 -50 -23 -50 -351 0 -308 0 -309 23 -331 22 -23
+                        25 -23 328 -26 l305 -3 29 30 30 29 0 302 0 302 -29 29 -29 29 -294 -1 c-161
+                        0 -302 -4 -313 -9z m505 -350 l0 -200 -197 2 -198 3 -3 185 c-1 101 0 190 2
+                        197 4 10 51 13 201 13 l195 0 0 -200z"/>
+                        <path d="M515 2695 l-25 -24 0 -306 0 -306 25 -24 24 -25 311 0 c293 0 311 1
+                        329 19 29 29 33 79 29 373 -3 266 -3 266 -27 292 l-24 26 -309 0 -309 0 -24
+                        -25z m535 -330 l0 -195 -200 0 -200 0 0 195 0 195 200 0 200 0 0 -195z"/>
+                        <path d="M1465 2695 l-25 -24 0 -304 c0 -293 1 -305 21 -331 l20 -26 313 0
+                        313 0 21 23 c22 23 22 29 22 334 l0 312 -26 20 c-26 20 -38 21 -331 21 l-304
+                        0 -24 -25z m525 -330 l0 -195 -195 0 -195 0 0 195 0 195 195 0 195 0 0 -195z"/>
+                        <path d="M544 1860 c-52 -21 -54 -31 -54 -355 1 -220 4 -304 13 -316 28 -36
+                        50 -39 351 -39 l295 0 28 24 28 24 3 284 c2 191 0 295 -8 321 -19 64 -37 67
+                        -357 66 -153 0 -288 -4 -299 -9z m501 -350 l0 -195 -197 -3 -198 -2 0 200 0
+                        200 198 -2 197 -3 0 -195z"/>
+                        <path d="M1500 1863 c-8 -3 -25 -15 -37 -26 -23 -20 -23 -22 -23 -329 l0 -309
+                        25 -24 24 -25 306 0 306 0 24 25 25 24 0 306 c0 181 -4 314 -10 325 -19 35
+                        -64 40 -349 39 -152 0 -283 -3 -291 -6z m490 -353 l0 -200 -195 0 -195 0 0
+                        200 0 200 195 0 195 0 0 -200z"/>
+                        <path d="M3674 2060 c-51 -20 -54 -38 -54 -285 l0 -230 -40 -23 c-92 -52 -138
+                        -187 -97 -285 34 -81 130 -147 213 -147 84 0 173 51 210 122 l14 26 194 4
+                        c211 3 226 7 240 64 7 28 -16 79 -39 88 -9 3 -99 6 -201 6 l-184 0 -24 38
+                        c-27 43 -75 87 -106 97 -19 6 -20 15 -20 244 0 225 -1 238 -20 259 -12 12 -25
+                        22 -30 22 -4 0 -14 2 -22 4 -7 3 -23 1 -34 -4z m59 -671 c30 -16 37 -28 37
+                        -66 0 -65 -70 -96 -117 -51 -33 30 -31 80 3 107 30 24 46 26 77 10z"/>
+                        </g>
+                        </svg>
 
-        <p>Load</p>
-        <input class="load" type="file" accept=".txt" onchange="loadfun()">
-        <br>
-        <a class="btn" href="" onclick="fun(a)">save</a>
+                    <p>Time <br>Tables</p>
+                </a>
+            </div>
+            <div class="container">
+                <div class="left">
+                    <div class="scedules">
+                        <p>Scedules</p>
+                        <div class="scedule_container">
+                            <div>Scedule 1</div>
+                            <div>Scedule 2</div>
+                            <div>Scedule 3</div>
+                            <div>Scedule 4</div>
+                            <div>Scedule 5</div>
+                        </div>
+                    </div>
+                    <div class="chart">
+                        <p>Total time spend in classes (hr)</p>
+                        <div>
+                            <canvas id="main_chart" class="main_chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="teachers">
+                        <div class="t1">
+                            <p>SKB</p>
+                        </div>
+                        <div class="t1">
+                            <p>SKB</p>
+                        </div>
+                        <div class="t1">
+                            <p>SKB</p>
+                        </div>
+                        <div class="t1">
+                            <p>SKB</p>
+                        </div>
+                        <div class="t1">
+                            <p>SKB</p>
+                        </div>
+                        <div class="t1">
+                            <p>SKB</p>
+                        </div>
+                    </div>
+                    <div class="set_time_chat">
+                        <p>Time Table for SKB Sir</p>
+                        <div>
+                            <canvas id="main_chart" class="main_chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <div class="sems">
+                            <p>Semisters</p>
+                            <div class="semnc"> <!-- semnm = Semister Name Container -->
+                                <div>2</div>
+                                <div>4</div>
+                                <div>6</div>
+                            </div>
+                            
+                        </div>
+                        <div class="subjects">
+                            <p>Subjects</p>
+                            <div class="snc"> <!-- snc = Subject Name Container -->
+                                <div>C++</div>
+                                <div>C</div>
+                                <div>CO</div>
+                                <div>JAVA</div>
+                                <div>DSA</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
     </body>
     <script>
         class teacher {
-            constructor(name,sems,allocated_times,subjects)            
+            constructor(name,sems,allocated_times,free_time,subjects)            
             {
                 this.name = name.toLowerCase(); //name of the sir 
                 this.sems = sems; //array of semisters that sir takes in form of integer
                 this.allocated_times = allocated_times; //2D array of time and week [max val 7 for 8 preiods, max val 4 for 5 days]
+                this.free_time = free_time; //same as allocated_time but it define teacher's avaiable time
                 this.subjects = subjects; //array of subjects that sir takes in form of string
             };
         }
-        var t1 = new teach("skb",[2,4,6],"",["c++","co"]);
-        
+        var t1 = new teacher("skb",[2,4,6],"","",["c++","co"]); 
+        var h = (window.innerHeight-40)/6;
+        function applycssheight(a,b)
+        {
+            document.querySelector(a).style.cssText = "height:"+b+"px;";
+        }
+        window.onchange = function(){
+            applycssheight(".teachers",h*2);
+            applycssheight(".set_time_chat",h*3);
+            applycssheight(".details",h);
+            document.querySelector('.chat').style.cssText = "max-height:"+h*3+"px;";
+            alert(h3);
+        }
+        // chart data
+        const labels = ["tue","wed","thu","fri","sat"];
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: "",
+                data: [65, 59, 80, 81, 56, 55, 40],
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)'
+                ],
+                borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)'
+                ],
+                borderWidth: 1
+            }]
+        };
+        // left side chart 
+        new Chart(                                                  
+            document.querySelectorAll('#main_chart')[0],{
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                y: {
+                    beginAtZero: true
+                }
+                }
+            },
+        });
+        // right side chart
+        new Chart(
+            document.querySelectorAll('#main_chart')[1],{
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                y: {
+                    beginAtZero: true
+                }
+                }
+            },
+        });
         // var b = new teach([545]);
         // function fun(a)
         // {
