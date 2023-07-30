@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Subject = exports.Teacher = void 0;
-class Teacher {
+export class Teacher {
     constructor(name, sems, free_time, subjects) {
         this.name = name.toLowerCase(); //name of the sir 
         this.sems = sems; //array of semisters that sir takes in form of integer
@@ -9,8 +6,7 @@ class Teacher {
         this.subjects = subjects; //array of subjects that sir takes in form of string
     }
 }
-exports.Teacher = Teacher;
-class Subject {
+export class Subject {
     constructor(subjectCode, sem, lectureCount, isPractical) {
         this.subjectCode = subjectCode.toUpperCase(); //Subject code to uniquely identify subjects
         this.sem = sem; //semester of this subject
@@ -18,4 +14,3 @@ class Subject {
         this.isPractical = isPractical; //if false then the subject is theory otherwise practical
     }
 }
-exports.Subject = Subject;

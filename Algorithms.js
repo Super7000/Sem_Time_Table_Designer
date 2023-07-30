@@ -1,15 +1,12 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Algorithm = void 0;
-const Util_1 = require("./Util");
-class Algorithm {
+import { Teacher, Subject } from "./Util";
+export class Algorithm {
     constructor(teachers, subjects) {
         this.teachers = new Map();
         this.subjects = new Map();
         this.isWorking = false;
         if (teachers) {
             for (let value of teachers) {
-                if (value instanceof Util_1.Teacher) {
+                if (value instanceof Teacher) {
                     this.teachers.set(value.name, value);
                 }
                 else
@@ -18,7 +15,7 @@ class Algorithm {
         }
         if (subjects) {
             for (let value of subjects) {
-                if (value instanceof Util_1.Subject) {
+                if (value instanceof Subject) {
                     this.subjects.set(value.subjectCode, value);
                 }
                 else
@@ -28,14 +25,14 @@ class Algorithm {
     }
     addTeachers(teachers, subjects) {
         for (let value of teachers) {
-            if (value instanceof Util_1.Teacher) {
+            if (value instanceof Teacher) {
                 this.teachers.set(value.name, value);
             }
             else
                 throw new TypeError("elements of \'teachers\' must be objects of class Teacher");
         }
         for (let value of subjects) {
-            if (value instanceof Util_1.Subject) {
+            if (value instanceof Subject) {
                 this.subjects.set(value.subjectCode, value);
             }
             else
@@ -43,4 +40,3 @@ class Algorithm {
         }
     }
 }
-exports.Algorithm = Algorithm;
