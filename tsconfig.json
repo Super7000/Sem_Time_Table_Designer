@@ -1,5 +1,4 @@
 {
-  "include": ["Algorithms.ts","Util.ts"],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "target": "es2016",
