@@ -78,6 +78,7 @@
             width: 100%;
             position: relative;
             padding: 20px;
+            background: #ebebeb;
         }
         .container .left
         {
@@ -138,10 +139,16 @@
             top: 10px;
             left: 5%;
             overflow-y: scroll;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 5px;
+        }
+        .container .left .scedule_container::-webkit-scrollbar
+        {
+            display: none;
         }
         .container .left .scedule_container div{
             width: 70%;
@@ -159,46 +166,59 @@
             height: 94%;
             border-radius: 25px;
             box-shadow: 0 0 25px rgba(30, 144, 255,0.3);
+            background: #fff;
         }
         .right .teachers 
         {
             position: relative;
+            top: 0;
             margin: auto;
             height: 33%;
             width: 90%;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            grid-column: 1;
-            grid-row: 1 / span 2;
+            display: grid;
+            grid-auto-flow: column;
+            gap: 10px;
+            overflow-x: scroll;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            scroll-behavior: smooth;
+        }
+        .right .teachers::-webkit-scrollbar
+        {
+            display: none;
         }
         .right .teachers div
         {
             position: relative;
-            width: 200px;
-            height: 100px;
+            width: 100px;
+            height: 120px;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(30, 144, 255,0.3);
+            box-shadow: 0 0 10px rgba(30, 144, 255,0.3);
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-top: 40px;
+            margin-left: 20px;
+            transition: 0.3s;
+        }
+        .right .teachers div:hover
+        {
+            box-shadow: 0 0 1px 3px #fff,
+                        0 0 1px 6px dodgerblue;
         }
         .right .set_time_chat
         {
             position: relative;
+            top: 0;
             height: 50%;
             width: 100%;
-            grid-row: 3 / span 3;
-            grid-column: 1;
+        }
+        .right .set_time_chat p{
             font-family: Arial, Helvetica, sans-serif;
             font-weight: bold;
             font-size: 22px;
-        }
-        .right .set_time_chat p{
-            position: relative;
-            left: 40px;
+            margin-left: 40px;
+            margin-top: 0;
             width: 90%;
         }
         .right .set_time_chat div
@@ -214,7 +234,6 @@
         .right .details
         {
             position: relative;
-            top: -20px;
             height: 16%;
             width: 100%;
             grid-area: 6;
@@ -233,7 +252,7 @@
             width: 45%;
             height: 70px;
             border-radius: 10px;
-            box-shadow: 0 0 25px rgba(30, 144, 255,0.3);
+            box-shadow: 0 0 10px rgba(30, 144, 255,0.3);
             font-family: Arial, Helvetica, sans-serif;
             font-weight: bold;
             display: flex;
@@ -397,22 +416,28 @@
                 <div class="right">
                     <div class="teachers">
                         <div class="t1">
-                            <p>SKB</p>
+                            <p>SKB1</p>
                         </div>
                         <div class="t1">
-                            <p>SKB</p>
+                            <p>SKB2</p>
                         </div>
                         <div class="t1">
-                            <p>SKB</p>
+                            <p>SKB3</p>
                         </div>
                         <div class="t1">
-                            <p>SKB</p>
+                            <p>SKB4</p>
                         </div>
                         <div class="t1">
-                            <p>SKB</p>
+                            <p>SKB5</p>
                         </div>
                         <div class="t1">
-                            <p>SKB</p>
+                            <p>SKB6</p>
+                        </div>
+                        <div class="t1">
+                            <p>SKB7</p>
+                        </div>
+                        <div class="t1">
+                            <p>SKB8</p>
                         </div>
                     </div>
                     <div class="set_time_chat">
@@ -423,8 +448,8 @@
                     </div>
                     <div class="details">
                         <div class="sems">
-                            <p>Semisters</p>
-                            <div class="semnc"> <!-- semnm = Semister Name Container -->
+                            <p>Semesters</p>
+                            <div class="semnc"> <!-- semnm = semester Name Container -->
                                 <div>2</div>
                                 <div>4</div>
                                 <div>6</div>
@@ -451,7 +476,7 @@
             constructor(name,sems,allocated_times,free_time,subjects)            
             {
                 this.name = name.toLowerCase(); //name of the sir 
-                this.sems = sems; //array of semisters that sir takes in form of integer
+                this.sems = sems; //array of semesters that sir takes in form of integer
                 this.allocated_times = allocated_times; //2D array of time and week [max val 7 for 8 preiods, max val 4 for 5 days]
                 this.free_time = free_time; //same as allocated_time but it define teacher's avaiable time
                 this.subjects = subjects; //array of subjects that sir takes in form of string
@@ -523,6 +548,10 @@
                 }
                 }
             },
+        });
+        document.querySelector(".teachers").addEventListener("wheel", (evt) => {
+            evt.preventDefault();
+            document.querySelector(".teachers").scrollLeft += (evt.deltaY);
         });
         // var b = new teach([545]);
         // function fun(a)
