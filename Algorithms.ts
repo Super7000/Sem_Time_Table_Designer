@@ -1,6 +1,6 @@
 import { Teacher, Subject } from "./Util"
 
-class Algorithm {
+export class Algorithm {
     private teachers: Map<String, Teacher> = new Map()
     private subjects: Map<String, Subject> = new Map()
     private isWorking: Boolean = false

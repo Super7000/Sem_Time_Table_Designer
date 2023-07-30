@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Algorithm = void 0;
 var Util_1 = require("./Util");
 var Algorithm = /** @class */ (function () {
     function Algorithm(teachers, subjects) {
@@ -47,3 +48,4 @@ var Algorithm = /** @class */ (function () {
     };
     return Algorithm;
 }());
+exports.Algorithm = Algorithm;
