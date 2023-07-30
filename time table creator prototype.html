@@ -1,10 +1,17 @@
 <html>
     <head>
         <title></title>
-        <link rel="stylesheet" href="styles/Style.css"\>
+        <link rel="stylesheet" href="styles/Style.css">
     </head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.2/chart.umd.js" integrity="sha512-KIq/d78rZMlPa/mMe2W/QkRgg+l0/GAAu4mGBacU0OQyPV/7EPoGQChDb269GigVoPQit5CqbNRFbgTjXHHrQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="Algorithms.js"></script>
+    <script type="module">
+        import {Algorithm} from "./scripts/Algorithms.js";
+        import * as util from "./scripts/Util.js";
+        var t1 = new util.Teacher("SKB",[5,4,6],[],["JAVA","PYTHON","DSA"]);
+        var s1 = new util.Subject("JAVA",5,5,false);
+        var t = new Algorithm([t1],[s1]);
+        console.log(t);
+    </script>
     <body>
             <div class="menubar">
                 <div class="title">
@@ -82,7 +89,7 @@
                         127 -10 301 -10 l281 0 24 24 c34 34 41 71 21 113 -27 56 -57 63 -281 63
                         l-195 0 0 261 0 261 -29 29 c-35 34 -93 39 -127 11z"/>
                         </g>
-                        </svg>
+                    </svg>
 
                     <p>Time <br>Tables</p>
                 </a>
@@ -112,28 +119,28 @@
                                 <path d="M69.8437,43.3876,33.8422,13.3863a6.0035,6.0035,0,0,0-7.6878,9.223l30.47,25.39-30.47,25.39a6.0035,6.0035,0,0,0,7.6878,9.2231L69.8437,52.6106a6.0091,6.0091,0,0,0,0-9.223Z"/>
                             </svg>
                         <div class="r_cards">
-                            <div class="t1 active">
+                            <div class="t_card active" data-tts="[6,4,5,8,2]"> <!-- tts = total time spend -->
                                 <p>SKB1</p>
                             </div>
-                            <div class="t1">
+                            <div class="t_card" data-tts="[8,4,8,8,2]">
                                 <p>SKB2</p>
                             </div>
-                            <div class="t1">
+                            <div class="t_card" data-tts="[1,2,5,5,2]">
                                 <p>SKB3</p>
                             </div>
-                            <div class="t1">
+                            <div class="t_card" data-tts="[8,4,8,8,2]">
                                 <p>SKB4</p>
                             </div>
-                            <div class="t1">
+                            <div class="t_card" data-tts="[0,4,5,8,1]">
                                 <p>SKB5</p>
                             </div>
-                            <div class="t1">
+                            <div class="t_card" data-tts="[1,4,1,8,1]">
                                 <p>SKB6</p>
                             </div>
-                            <div class="t1">
+                            <div class="t_card" data-tts="[5,4,0,8,2]">
                                 <p>SKB7</p>
                             </div>
-                            <div class="t1">
+                            <div class="t_card" data-tts="[1,0,1,0,2]">
                                 <p>SKB8</p>
                             </div>
                         </div>
@@ -173,36 +180,13 @@
         
     </body>
     <script>
-        class teacher {
-            constructor(name,sems,allocated_times,free_time,subjects)            
-            {
-                this.name = name.toLowerCase(); //name of the sir 
-                this.sems = sems; //array of semesters that sir takes in form of integer
-                this.allocated_times = allocated_times; //2D array of time and week [max val 7 for 8 preiods, max val 4 for 5 days]
-                this.free_time = free_time; //same as allocated_time but it define teacher's avaiable time
-                this.subjects = subjects; //array of subjects that sir takes in form of string
-            };
-        }
-        var t1 = new teacher("skb",[2,4,6],"","",["c++","co"]); 
-        var h = (window.innerHeight-40)/6;
-        function applycssheight(a,b)
-        {
-            document.querySelector(a).style.cssText = "height:"+b+"px;";
-        }
-        window.onchange = function(){
-            applycssheight(".teachers",h*2);
-            applycssheight(".set_time_chat",h*3);
-            applycssheight(".details",h);
-            document.querySelector('.chat').style.cssText = "max-height:"+h*3+"px;";
-            alert(h3);
-        }
         // chart data
         const labels = ["tue","wed","thu","fri","sat"];
-        const data = {
+        let data = {
             labels: labels,
             datasets: [{
                 label: "",
-                data: [65, 59, 80, 81, 56, 55, 40],
+                data: [6, 4, 2, 6, 8],
                 backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(255, 159, 64, 0.2)',
@@ -224,7 +208,7 @@
             }]
         };
         // left side chart 
-        new Chart(                                                  
+        let chart1 = new Chart(                                                  
             document.querySelectorAll('#main_chart')[0],{
             type: 'bar',
             data: data,
@@ -239,7 +223,7 @@
             },
         });
         // right side chart
-        new Chart(
+        let chart2 = new Chart(
             document.querySelectorAll('#main_chart')[1],{
             type: 'bar',
             data: data,
@@ -257,6 +241,25 @@
             evt.preventDefault();
             document.querySelector(".r_cards").scrollLeft += (evt.deltaY);
         });
+        document.querySelector(".r_l_arrow").addEventListener("click",()=>{
+            document.querySelector(".r_cards").scrollLeft -= 130;
+        });
+        document.querySelector(".r_r_arrow").addEventListener("click",()=>{
+            document.querySelector(".r_cards").scrollLeft += 130;
+        });
+        document.querySelectorAll(".t_card").forEach((t)=>
+        {
+            t.addEventListener("click",()=>{
+                if(t != document.querySelector(".t_card.active"))
+                {
+                    document.querySelector(".t_card.active").classList.remove("active");
+                    t.classList.add("active");
+                }
+                chart1.data.datasets[0].data = JSON.parse(t.dataset.tts);
+                chart1.update();
+            })
+        });
+        console.log(chart1);
         // var b = new teach([545]);
         // function fun(a)
         // {
