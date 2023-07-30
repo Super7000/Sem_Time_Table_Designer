@@ -1,3 +1,4 @@
+//DO NOT INSTANTIATE THESE CLASSES DIRECTLY. use them through Algoritm class in Algorithms.js
 export class Teacher {
     constructor(name, sems, free_time, subjects) {
         this.name = name.toLowerCase(); //name of the sir 
