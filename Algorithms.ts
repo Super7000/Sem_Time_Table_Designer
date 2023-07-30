@@ -1,4 +1,4 @@
-import { Teacher, Subject } from "./Util"
+import { Teacher, Subject } from "./Util.js"
 
 export class Algorithm {
     private teachers: Map<String, Teacher> = new Map()
