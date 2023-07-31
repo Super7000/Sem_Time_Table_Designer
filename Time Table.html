@@ -13,7 +13,7 @@
         console.log(t);
     </script>
     <body>
-            <div class="menubar">
+            <div class="menubar active">
                     <svg viewBox="0 0 96 96" class="m_t_arrow" xmlns="http://www.w3.org/2000/svg">
                         <path d="M69.8437,43.3876,33.8422,13.3863a6.0035,6.0035,0,0,0-7.6878,9.223l30.47,25.39-30.47,25.39a6.0035,6.0035,0,0,0,7.6878,9.2231L69.8437,52.6106a6.0091,6.0091,0,0,0,0-9.223Z"/>
                     </svg>
@@ -32,7 +32,7 @@
                     </svg>
                     <p>Dashboard</p>
                 </a>
-                <a class="link" href="Time Tables.html">
+                <a class="link active" href="Time Tables.html">
                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
                         <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
                         fill="#000000" stroke="none">
@@ -105,11 +105,82 @@
                     <p>Import</p>
                 </div>
             </div>
-        
-    </body>
-    <script>
-        document.querySelector(".m_t_arrow").addEventListener("click", () => {
-            document.querySelector(".menubar").classList.toggle("active");
-        })
-    </script>
+            <div class="container">
+                <div class="top">
+                    sem 1 , sem 2 ....
+                </div>
+                <div class="set_time_chart">
+                    <p>Time Table for Sem</p>
+                    <div class="att_chart"> <!-- att = Allocated time table -->
+                        <div class="times">
+                            <div class="day_time_l">Day\Time</div>
+                            <div class="class_label 1">9:30AM</div>
+                            <div class="class_label 2">10:20AM</div>
+                            <div class="class_label 3">11:10AM</div>
+                            <div class="class_label 4">12:00PM</div>
+                            <div class="class_label 5">01:40PM</div>
+                            <div class="class_label 6">02:30PM</div>
+                            <div class="class_label 7">03:20PM</div>
+                            <div class="class_label 8">04:10PM</div>
+                        </div>
+                        <div class="week week_1">
+                            <div class="week_names">tue</div>
+                            <div class="class class_1"></div>
+                            <div class="class class_2"></div>
+                            <div class="class class_3"></div>
+                            <div class="class class_4"></div>
+                            <div class="class class_5"></div>
+                            <div class="class class_6"></div>
+                            <div class="class class_7"></div>
+                            <div class="class class_8"></div>   
+                        </div>                                 
+                        <div class="week week_2">
+                            <div class="week_names">wed</div>
+                            <div class="class class_1"></div>
+                            <div class="class class_2"></div>
+                            <div class="class class_3"></div>
+                            <div class="class class_4"></div>
+                            <div class="class class_5"></div>
+                            <div class="class class_6"></div>
+                            <div class="class class_7"></div>
+                            <div class="class class_8"></div>   
+                        </div>  
+                        <div class="week week_3">
+                            <div class="week_names">thu</div>
+                            <div class="class class_1"></div>
+                            <div class="class class_2"></div>
+                            <div class="class class_3"></div>
+                            <div class="class class_4"></div>
+                            <div class="class class_5"></div>
+                            <div class="class class_6"></div>
+                            <div class="class class_7"></div>
+                            <div class="class class_8"></div>   
+                        </div>  
+                        <div class="week week_4">
+                            <div class="week_names">fri</div>
+                            <div class="class class_1"></div>
+                            <div class="class class_2"></div>
+                            <div class="class class_3"></div>
+                            <div class="class class_4"></div>
+                            <div class="class class_5"></div>
+                            <div class="class class_6"></div>
+                            <div class="class class_7"></div>
+                            <div class="class class_8"></div>   
+                        </div>   
+                        <div class="week week_5">
+                            <div class="week_names">sat</div>
+                            <div class="class class_1"></div>
+                            <div class="class class_2"></div>
+                            <div class="class class_3"></div>
+                            <div class="class class_4"></div>
+                            <div class="class class_5"></div>
+                            <div class="class class_6"></div>
+                            <div class="class class_7"></div>
+                            <div class="class class_8"></div>   
+                        </div>    
+                    </div>
+                </div>
+            </div>
+    </body>    
+    <script src="./scripts/TimeTable.js"></script>
 </html>

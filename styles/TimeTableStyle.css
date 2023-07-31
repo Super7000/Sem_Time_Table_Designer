@@ -1,18 +1,29 @@
 body {
     background: rgba(0, 0, 0, 0.1);
 }
-
-.menubar.active {
-
-    width: 16.5%;
+.container
+{
+    height: inherit;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: green;
+    gap: 20px;
 }
-
-.menubar .m_t_arrow {
-    left: 11%;
-    transform: translate(-55%, 0);
+.top
+{
+    background: red;
+    height: 20%;
 }
-
-.menubar.active .m_t_arrow {
-    left: 17.5%;
-    transform: translate(-55%, 0) rotate(-180deg);
+.set_time_chart{
+    background: yellow;
+    height: 80%;
+}
+.set_time_chart .week
+{
+    height: 60px;
+}
+.set_time_chart .att_chart .times,.week
+{
+    font-size: 15px;
 }

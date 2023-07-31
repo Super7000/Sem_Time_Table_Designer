@@ -58,9 +58,23 @@ document.querySelectorAll(".t_card").forEach((t) => {
             document.querySelector(".t_card.active").classList.remove("active");
             t.classList.add("active");
         }
+
+        //charts updater
         chart1.data.datasets[0].data = JSON.parse(t.dataset.tts);
         chart1.update();
-        document.querySelector(".set_time_chat p").innerHTML = "Time Table for " + document.querySelector(".t_card.active p").innerHTML + " Sir";
+        document.querySelector(".set_time_chart p").innerHTML = "Time Table for " + document.querySelector(".t_card.active p").innerHTML + " Sir";
+        
+        
+        //semesters printer
+        let sems = JSON.parse(t.dataset.sems);
+        let sem_str = "";
+        for(let a = 0; a < sems.length; a++)
+        {
+            sem_str += `<div>${sems[a]}</div>`;
+        }
+        document.querySelector(".semnc").innerHTML = sem_str;
+
+        //subjects updater
     })
 });
 console.log(chart1);

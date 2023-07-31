@@ -84,6 +84,10 @@ body {
     color: #1479FF;
 }
 
+.menubar .link:hover svg path {
+    fill: #fff;
+}
+
 .menubar .link.active svg {
     background: #1479FF;
     color: #fff;
@@ -91,14 +95,15 @@ body {
 
 }
 
+.menubar .link.active svg path {
+    fill: #fff;
+}
+
 .menubar .link.active p {
     color: #1479FF;
 
 }
 
-.menubar .link:hover svg path {
-    fill: #fff;
-}
 
 .menubar .link svg {
     width: 25px;
@@ -331,14 +336,14 @@ body {
     cursor: pointer;
 }
 
-.right .set_time_chat {
+.set_time_chart {
     position: relative;
     top: 0;
     height: 50%;
     width: 100%;
 }
 
-.right .set_time_chat p {
+.set_time_chart p {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 22px;
@@ -429,7 +434,7 @@ body {
     cursor: pointer;
 }
 
-.right .set_time_chat .att_chart {
+.set_time_chart .att_chart {
     position: relative;
     left: 50%;
     top: 50%;
@@ -444,9 +449,10 @@ body {
     padding-bottom: 7px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     padding: 0px 15px 15px 0px;
+    background: #fff;
 }
 
-.right .set_time_chat .att_chart .times,
+.set_time_chart .att_chart .times,
 .week {
     display: flex;
     flex-direction: row;
@@ -456,34 +462,38 @@ body {
     font-size: 12px;
 }
 
-.right .set_time_chat .att_chart .week .week_names {
+.set_time_chart .att_chart .week .week_names {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.right .set_time_chat .att_chart .week div {
+.set_time_chart .att_chart .week div {
     width: 10.5%;
     height: 100%;
     border-radius: 5px;
 }
 
-.right .set_time_chat .att_chart .week .class.alloc {
+.set_time_chart .class.alloc{
+    cursor: pointer;
+}
+
+.set_time_chart .att_chart .week .class.alloc {
     background: #14A5FF;
     box-shadow: 5px 5px 10px rgba(20, 165, 255, 0.7);
 }
 
-.right .set_time_chat .att_chart .week .class.alloc:nth-child(4n) {
+.set_time_chart .att_chart .week .class.alloc:nth-child(4n) {
     background: #1479FF;
     box-shadow: 5px 5px 10px rgba(20, 121, 255, 0.7);
 }
 
-.right .set_time_chat .att_chart .week .class.alloc:nth-child(5n) {
+.set_time_chart .att_chart .week .class.alloc:nth-child(5n) {
     background: #14D2FF;
     box-shadow: 5px 5px 10px rgba(20, 210, 255, 0.7);
 }
 
-.right .set_time_chat .att_chart .week .class.alloc:nth-child(3n) {
+.set_time_chart .att_chart .week .class.alloc:nth-child(3n) {
     background: #37DBE6;
     box-shadow: 5px 5px 10px rgba(55, 219, 230, 0.7);
 }
