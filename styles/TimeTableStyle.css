@@ -1,0 +1,18 @@
+body {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.menubar.active {
+
+    width: 16.5%;
+}
+
+.menubar .m_t_arrow {
+    left: 11%;
+    transform: translate(-55%, 0);
+}
+
+.menubar.active .m_t_arrow {
+    left: 17.5%;
+    transform: translate(-55%, 0) rotate(-180deg);
+}

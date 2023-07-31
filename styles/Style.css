@@ -1,4 +1,4 @@
-body{
+body {
     margin: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     width: 100%;
@@ -7,9 +7,10 @@ body{
     flex-direction: row;
     user-select: none;
 }
-.menubar
-{
-    box-shadow: 0 0 25px rgba(30, 144, 255,0.3);
+
+.menubar {
+    background: #fff;
+    box-shadow: 0 0 25px rgba(30, 144, 255, 0.3);
     float: left;
     min-height: 100vh;
     width: 10%;
@@ -18,45 +19,49 @@ body{
     gap: 20px;
     align-items: center;
     transition: 0.3s;
+    z-index: 5;
 }
-.menubar.active
-{
+
+.menubar.active {
     width: 20%;
 }
-.menubar.active .title
-{
+
+.menubar.active .title {
     font-size: 24px;
 }
-.menubar.active .link
-{
+
+.menubar.active .link {
     flex-direction: row;
     justify-content: left;
     margin-left: 20%;
     width: 90%;
 }
-.menubar.active .link p{      
+
+.menubar.active .link p {
     margin-left: 15px;
     font-size: 15px;
 }
-.menubar .m_t_arrow
-{
+
+.menubar .m_t_arrow {
     position: absolute;
     width: 20px;
     height: 20px;
     background: #fff;
-    border-radius:0 10px 10px 0;
+    border-radius: 0 10px 10px 0;
     padding: 7px;
     left: 10%;
-    transform: translate(-55%,0);
+    transform: translate(-55%, 0);
     z-index: 5;
     cursor: pointer;
+    transition: 0.3s;
 }
-.menubar.active .m_t_arrow
-{
+
+.menubar.active .m_t_arrow {
     left: 17.5%;
-    border-radius:10px 0px 0px 10px;
-    transform: translate(-55%,0) rotate(-180deg);
+    border-radius: 10px 0px 0px 10px;
+    transform: translate(-55%, 0) rotate(-180deg);
 }
+
 .menubar .link {
     text-decoration: none;
     width: 70px;
@@ -68,19 +73,34 @@ body{
     justify-content: center;
     transition: 0.3s;
 }
-.menubar .link:hover svg{            
+
+.menubar .link:hover svg {
     background: #1479FF;
     color: #fff;
-    box-shadow: 5px 10px 15px rgba(30, 144, 255,0.5);
+    box-shadow: 5px 10px 15px rgba(30, 144, 255, 0.5);
 }
-.menubar .link:hover p{
+
+.menubar .link:hover p {
     color: #1479FF;
 }
-.menubar .link:hover svg path{
+
+.menubar .link.active svg {
+    background: #1479FF;
+    color: #fff;
+    box-shadow: 5px 10px 15px rgba(30, 144, 255, 0.5);
+
+}
+
+.menubar .link.active p {
+    color: #1479FF;
+
+}
+
+.menubar .link:hover svg path {
     fill: #fff;
 }
-.menubar .link svg
-{
+
+.menubar .link svg {
     width: 25px;
     height: 25px;
     padding: 10px;
@@ -90,10 +110,12 @@ body{
     color: #1479FF;
     transition: 0.3s;
 }
-.menubar svg path{
+
+.menubar svg path {
     fill: #1479FF;
 }
-.menubar .link p{
+
+.menubar .link p {
     margin: 0;
     margin-top: 3px;
     color: #000;
@@ -101,23 +123,23 @@ body{
     font-size: 12px;
     transition: 0.3s;
 }
-.menubar .title
-{
+
+.menubar .title {
     font-size: 20px;
     color: #1479FF;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
 }
-.container
-{
+
+.container {
     min-height: calc(100vh-20px);
     width: 100%;
     position: relative;
     padding: 20px;
     background: #ebebeb;
 }
-.container .left
-{
+
+.container .left {
     position: absolute;
     left: 20px;
     top: 0;
@@ -125,8 +147,8 @@ body{
     height: 100%;
     margin: 0;
 }
-.container .left .scedules
-{
+
+.container .left .scedules {
     position: relative;
     top: 20px;
     width: 100%;
@@ -136,27 +158,27 @@ body{
     flex-direction: column;
     align-items: center;
 }
-.container .left .chart
-{
+
+.container .left .chart {
     position: relative;
     top: 45px;
     height: 50%;
-    background: #fff;      
-    box-shadow: 0 0 25px rgba(30, 144, 255,0.3);
+    background: #fff;
+    box-shadow: 0 0 25px rgba(30, 144, 255, 0.3);
     border-radius: 20px;
 }
-.container .left .chart div
-{
+
+.container .left .chart div {
     position: relative;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-60%);
+    transform: translate(-50%, -60%);
     margin: 0;
     width: 70%;
     height: 70%;
 }
-.container .left p 
-{
+
+.container .left p {
     position: relative;
     left: 5%;
     top: 20px;
@@ -167,13 +189,13 @@ body{
     font-weight: bold;
 
 }
-.container .left .scedules p
-{
+
+.container .left .scedules p {
     text-align: center;
     left: 0;
 }
-.container .left .scedule_container
-{
+
+.container .left .scedule_container {
     width: 90%;
     height: 65%;
     position: relative;
@@ -187,11 +209,12 @@ body{
     flex-direction: column;
     gap: 0px;
 }
-.container .left .scedule_container::-webkit-scrollbar
-{
+
+.container .left .scedule_container::-webkit-scrollbar {
     display: none;
 }
-.container .left .scedule_container div{
+
+.container .left .scedule_container div {
     width: 70%;
     text-align: center;
     padding: 10px 0px;
@@ -199,41 +222,41 @@ body{
     border-radius: 5px;
     margin-top: 15px;
     cursor: pointer;
-    box-shadow: 0 0 1px 2px rgba(0,0,0,0.1);
+    box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-.container .left .scedule_container div:hover
-{
+
+.container .left .scedule_container div:hover {
     box-shadow: 0 0 1px 2px #fff,
-                0 0 1px 5px rgba(30, 144, 255,1);
+        0 0 1px 5px rgba(30, 144, 255, 1);
 }
-.container .left .scedule_container div.active
-{
+
+.container .left .scedule_container div.active {
     box-shadow: 0 0 1px 2px #fff,
-                0 0 1px 5px rgba(30, 144, 255,1);
+        0 0 1px 5px rgba(30, 144, 255, 1);
     /* background: rgba(30, 144, 255,0.7); */
     /* color: #fff; */
 }
-.right
-{
+
+.right {
     position: absolute;
     top: 20px;
     right: 20px;
     width: 65%;
     height: 94%;
     border-radius: 25px;
-    box-shadow: 0 0 25px rgba(30, 144, 255,0.3);
+    box-shadow: 0 0 25px rgba(30, 144, 255, 0.3);
     background: #fff;
 }
-.right .teachers 
-{
+
+.right .teachers {
     position: relative;
     top: 0;
     margin: auto;
     height: 33%;
     width: 80%;
 }
-.right .teachers .r_cards
-{           
+
+.right .teachers .r_cards {
     height: 100%;
     position: relative;
     top: 0;
@@ -247,18 +270,18 @@ body{
     scroll-behavior: smooth;
     padding-right: 20px;
 }
-.right .teachers .r_cards::-webkit-scrollbar
-{
+
+.right .teachers .r_cards::-webkit-scrollbar {
     display: none;
 }
-.right .teachers .r_cards div
-{
+
+.right .teachers .r_cards div {
     position: relative;
     width: 100px;
     height: 130px;
     border-radius: 10px;
-    box-shadow: 0 0 1px 2px rgba(0,0,0,0.1),
-                0 0 20px rgba(30, 144, 255,0.2);
+    box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.1),
+        0 0 20px rgba(30, 144, 255, 0.2);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -267,54 +290,55 @@ body{
     transition: 0.3s;
     cursor: pointer;
 }
-.right .teachers .r_cards div.active
-{
+
+.right .teachers .r_cards div.active {
     /* background: rgba(30, 144, 255,0.7); */
     box-shadow: 0 0 1px 3px #fff,
-                0 0 1px 6px dodgerblue,
-                0 0 20px rgba(30, 144, 255,1);
+        0 0 1px 6px dodgerblue,
+        0 0 20px rgba(30, 144, 255, 1);
     /* color: #fff; */
 }
-.right .teachers .r_cards div:hover
-{
+
+.right .teachers .r_cards div:hover {
     box-shadow: 0 0 1px 3px #fff,
-                0 0 1px 6px dodgerblue,
-                0 0 20px rgba(30, 144, 255,1);
+        0 0 1px 6px dodgerblue,
+        0 0 20px rgba(30, 144, 255, 1);
 }
-.right .teachers svg
-{
+
+.right .teachers svg {
     position: absolute;
     width: 20px;
     height: 20px;
     top: 50%;
     z-index: 5;
     background: #fff;
-    box-shadow: 0 0 25px rgba(0,0,0,0.2);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
 }
-.right .teachers .r_l_arrow
-{
+
+.right .teachers .r_l_arrow {
     left: -35px;
     border-radius: 20px;
     padding: 10px;
-    transform: translate(0,-50%) rotate(-180deg);
+    transform: translate(0, -50%) rotate(-180deg);
     cursor: pointer;
 }
-.right .teachers .r_r_arrow
-{
+
+.right .teachers .r_r_arrow {
     right: -35px;
     border-radius: 20px;
     padding: 10px;
-    transform: translate(0,-50%);
+    transform: translate(0, -50%);
     cursor: pointer;
 }
-.right .set_time_chat
-{
+
+.right .set_time_chat {
     position: relative;
     top: 0;
     height: 50%;
     width: 100%;
 }
-.right .set_time_chat p{
+
+.right .set_time_chat p {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 22px;
@@ -322,8 +346,8 @@ body{
     margin-top: 0;
     width: 90%;
 }
-.right .details
-{
+
+.right .details {
     position: relative;
     height: 16%;
     width: 100%;
@@ -336,27 +360,30 @@ body{
     align-items: center;
     gap: 20px;
 }
-.right .details .sems,.right .details .subjects
-{
+
+.right .details .sems,
+.right .details .subjects {
     background: #fff;
     border: 2px solid #fff;
     width: 45%;
     height: 70px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(30, 144, 255,0.3);
+    box-shadow: 0 0 10px rgba(30, 144, 255, 0.3);
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     display: flex;
     flex-direction: column;
-}        
-.right .details .sems p,.right .details .subjects p
-{
+}
+
+.right .details .sems p,
+.right .details .subjects p {
     position: relative;
     top: -5px;
     left: 20px;
 }
-.right .semnc, .right .snc
-{
+
+.right .semnc,
+.right .snc {
     position: relative;
     top: -20px;
     left: 15px;
@@ -368,8 +395,9 @@ body{
     gap: 5px;
     padding: 5px;
 }
-.right .semnc div, .right .snc div
-{
+
+.right .semnc div,
+.right .snc div {
     height: 20px;
     display: flex;
     justify-content: center;
@@ -377,19 +405,20 @@ body{
     text-align: center;
     border-radius: 5px;
     background: #d5e5ff;
-    padding: 0 4px;
+    padding: 0 5px;
 }
-.right .main_chart
-{
+
+.right .main_chart {
     position: relative;
     max-width: 350px;
     max-height: 250px;
     left: 50%;
     top: 40%;
-    transform: translate(-55%,-50%);
+    transform: translate(-55%, -50%);
     margin: 0;
 }
-.r_cards .t_card svg{
+
+.r_cards .t_card svg {
     width: 15px;
     height: 15px;
     border-radius: 10px;
@@ -400,12 +429,11 @@ body{
     cursor: pointer;
 }
 
-.right .set_time_chat .att_chart
-{
+.right .set_time_chat .att_chart {
     position: relative;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-64%);
+    transform: translate(-50%, -62%);
     margin: 0;
     width: 85%;
     height: 80%;
@@ -414,9 +442,12 @@ body{
     justify-content: space-around;
     border-radius: 10px;
     padding-bottom: 7px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 0px 15px 15px 0px;
 }
-.right .set_time_chat .att_chart .times,.week
-{
+
+.right .set_time_chat .att_chart .times,
+.week {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -425,35 +456,34 @@ body{
     font-size: 12px;
 }
 
-.right .set_time_chat .att_chart .week .week_names
-{
+.right .set_time_chat .att_chart .week .week_names {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.right .set_time_chat .att_chart .week div
-{
+
+.right .set_time_chat .att_chart .week div {
     width: 10.5%;
     height: 100%;
     border-radius: 5px;
 }
-.right .set_time_chat .att_chart .week .class.alloc
-{
+
+.right .set_time_chat .att_chart .week .class.alloc {
     background: #14A5FF;
-    box-shadow: 5px 5px 10px rgba(20, 165, 255,0.7);
+    box-shadow: 5px 5px 10px rgba(20, 165, 255, 0.7);
 }
-.right .set_time_chat .att_chart .week .class.alloc:nth-child(4n)
-{
+
+.right .set_time_chat .att_chart .week .class.alloc:nth-child(4n) {
     background: #1479FF;
-    box-shadow: 5px 5px 10px rgba(20, 121, 255,0.7);
+    box-shadow: 5px 5px 10px rgba(20, 121, 255, 0.7);
 }
-.right .set_time_chat .att_chart .week .class.alloc:nth-child(5n)
-{
+
+.right .set_time_chat .att_chart .week .class.alloc:nth-child(5n) {
     background: #14D2FF;
-    box-shadow: 5px 5px 10px rgba(20, 210, 255,0.7);
+    box-shadow: 5px 5px 10px rgba(20, 210, 255, 0.7);
 }
-.right .set_time_chat .att_chart .week .class.alloc:nth-child(3n)
-{
+
+.right .set_time_chat .att_chart .week .class.alloc:nth-child(3n) {
     background: #37DBE6;
-    box-shadow: 5px 5px 10px rgba(55, 219, 230,0.7);
+    box-shadow: 5px 5px 10px rgba(55, 219, 230, 0.7);
 }
