@@ -5,6 +5,7 @@ body{
     min-height: 100vh;
     display: flex;
     flex-direction: row;
+    user-select: none;
 }
 .menubar
 {
@@ -222,6 +223,7 @@ body{
     margin-left: 20px;
     background: #fff;
     transition: 0.3s;
+    cursor: pointer;
 }
 .right .teachers .r_cards div.active
 {
@@ -350,4 +352,15 @@ body{
     top: 40%;
     transform: translate(-55%,-50%);
     margin: 0;
+}
+.r_cards .t_card svg{
+    width: 15px;
+    height: 15px;
+    border-radius: 10px;
+    fill:  red;
+    padding: 5px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
 }

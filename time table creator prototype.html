@@ -120,27 +120,51 @@
                             </svg>
                         <div class="r_cards">
                             <div class="t_card active" data-tts="[6,4,5,8,2]"> <!-- tts = total time spend -->
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                                </svg>
                                 <p>SKB1</p>
                             </div>
                             <div class="t_card" data-tts="[8,4,8,8,2]">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                                </svg>
                                 <p>SKB2</p>
                             </div>
                             <div class="t_card" data-tts="[1,2,5,5,2]">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                                </svg>
                                 <p>SKB3</p>
                             </div>
                             <div class="t_card" data-tts="[8,4,8,8,2]">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                                </svg>
                                 <p>SKB4</p>
                             </div>
                             <div class="t_card" data-tts="[0,4,5,8,1]">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                                </svg>
                                 <p>SKB5</p>
                             </div>
                             <div class="t_card" data-tts="[1,4,1,8,1]">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                                </svg>
                                 <p>SKB6</p>
                             </div>
                             <div class="t_card" data-tts="[5,4,0,8,2]">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                                </svg>
                                 <p>SKB7</p>
                             </div>
                             <div class="t_card" data-tts="[1,0,1,0,2]">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                                </svg>
                                 <p>SKB8</p>
                             </div>
                         </div>
@@ -257,6 +281,7 @@
                 }
                 chart1.data.datasets[0].data = JSON.parse(t.dataset.tts);
                 chart1.update();
+                document.querySelector(".set_time_chat p").innerHTML = "Time Table for " + document.querySelector(".t_card.active p").innerHTML + " Sir";
             })
         });
         console.log(chart1);
