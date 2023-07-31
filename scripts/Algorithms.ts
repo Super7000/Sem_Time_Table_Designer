@@ -1,4 +1,4 @@
-import { Teacher, Subject,TeacherList,SubjectList } from "./Util.js"
+import { Teacher, Subject, TeacherList, SubjectList, teachers_for_subject } from "./Util.js"
 /*
 Demo:
 var teacher1={"skb",[2,4,6],"","",["c++","co"]}
@@ -11,19 +11,21 @@ export class Algorithm {
     teachers: TeacherList
     subjects: SubjectList
     private isWorking: Boolean = false
+    private teachersForASubject
 
     constructor(teachers?: Array<Teacher>, subjects?: Array<Subject>) {
-        this.teachers=new TeacherList(this.stopCalculation)
-        this.subjects=new SubjectList(this.stopCalculation)
+        this.teachers = new TeacherList(this.stopCalculation)
+        this.subjects = new SubjectList(this.stopCalculation)
 
-        if(teachers)this.teachers.addTeachers(teachers)
-        if(subjects)this.subjects.addSubjects(subjects)
+        if (teachers) this.teachers.setTeachers(teachers)
+        if (subjects) this.subjects.setSubjects(subjects)
 
     }
 
-    stopCalculation(){
-        if(this.isWorking){
-            this.isWorking=false
+    stopCalculation() {
+        if (this.isWorking) {
+            this.isWorking = false
+
         }
     }
 

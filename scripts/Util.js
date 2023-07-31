@@ -1,4 +1,4 @@
-//DO NOT INSTANTIATE THESE CLASSES DIRECTLY. use them through Algoritm class in Algorithms.js
+export const teachers_for_subject = new Map(); //Do not write to this object. Format {subject1:{teach1,teach2}}
 export class Teacher {
     constructor(name, sems, free_time, subjects) {
         this.name = name.toLowerCase(); //name of the sir 
@@ -17,14 +17,25 @@ export class Subject {
 }
 export class TeacherList {
     constructor(callback) {
-        this.teachers = new Map();
+        this.data = new Map();
         this.stopCalculatonCallback = callback;
     }
-    addTeachers(teachers) {
+    setTeachers(teachers) {
         this.stopCalculatonCallback();
+        if (!(teachers instanceof Array))
+            teachers = [teachers];
         for (let value of teachers) {
+            if (this.data.has(value.name))
+                this.removeTeacher(value.name);
             if (value instanceof Teacher) {
-                this.teachers.set(value.name, value);
+                for (let subject of value.subjects) {
+                    subject = subject.toUpperCase();
+                    if (teachers_for_subject.has(subject))
+                        teachers_for_subject.get(subject).add(value.name);
+                    else
+                        teachers_for_subject.set(subject, new Set([value.name]));
+                }
+                this.data.set(value.name, value);
             }
             else
                 throw new TypeError("elements of \'teachers\' must be objects of class Teacher");
@@ -32,25 +43,32 @@ export class TeacherList {
     }
     removeTeacher(name) {
         this.stopCalculatonCallback();
-        return this.teachers.delete(name);
+        if (!this.data.has(name))
+            return false;
+        for (let subject of this.data.get(name).subjects) {
+            subject = subject.toUpperCase();
+            if (teachers_for_subject.has(subject))
+                teachers_for_subject.get(subject).delete(name);
+        }
+        return true;
     }
     getTeacherByName(name) {
-        return JSON.parse(JSON.stringify(this.teachers.get(name))); //Return deep copy of the teacher object
+        return JSON.parse(JSON.stringify(this.data.get(name))); //Return deep copy of the teacher object
     }
     getTeacherNamesIterator() {
-        return this.teachers.keys();
+        return this.data.keys();
     }
 }
 export class SubjectList {
     constructor(callback) {
-        this.subjects = new Map();
+        this.data = new Map();
         this.stopCalculatonCallback = callback;
     }
-    addSubjects(subjects) {
+    setSubjects(subjects) {
         this.stopCalculatonCallback();
         for (let value of subjects) {
             if (value instanceof Subject) {
-                this.subjects.set(value.subjectCode, value);
+                this.data.set(value.subjectCode, value);
             }
             else
                 throw new TypeError("elements of \'subjects\' must be objects of class Subject");
@@ -58,12 +76,12 @@ export class SubjectList {
     }
     removeSubject(subjectCode) {
         this.stopCalculatonCallback();
-        return this.subjects.delete(subjectCode);
+        return this.data.delete(subjectCode);
     }
     getSubjectByCode(subjectCode) {
-        return JSON.parse(JSON.stringify(this.subjects.get(subjectCode))); //Return deep copy of the subject object
+        return JSON.parse(JSON.stringify(this.data.get(subjectCode))); //Return deep copy of the subject object
     }
     getSubjectCodesIterator() {
-        return this.subjects.keys();
+        return this.data.keys();
     }
 }
