@@ -12,13 +12,51 @@ body{
     box-shadow: 0 0 25px rgba(30, 144, 255,0.3);
     float: left;
     min-height: 100vh;
-    width: 15%;
+    width: 10%;
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
+    transition: 0.3s;
 }
-.menubar a {
+.menubar.active
+{
+    width: 20%;
+}
+.menubar.active .title
+{
+    font-size: 24px;
+}
+.menubar.active .link
+{
+    flex-direction: row;
+    justify-content: left;
+    margin-left: 20%;
+    width: 90%;
+}
+.menubar.active .link p{      
+    margin-left: 15px;
+    font-size: 15px;
+}
+.menubar .m_t_arrow
+{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius:0 10px 10px 0;
+    padding: 7px;
+    left: 10%;
+    transform: translate(-55%,0);
+    z-index: 5;
+}
+.menubar.active .m_t_arrow
+{
+    left: 17.5%;
+    border-radius:10px 0px 0px 10px;
+    transform: translate(-55%,0) rotate(-180deg);
+}
+.menubar .link {
     text-decoration: none;
     width: 70px;
     height: 90px;
@@ -27,19 +65,20 @@ body{
     text-align: center;
     align-items: center;
     justify-content: center;
+    transition: 0.3s;
 }
-.menubar a:hover svg{            
+.menubar .link:hover svg{            
     background: #1479FF;
     color: #fff;
     box-shadow: 5px 10px 15px rgba(30, 144, 255,0.5);
 }
-.menubar a:hover p{
+.menubar .link:hover p{
     color: #1479FF;
 }
-.menubar a:hover svg path{
+.menubar .link:hover svg path{
     fill: #fff;
 }
-.menubar a svg
+.menubar .link svg
 {
     width: 25px;
     height: 25px;
@@ -48,16 +87,18 @@ body{
     transition: 0.3s;
     border-radius: 10px;
     color: #1479FF;
+    transition: 0.3s;
 }
-.menubar a svg path{
+.menubar .link svg path{
     fill: #1479FF;
 }
-.menubar a p{
+.menubar .link p{
     margin: 0;
     margin-top: 3px;
     color: #000;
     transition: 0.3s;
     font-size: 12px;
+    transition: 0.3s;
 }
 .menubar .title
 {
@@ -276,16 +317,6 @@ body{
     margin-top: 0;
     width: 90%;
 }
-.right .set_time_chat div
-{
-    position: relative;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-60%);
-    margin: 0;
-    width: 70%;
-    height: 70%;
-}
 .right .details
 {
     position: relative;
@@ -357,10 +388,51 @@ body{
     width: 15px;
     height: 15px;
     border-radius: 10px;
-    fill:  red;
     padding: 5px;
     position: absolute;
     top: 5px;
     right: 5px;
     cursor: pointer;
+}
+
+.right .set_time_chat .att_chart
+{
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-64%);
+    margin: 0;
+    width: 85%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 10px;
+    padding-bottom: 7px;
+}
+.right .set_time_chat .att_chart .times,.week
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 35px;
+    align-items: center;
+    font-size: 12px;
+}
+
+.right .set_time_chat .att_chart .week .week_names
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.right .set_time_chat .att_chart .week div
+{
+    width: 10.5%;
+    height: 100%;
+    border-radius: 5px;
+}
+.right .set_time_chat .att_chart .week .class.alloc
+{
+    background: rgb(30, 144, 255,0.5);
 }

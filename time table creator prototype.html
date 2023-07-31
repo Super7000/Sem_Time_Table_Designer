@@ -14,22 +14,25 @@
     </script>
     <body>
             <div class="menubar">
+                    <svg viewBox="0 0 96 96" class="m_t_arrow" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M69.8437,43.3876,33.8422,13.3863a6.0035,6.0035,0,0,0-7.6878,9.223l30.47,25.39-30.47,25.39a6.0035,6.0035,0,0,0,7.6878,9.2231L69.8437,52.6106a6.0091,6.0091,0,0,0,0-9.223Z"/>
+                    </svg>
                 <div class="title">
                     <p>Time Table <br>Designer</p>
                 </div>
-                <a href="AddTeacher.html">
+                <a class="link" href="AddTeacher.html">
                     <svg height="32px" id="Layer_1" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <path d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"/>
                     </svg>
                     <p>Add Teachers</p>
                 </a>
-                <a href="Daskboard.html">
+                <a class="link" href="Daskboard.html">
                     <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z"/>
                     </svg>
                     <p>Dashboard</p>
                 </a>
-                <a href="TimeTables.html">
+                <a class="link" href="TimeTables.html">
                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
                         <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
                         fill="#000000" stroke="none">
@@ -93,6 +96,14 @@
 
                     <p>Time <br>Tables</p>
                 </a>
+                <div class="link">
+                    <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path d="M90,54a5.9966,5.9966,0,0,0-6,6V78H12V60A6,6,0,0,0,0,60V84a5.9966,5.9966,0,0,0,6,6H90a5.9966,5.9966,0,0,0,6-6V60A5.9966,5.9966,0,0,0,90,54Z"/><path d="M43.7578,64.2422a5.9979,5.9979,0,0,0,8.4844,0l18-18a5.9994,5.9994,0,0,0-8.4844-8.4844L54,45.5156V12a6,6,0,0,0-12,0V45.5156l-7.7578-7.7578a5.9994,5.9994,0,0,0-8.4844,8.4844Z"/>
+                        </g>
+                    </svg>
+                    <p>Import</p>
+                </div>
             </div>
             <div class="container">
                 <div class="left">
@@ -174,8 +185,73 @@
                     </div>
                     <div class="set_time_chat">
                         <p>Time Table for SKB Sir</p>
-                        <div>
-                            <canvas id="main_chart" class="main_chart"></canvas>
+                        <div class="att_chart"> <!-- att = Allocated time table -->
+                            <div class="times">
+                                <div class="day_time_l">Day\Time</div>
+                                <div class="class_label 1">9:30AM</div>
+                                <div class="class_label 2">10:20AM</div>
+                                <div class="class_label 3">11:10AM</div>
+                                <div class="class_label 4">12:00PM</div>
+                                <div class="class_label 5">01:40PM</div>
+                                <div class="class_label 6">02:30PM</div>
+                                <div class="class_label 7">03:20PM</div>
+                                <div class="class_label 8">04:10PM</div>
+                            </div>
+                            <div class="week week_1">
+                                <div class="week_names">tue</div>
+                                <div class="class class_1"></div>
+                                <div class="class class_2"></div>
+                                <div class="class class_3"></div>
+                                <div class="class class_4"></div>
+                                <div class="class class_5"></div>
+                                <div class="class class_6"></div>
+                                <div class="class class_7"></div>
+                                <div class="class class_8"></div>   
+                            </div>                                 
+                            <div class="week week_2">
+                                <div class="week_names">tue</div>
+                                <div class="class class_1"></div>
+                                <div class="class class_2"></div>
+                                <div class="class class_3"></div>
+                                <div class="class class_4"></div>
+                                <div class="class class_5"></div>
+                                <div class="class class_6"></div>
+                                <div class="class class_7"></div>
+                                <div class="class class_8"></div>   
+                            </div>  
+                            <div class="week week_3">
+                                <div class="week_names">tue</div>
+                                <div class="class class_1"></div>
+                                <div class="class class_2"></div>
+                                <div class="class class_3"></div>
+                                <div class="class class_4"></div>
+                                <div class="class class_5"></div>
+                                <div class="class class_6"></div>
+                                <div class="class class_7"></div>
+                                <div class="class class_8"></div>   
+                            </div>  
+                            <div class="week week_4">
+                                <div class="week_names">tue</div>
+                                <div class="class class_1"></div>
+                                <div class="class class_2"></div>
+                                <div class="class class_3"></div>
+                                <div class="class class_4"></div>
+                                <div class="class class_5"></div>
+                                <div class="class class_6"></div>
+                                <div class="class class_7"></div>
+                                <div class="class class_8"></div>   
+                            </div>   
+                            <div class="week week_5">
+                                <div class="week_names">tue</div>
+                                <div class="class class_1"></div>
+                                <div class="class class_2"></div>
+                                <div class="class class_3"></div>
+                                <div class="class class_4"></div>
+                                <div class="class class_5"></div>
+                                <div class="class class_6"></div>
+                                <div class="class class_7"></div>
+                                <div class="class class_8"></div>   
+                            </div>    
                         </div>
                     </div>
                     <div class="details">
@@ -246,21 +322,6 @@
                 }
             },
         });
-        // right side chart
-        let chart2 = new Chart(
-            document.querySelectorAll('#main_chart')[1],{
-            type: 'bar',
-            data: data,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                y: {
-                    beginAtZero: true
-                }
-                }
-            },
-        });
         document.querySelector(".r_cards").addEventListener("wheel", (evt) => {
             evt.preventDefault();
             document.querySelector(".r_cards").scrollLeft += (evt.deltaY);
@@ -285,6 +346,20 @@
             })
         });
         console.log(chart1);
+        document.querySelector(".m_t_arrow").addEventListener("click",()=>{
+            document.querySelector(".menubar").classList.toggle("active");
+        })
+        for(let i = 1; i < 6; i++)
+        {
+            for(let j = 0; j < 8; j+=Math.floor(Math.random() * 4))
+            {
+                if(j==0)
+                {
+                    j = Math.floor(Math.random() * 4)+1;
+                }
+                document.querySelector(`.week_${i} .class_${j}`).classList.add("alloc");
+            }
+        }
         // var b = new teach([545]);
         // function fun(a)
         // {
