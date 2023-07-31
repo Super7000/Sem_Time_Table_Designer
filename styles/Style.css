@@ -49,6 +49,7 @@ body{
     left: 10%;
     transform: translate(-55%,0);
     z-index: 5;
+    cursor: pointer;
 }
 .menubar.active .m_t_arrow
 {
@@ -89,7 +90,7 @@ body{
     color: #1479FF;
     transition: 0.3s;
 }
-.menubar .link svg path{
+.menubar svg path{
     fill: #1479FF;
 }
 .menubar .link p{
@@ -209,8 +210,8 @@ body{
 {
     box-shadow: 0 0 1px 2px #fff,
                 0 0 1px 5px rgba(30, 144, 255,1);
-    background: rgba(30, 144, 255,0.7);
-    color: #fff;
+    /* background: rgba(30, 144, 255,0.7); */
+    /* color: #fff; */
 }
 .right
 {
@@ -254,7 +255,7 @@ body{
 {
     position: relative;
     width: 100px;
-    height: 120px;
+    height: 130px;
     border-radius: 10px;
     box-shadow: 0 0 1px 2px rgba(0,0,0,0.1),
                 0 0 20px rgba(30, 144, 255,0.2);
@@ -268,15 +269,17 @@ body{
 }
 .right .teachers .r_cards div.active
 {
-    background: rgba(30, 144, 255,0.7);
+    /* background: rgba(30, 144, 255,0.7); */
     box-shadow: 0 0 1px 3px #fff,
-                0 0 1px 6px dodgerblue;
-    color: #fff;
+                0 0 1px 6px dodgerblue,
+                0 0 20px rgba(30, 144, 255,1);
+    /* color: #fff; */
 }
 .right .teachers .r_cards div:hover
 {
     box-shadow: 0 0 1px 3px #fff,
-                0 0 1px 6px dodgerblue;
+                0 0 1px 6px dodgerblue,
+                0 0 20px rgba(30, 144, 255,1);
 }
 .right .teachers svg
 {
@@ -294,6 +297,7 @@ body{
     border-radius: 20px;
     padding: 10px;
     transform: translate(0,-50%) rotate(-180deg);
+    cursor: pointer;
 }
 .right .teachers .r_r_arrow
 {
@@ -301,6 +305,7 @@ body{
     border-radius: 20px;
     padding: 10px;
     transform: translate(0,-50%);
+    cursor: pointer;
 }
 .right .set_time_chat
 {
@@ -434,5 +439,21 @@ body{
 }
 .right .set_time_chat .att_chart .week .class.alloc
 {
-    background: rgb(30, 144, 255,0.5);
+    background: #14A5FF;
+    box-shadow: 5px 5px 10px rgba(20, 165, 255,0.7);
+}
+.right .set_time_chat .att_chart .week .class.alloc:nth-child(4n)
+{
+    background: #1479FF;
+    box-shadow: 5px 5px 10px rgba(20, 121, 255,0.7);
+}
+.right .set_time_chat .att_chart .week .class.alloc:nth-child(5n)
+{
+    background: #14D2FF;
+    box-shadow: 5px 5px 10px rgba(20, 210, 255,0.7);
+}
+.right .set_time_chat .att_chart .week .class.alloc:nth-child(3n)
+{
+    background: #37DBE6;
+    box-shadow: 5px 5px 10px rgba(55, 219, 230,0.7);
 }
