@@ -19,12 +19,14 @@ export class Subject { //Do not write to this class's objects directly, access t
     sem: number
     lectureCount: number
     isPractical: boolean
+    classRoom:String
 
-    constructor(subjectCode: String, sem: number, lectureCount: number, isPractical: boolean) {
+    constructor(subjectCode: String, sem: number, lectureCount: number, isPractical: boolean, classRoom: String) {
         this.subjectCode = subjectCode.toUpperCase() //Subject code to uniquely identify subjects
         this.sem = sem //semester of this subject
         this.lectureCount = lectureCount //total no. of lectures alloted to this subject
         this.isPractical = isPractical //if false then the subject is theory otherwise practical
+        this.classRoom=classRoom //class room of this subject
     }
 }
 
@@ -66,6 +68,7 @@ export class TeacherList{
     }
 
     getTeacherByName(name:String):Teacher{
+        if(!this.has(name)) throw new Error(`No teacher with name ${name}`)
         return JSON.parse(JSON.stringify(this.data.get(name))) //Return deep copy of the teacher object
     }
 
@@ -77,6 +80,15 @@ export class TeacherList{
     var iterObj=obj.getTeacherNamesIterator()
     for(const teacherName of iterObj) console.log(teacherName)
     */
+
+    
+    has(name:String):boolean{
+        return this.data.has(name)
+    }
+
+    size():number{
+        return this.data.size
+    }
 }
 
 export class SubjectList{
@@ -101,11 +113,26 @@ export class SubjectList{
         return this.data.delete(subjectCode)
     }
 
-    getSubjectByCode(subjectCode:String):Teacher{
+    getSubjectByCode(subjectCode:String):Subject{
+        if(!this.has(subjectCode)) throw new Error(`No subject with code ${subjectCode}`)
         return JSON.parse(JSON.stringify(this.data.get(subjectCode))) //Return deep copy of the subject object
     }
 
+    /*
+    Demo :
+    var iterObj=obj.getSubjectCodesIterator()
+    for(const subjectCode of iterObj) console.log(subjectCode)
+    */
+
     getSubjectCodesIterator():IterableIterator<String>{
         return this.data.keys()
+    }
+    
+    has(subjectCode:String):boolean{
+        return this.data.has(subjectCode)
+    }
+
+    size():number{
+        return this.data.size
     }
 }

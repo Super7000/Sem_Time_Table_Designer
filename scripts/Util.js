@@ -8,11 +8,12 @@ export class Teacher {
     }
 }
 export class Subject {
-    constructor(subjectCode, sem, lectureCount, isPractical) {
+    constructor(subjectCode, sem, lectureCount, isPractical, classRoom) {
         this.subjectCode = subjectCode.toUpperCase(); //Subject code to uniquely identify subjects
         this.sem = sem; //semester of this subject
         this.lectureCount = lectureCount; //total no. of lectures alloted to this subject
         this.isPractical = isPractical; //if false then the subject is theory otherwise practical
+        this.classRoom = classRoom; //class room of this subject
     }
 }
 export class TeacherList {
@@ -53,10 +54,23 @@ export class TeacherList {
         return true;
     }
     getTeacherByName(name) {
+        if (!this.has(name))
+            throw new Error(`No teacher with name ${name}`);
         return JSON.parse(JSON.stringify(this.data.get(name))); //Return deep copy of the teacher object
     }
     getTeacherNamesIterator() {
         return this.data.keys();
+    }
+    /*
+    Demo :
+    var iterObj=obj.getTeacherNamesIterator()
+    for(const teacherName of iterObj) console.log(teacherName)
+    */
+    has(name) {
+        return this.data.has(name);
+    }
+    size() {
+        return this.data.size;
     }
 }
 export class SubjectList {
@@ -79,9 +93,22 @@ export class SubjectList {
         return this.data.delete(subjectCode);
     }
     getSubjectByCode(subjectCode) {
+        if (!this.has(subjectCode))
+            throw new Error(`No subject with code ${subjectCode}`);
         return JSON.parse(JSON.stringify(this.data.get(subjectCode))); //Return deep copy of the subject object
     }
+    /*
+    Demo :
+    var iterObj=obj.getSubjectCodesIterator()
+    for(const subjectCode of iterObj) console.log(subjectCode)
+    */
     getSubjectCodesIterator() {
         return this.data.keys();
+    }
+    has(subjectCode) {
+        return this.data.has(subjectCode);
+    }
+    size() {
+        return this.data.size;
     }
 }
