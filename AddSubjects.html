@@ -2,15 +2,11 @@
     <head>
         <title></title>
         <link rel="stylesheet" href="styles/Style.css">
-        <link rel="stylesheet" href="styles/TimeTableStyle.css">
+        <link rel="stylesheet" href="styles/AddTeacherStyle.css">
+        <link rel="stylesheet" href="styles/AddSubjectsStyle.css">
     </head>
     <script type="module">
-        import {Algorithm} from "./scripts/Algorithms.js";
-        import * as util from "./scripts/Util.js";
-        var t1 = new util.Teacher("SKB",[5,4,6],[],["JAVA","PYTHON","DSA"]);
-        var s1 = new util.Subject("JAVA",5,5,false);
-        var t = new Algorithm([t1],[s1]);
-        console.log(t);
+        
     </script>
     <body>
             <div class="menubar active">
@@ -20,7 +16,7 @@
                 <div class="title">
                     <p>Time Table <br>Designer</p>
                 </div>
-                <a class="link" href="AddSubjects.html">
+                <a class="link active" href="AddSubjects.html">
                     <svg height="32px" id="Layer_1" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <path d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"/>
                     </svg>
@@ -38,7 +34,7 @@
                     </svg>
                     <p>Dashboard</p>
                 </a>
-                <a class="link active" href="Time Tables.html">
+                <a class="link" href="Time Tables.html">
                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
                         <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
                         fill="#000000" stroke="none">
@@ -112,113 +108,56 @@
                 </div>
             </div>
             <div class="container">
-                <div class="subcon">
-                    <div class="top">
-                        <div class="sem_cards_container">
-                            <svg viewBox="0 0 96 96" class="l_t_arrow arrow" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M69.8437,43.3876,33.8422,13.3863a6.0035,6.0035,0,0,0-7.6878,9.223l30.47,25.39-30.47,25.39a6.0035,6.0035,0,0,0,7.6878,9.2231L69.8437,52.6106a6.0091,6.0091,0,0,0,0-9.223Z"/>
-                            </svg>
-                            <div class="cards">
-                                <div>Sem 1</div>
-                                <div>Sem 2</div>
-                                <div>Sem 3</div>
-                                <div>Sem 4</div>
-                                <div>Sem 5</div>
-                                <div>Sem 6</div>
-                                <div>Sem 7</div>
-                                <div>Sem 8</div>
-                            </div>
-                            
-                            <svg viewBox="0 0 96 96" class="r_t_arrow arrow" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M69.8437,43.3876,33.8422,13.3863a6.0035,6.0035,0,0,0-7.6878,9.223l30.47,25.39-30.47,25.39a6.0035,6.0035,0,0,0,7.6878,9.2231L69.8437,52.6106a6.0091,6.0091,0,0,0,0-9.223Z"/>
-                            </svg>
-                        </div>
-                        <div class="filters">
-                            <div class="options">
-                                <div class="opt">Auto Fill</div>
-                                <div class="opt">Auto Fill All Semesters</div>
-                                <div class="opt active">Fill Manually</div>
-                            </div>
-                            <div class="section">
-                                <div class="sec">A</div>
-                                <div class="sec active">B</div>
-                                <div class="sec">C</div>
-                            </div>
-                        </div>
+                <div class="cards">
+                    <div class="add card active">
+                        <svg height="32px" id="Layer_1" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"/>
+                        </svg>
                     </div>
-                    <div class="set_time_chart">
-                        <p>Time Table for Sem 1 Sec B</p>
-                        <div class="att_chart"> <!-- att = Allocated time table -->
-                            <div class="times">
-                                <div class="day_time_l">Day\Time</div>
-                                <div class="class_label 1">9:30AM</div>
-                                <div class="class_label 2">10:20AM</div>
-                                <div class="class_label 3">11:10AM</div>
-                                <div class="class_label 4">12:00PM</div>
-                                <div class="class_label 5">01:40PM</div>
-                                <div class="class_label 6">02:30PM</div>
-                                <div class="class_label 7">03:20PM</div>
-                                <div class="class_label 8">04:10PM</div>
-                            </div>
-                            <div class="week week_1">
-                                <div class="week_names">tue</div>
-                                <div class="class class_1"></div>
-                                <div class="class class_2"></div>
-                                <div class="class class_3"></div>
-                                <div class="class class_4"></div>
-                                <div class="class class_5"></div>
-                                <div class="class class_6"></div>
-                                <div class="class class_7"></div>
-                                <div class="class class_8"></div>   
-                            </div>                                 
-                            <div class="week week_2">
-                                <div class="week_names">wed</div>
-                                <div class="class class_1"></div>
-                                <div class="class class_2"></div>
-                                <div class="class class_3"></div>
-                                <div class="class class_4"></div>
-                                <div class="class class_5"></div>
-                                <div class="class class_6"></div>
-                                <div class="class class_7"></div>
-                                <div class="class class_8"></div>   
-                            </div>  
-                            <div class="week week_3">
-                                <div class="week_names">thu</div>
-                                <div class="class class_1"></div>
-                                <div class="class class_2"></div>
-                                <div class="class class_3"></div>
-                                <div class="class class_4"></div>
-                                <div class="class class_5"></div>
-                                <div class="class class_6"></div>
-                                <div class="class class_7"></div>
-                                <div class="class class_8"></div>   
-                            </div>  
-                            <div class="week week_4">
-                                <div class="week_names">fri</div>
-                                <div class="class class_1"></div>
-                                <div class="class class_2"></div>
-                                <div class="class class_3"></div>
-                                <div class="class class_4"></div>
-                                <div class="class class_5"></div>
-                                <div class="class class_6"></div>
-                                <div class="class class_7"></div>
-                                <div class="class class_8"></div>   
-                            </div>   
-                            <div class="week week_5">
-                                <div class="week_names">sat</div>
-                                <div class="class class_1"></div>
-                                <div class="class class_2"></div>
-                                <div class="class class_3"></div>
-                                <div class="class class_4"></div>
-                                <div class="class class_5"></div>
-                                <div class="class class_6"></div>
-                                <div class="class class_7"></div>
-                                <div class="class class_8"></div>   
-                            </div>    
-                        </div>
+                    <div class="card">SUB15</div>
+                    <div class="card">SUB14</div>
+                    <div class="card">SUB13</div>
+                    <div class="card">SUB12</div>
+                    <div class="card">SUB11</div>
+                    <div class="card">SUB10</div>
+                    <div class="card">SUB9</div>
+                    <div class="card">SUB8</div>
+                    <div class="card">SUB7</div>
+                    <div class="card">SUB6</div>
+                    <div class="card">SUB5</div>
+                    <div class="card">SUB4</div>
+                    <div class="card">SUB3</div>
+                    <div class="card">SUB2</div>
+                    <div class="card">SUB1</div>
+                </div>
+                <div class="t_d s_d"> <!--t_d = teacher details-->
+                    <div class="con heading">
+                        <div>Details</div>
                     </div>
+                    <div class="con s_name">
+                        <div>Subject Name</div>
+                        <input type="text" placeholder="Ex. PCC-CS501">
+                    </div>
+                    <div class="con sems">
+                        <div>Semester</div>
+                        <input type="number" placeholder="Ex. 5, 3, 8 (Priority: 5 > 3 > 8)">
+                    </div>
+                    <div class="con a_time">
+                        <div>Lecture Count</div>
+                        <input type="number" placeholder="Ex. 12">
+                    </div>
+                    <div class="con c_room">
+                        <div>Classroom</div>
+                        <input type="text" placeholder="Ex. LH-123, LH-124 ..">
+                    </div>
+                    <div class="con s_type">
+                        <div>Subject Type (On if sub. is Practical)</div>
+                        <input type="checkbox">
+                    </div>
+                    <button class="dsb">Save</button> <!--dsb = details save button-->
                 </div>
             </div>
-    </body>    
-    <script src="./scripts/TimeTable.js"></script>
+        
+    </body>
+    <script src="./scripts/AddTeacher.js"></script>
 </html>

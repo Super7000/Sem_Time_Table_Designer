@@ -19,12 +19,6 @@
 .cards::-webkit-scrollbar{
     display: none;
 }
-.t_d{
-    background: blue;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-}
 .card{
     background: #fff;
     width: 100px;
@@ -41,4 +35,51 @@
     box-shadow: 0 0 0px 3px #fff,
         0 0 0px 6px dodgerblue,
         0 0 20px rgba(30, 144, 255, 1);
+}
+.t_d{
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(30, 144, 255, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.t_d .con{
+    width: 80%;
+    position: relative;
+    top: 20px;
+    margin-bottom: 30px;
+}
+.t_d .heading{
+    font-size: 30px;
+    font-family: Calibri;
+    font-weight: bold;
+}
+.t_d .con div{
+    margin-bottom: 15px;
+}
+.t_d .con input{
+    background: rgba(0, 0, 0, 0.10);
+    border: none;
+    border-radius: 5px;
+    border-bottom: 2px solid dodgerblue;
+    outline: none;
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    padding: 0 10px;
+}
+.t_d .dsb{
+    position: relative;
+    top: 40px;
+    background: dodgerblue;
+    border: 0;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-family: verdana;
+    color: #fff;
+    border-radius: 10px;
 }

@@ -111,7 +111,7 @@ body {
     width: 25px;
     height: 25px;
     padding: 10px;
-    background: #F3F8FF;
+    background: #edf1f7;
     transition: 0.3s;
     border-radius: 10px;
     color: #1479FF;
@@ -434,6 +434,7 @@ body {
     top: 5px;
     right: 5px;
     cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .set_time_chart .att_chart {

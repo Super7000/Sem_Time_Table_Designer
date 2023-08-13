@@ -15,6 +15,12 @@
                 <div class="title">
                     <p>Time Table <br>Designer</p>
                 </div>
+                <a class="link" href="AddSubjects.html">
+                    <svg height="32px" id="Layer_1" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <path d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"/>
+                    </svg>
+                    <p>Add <br>Subjects</p>
+                </a>
                 <a class="link active" href="AddTeacher.html">
                     <svg height="32px" id="Layer_1" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <path d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"/>
@@ -102,29 +108,44 @@
             </div>
             <div class="container">
                 <div class="cards">
-                    <div class="add card">
+                    <div class="add card active">
                         <svg height="32px" id="Layer_1" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <path d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"/>
                         </svg>
                     </div>
-                    <div class="card active">ABC1</div>
-                    <div class="card">ABC2</div>
-                    <div class="card">ABC3</div>
-                    <div class="card">ABC4</div>
-                    <div class="card">ABC5</div>
-                    <div class="card">ABC6</div>
-                    <div class="card">ABC7</div>
-                    <div class="card">ABC8</div>
-                    <div class="card">ABC9</div>
-                    <div class="card">ABC10</div>
-                    <div class="card">ABC11</div>
-                    <div class="card">ABC12</div>
-                    <div class="card">ABC13</div>
-                    <div class="card">ABC14</div>
                     <div class="card">ABC15</div>
+                    <div class="card">ABC14</div>
+                    <div class="card">ABC13</div>
+                    <div class="card">ABC12</div>
+                    <div class="card">ABC11</div>
+                    <div class="card">ABC10</div>
+                    <div class="card">ABC9</div>
+                    <div class="card">ABC8</div>
+                    <div class="card">ABC7</div>
+                    <div class="card">ABC6</div>
+                    <div class="card">ABC5</div>
+                    <div class="card">ABC4</div>
+                    <div class="card">ABC3</div>
+                    <div class="card">ABC2</div>
+                    <div class="card">ABC1</div>
                 </div>
                 <div class="t_d"> <!--t_d = teacher details-->
-
+                    <div class="con heading">
+                        <div>Details</div>
+                    </div>
+                    <div class="con t_name">
+                        <div>Teacher Name</div>
+                        <input type="text" placeholder="Ex. SKB">
+                    </div>
+                    <div class="con s_names">
+                        <div>Subject Names</div>
+                        <input type="text" placeholder="Ex. PCC-CS501, PCC-CS502, ..">
+                    </div>
+                    <div class="con a_time">
+                        <div>Avaiable Times</div>
+                        <input type="text" placeholder="Ex. (0,3),(0,5).. means (Mon,3rd Period)..">
+                    </div>
+                    <button class="dsb">Save</button> <!--dsb = details save button-->
                 </div>
             </div>
         
