@@ -229,17 +229,17 @@ body {
     border-radius: 5px;
     margin-top: 15px;
     cursor: pointer;
-    box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0px 2px rgba(0, 0, 0, 0.1);
 }
 
 .container .left .scedule_container div:hover {
-    box-shadow: 0 0 1px 2px #fff,
-        0 0 1px 5px rgba(30, 144, 255, 1);
+    box-shadow: 0 0 0px 2px #fff,
+        0 0 0px 5px rgba(30, 144, 255, 1);
 }
 
 .container .left .scedule_container div.active {
-    box-shadow: 0 0 1px 2px #fff,
-        0 0 1px 5px rgba(30, 144, 255, 1);
+    box-shadow: 0 0 0px 2px #fff,
+        0 0 0px 5px rgba(30, 144, 255, 1);
     /* background: rgba(30, 144, 255,0.7); */
     /* color: #fff; */
 }
@@ -287,7 +287,7 @@ body {
     width: 100px;
     height: 130px;
     border-radius: 10px;
-    box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.1),
+    box-shadow: 0 0 0px 2px rgba(0, 0, 0, 0.1),
         0 0 20px rgba(30, 144, 255, 0.2);
     display: flex;
     justify-content: center;
@@ -300,15 +300,15 @@ body {
 
 .right .teachers .r_cards div.active {
     /* background: rgba(30, 144, 255,0.7); */
-    box-shadow: 0 0 1px 3px #fff,
-        0 0 1px 6px dodgerblue,
+    box-shadow: 0 0 0px 3px #fff,
+        0 0 0px 6px dodgerblue,
         0 0 20px rgba(30, 144, 255, 1);
     /* color: #fff; */
 }
 
 .right .teachers .r_cards div:hover {
-    box-shadow: 0 0 1px 3px #fff,
-        0 0 1px 6px dodgerblue,
+    box-shadow: 0 0 0px 3px #fff,
+        0 0 0px 6px dodgerblue,
         0 0 20px rgba(30, 144, 255, 1);
 }
 
@@ -483,25 +483,25 @@ body {
 
 .set_time_chart .att_chart .week:nth-child(4) .class.alloc {
     background: #14A5FF;
-    box-shadow: 0 0 1px 3px rgba(20, 165, 255, 1),
+    box-shadow: 0 0 0px 3px rgba(20, 165, 255, 1),
                 5px 5px 10px rgba(20, 165, 255, 0.7);
 }
 
 .set_time_chart .att_chart .week .class.alloc {
     background: #1479FF;
-    box-shadow: 0 0 1px 3px rgba(20, 121, 255, 1),
+    box-shadow: 0 0 0px 3px rgba(20, 121, 255, 1),
                 5px 5px 10px rgba(20, 121, 255, 0.7);
 }
 
 .set_time_chart .att_chart .week:nth-child(3) .class.alloc {
     background: #14D2FF;
-    box-shadow: 0 0 1px 3px rgba(20, 210, 255, 1),
+    box-shadow: 0 0 0px 3px rgba(20, 210, 255, 1),
                 5px 5px 10px rgba(20, 210, 255, 0.7);
 }
 
 .set_time_chart .att_chart .week:nth-child(5) .class.alloc {
     background: #37DBE6;
-    box-shadow: 0 0 1px 3px rgba(55, 219, 230, 1),
+    box-shadow: 0 0 0px 3px rgba(55, 219, 230, 1),
                 5px 5px 10px rgba(55, 219, 230, 0.7);
 }
 
@@ -510,24 +510,24 @@ body {
 
 .set_time_chart .att_chart .week:nth-child(4) .class.alloc:hover {
     background: #14A5FF;
-    box-shadow: 0 0 1px 0px rgba(20, 165, 255, 1),
+    box-shadow: 0 0 0px 0px rgba(20, 165, 255, 1),
                 5px 5px 10px rgba(20, 165, 255, 0.7);
 }
 
 .set_time_chart .att_chart .week .class.alloc:hover {
     background: #1479FF;
-    box-shadow: 0 0 1px 0px rgba(20, 121, 255, 1),
+    box-shadow: 0 0 0px 0px rgba(20, 121, 255, 1),
                 5px 5px 10px rgba(20, 121, 255, 0.7);
 }
 
 .set_time_chart .att_chart .week:nth-child(3) .class.alloc:hover {
     background: #14D2FF;
-    box-shadow: 0 0 1px 0px rgba(20, 210, 255, 1),
+    box-shadow: 0 0 0px 0px rgba(20, 210, 255, 1),
                 5px 5px 10px rgba(20, 210, 255, 0.7);
 }
 
 .set_time_chart .att_chart .week:nth-child(5) .class.alloc:hover {
     background: #37DBE6;
-    box-shadow: 0 0 1px 0px rgba(55, 219, 230, 1),
+    box-shadow: 0 0 0px 0px rgba(55, 219, 230, 1),
                 5px 5px 10px rgba(55, 219, 230, 0.7);
 }

@@ -7,23 +7,24 @@
 {
     background: #ebebeb;
     height: 20%;
-    border-radius: 20px 20px 0 0px;
 }
 .top .sem_cards_container,
-.top .options{
+.top .options, .top .section{
     display: grid;
     grid-auto-flow: column;
     justify-content: center;
     align-items: center;
-    width: 90%;
     height: 55px;
     position: relative;
-    left: 5%;
-    top: 20px;
     gap: 10px;
+    cursor: pointer;
+}
+.top .sem_cards_container{
+    width: 90%;
+    left: 5%;
+    top: 10px;
 }
 .set_time_chart{
-    background: #ebebeb;
     height: 80%;
     border-radius: 20px;
 }
@@ -56,7 +57,6 @@
     overflow: scroll;
     overflow-x: scroll;
     -ms-overflow-style: none;
-    border-radius: 5px;
     scroll-behavior: smooth;
 }
 .container .top .cards::-webkit-scrollbar
@@ -68,7 +68,7 @@
     width: 150px;
     height: 40px;
     border-radius: 10px;
-    box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.1),
+    box-shadow: 0 0 0px 2px rgba(0, 0, 0, 0.1),
         0 0 20px rgba(30, 144, 255, 0.2);
     display: flex;
     justify-content: center;
@@ -80,8 +80,8 @@
 }
 .container .top .cards div:hover{
     
-    box-shadow: 0 0 1px 3px #fff,
-        0 0 1px 6px dodgerblue,
+    box-shadow: 0 0 0px 3px #fff,
+        0 0 0px 6px dodgerblue,
         0 0 20px rgba(30, 144, 255, 1);
 }
 .container .top .arrow{
@@ -99,22 +99,59 @@
 .container .top .r_t_arrow{
     margin-left: 20px;
 }
+.top .filters
+{
+    position: relative;
+    left: 5%;
+    top: 20px;
+    width: 90%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
 .top .options
 {
     justify-content: left;
-    top: 30px;
     gap: 20px;
+    grid-column: 1 / span 2;
 } 
 .top .options div{
     background: #fff;
     border-radius: 10px;
     padding: 8px 18px;
-    box-shadow: 0 0 1px 2px #fff,
+    box-shadow: 0 0 0px 2px #fff,
                 0 0 20px rgba(0, 0, 0, 0.1);
     transition: 0.2s;
 }
-.top .options div:active{
+.top .options div.active,.top .options div.active:hover{
     padding: 8px 18px;
-    box-shadow: 0 0 1px 0px #fff, 
+    box-shadow: 0 0 0px 2px dodgerblue, 
+                0 0 20px rgba(0, 0, 0, 0.1);
+}
+.top .options div:hover{
+    padding: 8px 18px;
+    box-shadow: 0 0 0px 0px #fff, 
+                0 0 20px rgba(0, 0, 0, 0.1);
+}
+.top .section
+{
+    grid-column: 3;
+    justify-content: right;
+    gap: 20px;
+} 
+.top .section div{
+    background: #fff;
+    border-radius: 10px;
+    padding: 8px 18px;
+    box-shadow: 0 0 0px 2px #fff,
+                0 0 20px rgba(0, 0, 0, 0.1);
+    transition: 0.2s;
+}
+.top .section div.active,.top .section div.active:hover{
+    box-shadow: 0 0 0px 2px dodgerblue, 
+                0 0 20px rgb(0, 0, 0, 0.1);
+}
+.top .section div:hover{
+    padding: 8px 18px;
+    box-shadow: 0 0 0px 0px #fff, 
                 0 0 20px rgba(0, 0, 0, 0.1);
 }

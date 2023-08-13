@@ -21,3 +21,20 @@ document.querySelector(".l_t_arrow").addEventListener("click", () => {
 document.querySelector(".r_t_arrow").addEventListener("click", () => {
     document.querySelector(".cards").scrollLeft += 190;
 });
+
+document.querySelectorAll(".section .sec").forEach((c)=>{
+    c.addEventListener("click",()=>{
+        if (c != document.querySelector(".sec.active")) {
+            document.querySelector(".sec.active").classList.remove("active");
+            c.classList.add("active");
+        }
+    })
+})
+document.querySelectorAll(".options .opt").forEach((o)=>{
+    o.addEventListener("click",()=>{
+        if (o != document.querySelector(".opt.active")) {
+            document.querySelector(".opt.active").classList.remove("active");
+            o.classList.add("active");
+        }
+    })
+})
