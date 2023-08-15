@@ -2,8 +2,8 @@ export const teachers_for_subject = new Map(); //Do not write to this object. Fo
 export class Teacher {
     constructor(name, sems, free_time, subjects) {
         this.name = name.toLowerCase(); //name of the sir 
-        this.sems = sems; //array of semisters that sir takes in form of integer
-        this.free_time = free_time; //2D array of time and week [max val 7 for 8 preiods, max val 4 for 5 days]
+        this.sems = sems; //array of semesters that sir takes in form of integer
+        this.free_time = free_time; //2D array of time and week [max val 4 for 5 days, max val 7 for 8 preiods] format: [day,period]
         this.subjects = subjects; //array of subjects that sir takes in form of string
     }
 }
