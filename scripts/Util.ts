@@ -1,27 +1,27 @@
-export const teachers_for_subject:Map<String,Set<String>>=new Map() //Do not write to this object. Format {subject1:{teach1,teach2}}
+export const teachers_for_subject:Map<string,Set<string>>=new Map() //Do not write to this object. Format {subject1:{teach1,teach2}}
 
 export class Teacher { //Do not write to this class's objects directly, access trough TeacherList
-    name: String
+    name: string
     sems: Array<number>
     free_time: Array<Array<number>>
-    subjects: Array<String>
+    subjects: Array<string>
 
-    constructor(name: String, sems: Array<number>, free_time: Array<Array<number>>, subjects: Array<String>) {
+    constructor(name: string, sems: Array<number>, free_time: Array<Array<number>>, subjects: Array<string>) {
         this.name = name.toLowerCase(); //name of the sir 
-        this.sems = sems; //array of semisters that sir takes in form of integer
-        this.free_time = free_time; //2D array of time and week [max val 7 for 8 preiods, max val 4 for 5 days]
+        this.sems = sems; //array of semesters that sir takes in form of integer
+        this.free_time = free_time; //2D array of time and week [max val 4 for 5 days, max val 7 for 8 preiods] format: [day,period]
         this.subjects = subjects; //array of subjects that sir takes in form of string
     }
 }
 
 export class Subject { //Do not write to this class's objects directly, access trough SubjectList
-    subjectCode: String
+    subjectCode: string
     sem: number
     lectureCount: number
     isPractical: boolean
-    classRoom:String
+    classRoom:string
 
-    constructor(subjectCode: String, sem: number, lectureCount: number, isPractical: boolean, classRoom: String) {
+    constructor(subjectCode: string, sem: number, lectureCount: number, isPractical: boolean, classRoom: string) {
         this.subjectCode = subjectCode.toUpperCase() //Subject code to uniquely identify subjects
         this.sem = sem //semester of this subject
         this.lectureCount = lectureCount //total no. of lectures alloted to this subject
@@ -31,7 +31,7 @@ export class Subject { //Do not write to this class's objects directly, access t
 }
 
 export class TeacherList{
-    private data: Map<String, Teacher> = new Map()
+    private data: Map<string, Teacher> = new Map()
     private stopCalculatonCallback:()=>void
 
     constructor(callback:()=>void) {
@@ -56,7 +56,7 @@ export class TeacherList{
         }
     }
 
-    removeTeacher(name:String):boolean{
+    removeTeacher(name:string):boolean{
         this.stopCalculatonCallback()
         if(!this.data.has(name)) return false
 
@@ -67,12 +67,12 @@ export class TeacherList{
         return true
     }
 
-    getTeacherByName(name:String):Teacher{
+    getTeacherByName(name:string):Teacher{
         if(!this.has(name)) throw new Error(`No teacher with name ${name}`)
         return JSON.parse(JSON.stringify(this.data.get(name))) //Return deep copy of the teacher object
     }
 
-    getTeacherNamesIterator():IterableIterator<String>{
+    getTeacherNamesIterator():IterableIterator<string>{
         return this.data.keys()
     }
     /*
@@ -82,7 +82,7 @@ export class TeacherList{
     */
 
     
-    has(name:String):boolean{
+    has(name:string):boolean{
         return this.data.has(name)
     }
 
@@ -92,7 +92,7 @@ export class TeacherList{
 }
 
 export class SubjectList{
-    private data: Map<String, Subject> = new Map()
+    private data: Map<string, Subject> = new Map()
     private stopCalculatonCallback:()=>void
 
     constructor(callback:()=>void){
@@ -108,12 +108,12 @@ export class SubjectList{
         }
     }
 
-    removeSubject(subjectCode:String):boolean{
+    removeSubject(subjectCode:string):boolean{
         this.stopCalculatonCallback()
         return this.data.delete(subjectCode)
     }
 
-    getSubjectByCode(subjectCode:String):Subject{
+    getSubjectByCode(subjectCode:string):Subject{
         if(!this.has(subjectCode)) throw new Error(`No subject with code ${subjectCode}`)
         return JSON.parse(JSON.stringify(this.data.get(subjectCode))) //Return deep copy of the subject object
     }
@@ -124,11 +124,11 @@ export class SubjectList{
     for(const subjectCode of iterObj) console.log(subjectCode)
     */
 
-    getSubjectCodesIterator():IterableIterator<String>{
+    getSubjectCodesIterator():IterableIterator<string>{
         return this.data.keys()
     }
     
-    has(subjectCode:String):boolean{
+    has(subjectCode:string):boolean{
         return this.data.has(subjectCode)
     }
 
