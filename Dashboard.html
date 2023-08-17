@@ -2,8 +2,8 @@
     <head>
         <title></title>
         <link rel="stylesheet" href="styles/Style.css">
-        <link rel="stylesheet" href="styles/TimeTableStyle.css">
     </head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.2/chart.umd.js" integrity="sha512-KIq/d78rZMlPa/mMe2W/QkRgg+l0/GAAu4mGBacU0OQyPV/7EPoGQChDb269GigVoPQit5CqbNRFbgTjXHHrQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="module">
         import {Algorithm} from "./scripts/Algorithms.js";
         import * as util from "./scripts/Util.js";
@@ -32,13 +32,13 @@
                     </svg>
                     <p>Add <br>Teachers</p>
                 </a>
-                <a class="link" href="Daskboard.html">
+                <a class="link active" href="Dashboard.html">
                     <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z"/>
                     </svg>
                     <p>Dashboard</p>
                 </a>
-                <a class="link active" href="Time Tables.html">
+                <a class="link" href="Time Tables.html">
                     <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
                         <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
                         fill="#000000" stroke="none">
@@ -112,42 +112,85 @@
                 </div>
             </div>
             <div class="container">
-                <div class="subcon">
-                    <div class="top">
-                        <div class="sem_cards_container">
-                            <svg viewBox="0 0 96 96" class="l_t_arrow arrow" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M69.8437,43.3876,33.8422,13.3863a6.0035,6.0035,0,0,0-7.6878,9.223l30.47,25.39-30.47,25.39a6.0035,6.0035,0,0,0,7.6878,9.2231L69.8437,52.6106a6.0091,6.0091,0,0,0,0-9.223Z"/>
-                            </svg>
-                            <div class="cards">
-                                <div>Sem 1</div>
-                                <div>Sem 2</div>
-                                <div>Sem 3</div>
-                                <div>Sem 4</div>
-                                <div>Sem 5</div>
-                                <div>Sem 6</div>
-                                <div>Sem 7</div>
-                                <div>Sem 8</div>
-                            </div>
-                            
-                            <svg viewBox="0 0 96 96" class="r_t_arrow arrow" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M69.8437,43.3876,33.8422,13.3863a6.0035,6.0035,0,0,0-7.6878,9.223l30.47,25.39-30.47,25.39a6.0035,6.0035,0,0,0,7.6878,9.2231L69.8437,52.6106a6.0091,6.0091,0,0,0,0-9.223Z"/>
-                            </svg>
-                        </div>
-                        <div class="filters">
-                            <div class="options">
-                                <div class="opt">Auto Fill</div>
-                                <div class="opt">Auto Fill All Semesters</div>
-                                <div class="opt active">Fill Manually</div>
-                            </div>
-                            <div class="section">
-                                <div class="sec">A</div>
-                                <div class="sec active">B</div>
-                                <div class="sec">C</div>
-                            </div>
+                <div class="left">
+                    <div class="scedules">
+                        <p>Scedules</p>
+                        <div class="scedule_container">
+                            <div class="active">Scedule 1</div>
+                            <div>Scedule 2</div>
+                            <div>Scedule 3</div>
+                            <div>Scedule 4</div>
+                            <div>Scedule 5</div>
                         </div>
                     </div>
+                    <div class="chart">
+                        <p>Total time spend in classes (hr)</p>
+                        <div>
+                            <canvas id="main_chart" class="main_chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="teachers">
+                            <svg viewBox="0 0 96 96" class="r_l_arrow" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M69.8437,43.3876,33.8422,13.3863a6.0035,6.0035,0,0,0-7.6878,9.223l30.47,25.39-30.47,25.39a6.0035,6.0035,0,0,0,7.6878,9.2231L69.8437,52.6106a6.0091,6.0091,0,0,0,0-9.223Z"/>
+                            </svg>
+                        <div class="r_cards">
+                            <div class="t_card active" data-tts="[6,4,5,8,2]" data-sems="[5,6,8]"> <!-- tts = total time spend -->
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                                </svg>
+                                <p>SKB1</p>
+                            </div>
+                            <div class="t_card" data-tts="[8,4,8,8,2]" data-sems="[8,2,6,3]">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                                </svg>
+                                <p>SKB2</p>
+                            </div>
+                            <div class="t_card" data-tts="[1,2,5,5,2]" data-sems="[5,4,1,6,8]">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                                </svg>
+                                <p>SKB3</p>
+                            </div>
+                            <div class="t_card" data-tts="[8,4,8,8,2]" data-sems="[1,2,5,6,8]">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                                </svg>
+                                <p>SKB4</p>
+                            </div>
+                            <div class="t_card" data-tts="[0,4,5,8,1]" data-sems="[5,7,6,8]">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                                </svg>
+                                <p>SKB5</p>
+                            </div>
+                            <div class="t_card" data-tts="[1,4,1,8,1]"data-sems="[2,3,5,6,8]">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                                </svg>
+                                <p>SKB6</p>
+                            </div>
+                            <div class="t_card" data-tts="[5,4,0,8,2]" data-sems="[1,7,5,6,8]">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                                </svg>
+                                <p>SKB7</p>
+                            </div>
+                            <div class="t_card" data-tts="[1,0,1,0,2]" data-sems="[5,3,4,6,8]">
+                                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                                </svg>
+                                <p>SKB8</p>
+                            </div>
+                        </div>
+                            <svg viewBox="0 0 96 96" class="r_r_arrow" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M69.8437,43.3876,33.8422,13.3863a6.0035,6.0035,0,0,0-7.6878,9.223l30.47,25.39-30.47,25.39a6.0035,6.0035,0,0,0,7.6878,9.2231L69.8437,52.6106a6.0091,6.0091,0,0,0,0-9.223Z"/>
+                            </svg>
+                    </div>
                     <div class="set_time_chart">
-                        <p>Time Table for Sem 1 Sec B</p>
+                        <p>Time Table for SKB Sir</p>
                         <div class="att_chart"> <!-- att = Allocated time table -->
                             <div class="times">
                                 <div class="day_time_l">Day\Time</div>
@@ -217,8 +260,30 @@
                             </div>    
                         </div>
                     </div>
+                    <div class="details">
+                        <div class="sems">
+                            <p>Semesters</p>
+                            <div class="semnc"> <!-- semnm = semester Name Container -->
+                                <div>2</div>
+                                <div>4</div>
+                                <div>6</div>
+                            </div>
+                            
+                        </div>
+                        <div class="subjects">
+                            <p>Subjects</p>
+                            <div class="snc"> <!-- snc = Subject Name Container -->
+                                <div>C++</div>
+                                <div>C</div>
+                                <div>CO</div>
+                                <div>JAVA</div>
+                                <div>DSA</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-    </body>    
-    <script src="./scripts/TimeTable.js"></script>
+        
+    </body>
+    <script src="./scripts/Main.js"></script>
 </html>
