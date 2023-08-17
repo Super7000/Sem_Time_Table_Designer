@@ -30,11 +30,21 @@ document.querySelectorAll(".section .sec").forEach((c)=>{
         }
     })
 })
+
 document.querySelectorAll(".options .opt").forEach((o)=>{
     o.addEventListener("click",()=>{
         if (o != document.querySelector(".opt.active")) {
             document.querySelector(".opt.active").classList.remove("active");
             o.classList.add("active");
+        }
+    })
+})
+
+document.querySelectorAll(".sem_cards_container .cards div").forEach((c)=>{
+    c.addEventListener("click",()=>{
+        if (c != document.querySelector(".sem_cards_container .cards div.active")) {
+            document.querySelector(".sem_cards_container .cards div.active").classList.remove("active");
+            c.classList.add("active");
         }
     })
 })
