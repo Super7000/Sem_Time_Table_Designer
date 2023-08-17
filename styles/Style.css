@@ -16,10 +16,11 @@ body {
     width: 10%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
     align-items: center;
     transition: 0.3s;
     z-index: 5;
+    overflow: hidden;
 }
 
 .menubar.active {
@@ -65,7 +66,7 @@ body {
 .menubar .link {
     text-decoration: none;
     width: 70px;
-    height: 90px;
+    height: 80px;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -79,6 +80,15 @@ body {
     color: #fff;
     box-shadow: 5px 10px 15px rgba(30, 144, 255, 0.5);
 }
+.menubar .link.export:hover svg {
+    background: #1479FF;
+    color: #fff;
+    box-shadow: -5px -10px 15px rgba(30, 144, 255, 0.5);
+}
+.menubar .link.export svg{
+    transform: rotate(180deg);
+}
+
 
 .menubar .link:hover p {
     color: #1479FF;
@@ -506,6 +516,12 @@ body {
                 5px 5px 10px rgba(55, 219, 230, 0.7);
 }
 
+.menubar input{
+    position: absolute;
+    height: 80px;
+    width: 13.7%;
+    opacity: 0;
+}
 
 
 
