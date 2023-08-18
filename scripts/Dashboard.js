@@ -80,9 +80,6 @@ document.querySelectorAll(".t_card").forEach((t) => {
     })
 });
 console.log(chart1);
-document.querySelector(".m_t_arrow").addEventListener("click", () => {
-    document.querySelector(".menubar").classList.toggle("active");
-})
 for (let i = 1; i < 6; i++) {
     for (let j = 0; j < 9; j += Math.floor(Math.random() * 4)) {
         if (j == 0) {

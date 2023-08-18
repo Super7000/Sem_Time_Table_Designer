@@ -1,8 +1,4 @@
 createTT();
-document.querySelector(".m_t_arrow").addEventListener("click", () => {
-    document.querySelector(".container").classList.toggle("active");
-    document.querySelector(".menubar").classList.toggle("active");
-});
 for (let i = 1; i < 6; i++) {
     for (let j = 0; j < 9; j++) {
         if (j == 0) {
@@ -45,6 +41,7 @@ document.querySelectorAll(".options .opt").forEach((o)=>{
         }
     })
 })
+
 
 document.querySelectorAll(".sem_cards_container .cards div").forEach((c)=>{
     c.addEventListener("click",()=>{
