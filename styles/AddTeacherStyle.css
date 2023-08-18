@@ -72,9 +72,7 @@
     font-size: 16px;
     padding: 0 10px;
 }
-.t_d .dsb{
-    position: relative;
-    top: 40px;
+.t_d .dsb, .t_d .ddb{
     background: dodgerblue;
     border: 0;
     padding: 10px 20px;
@@ -82,4 +80,15 @@
     font-family: verdana;
     color: #fff;
     border-radius: 10px;
+    cursor: pointer;
+}
+.t_d .ddb{
+    background: orange;
+}
+.t_d .btn_con{
+    position: relative;
+    top: 40px;
+    display: grid;
+    grid-auto-flow: column;
+    gap: 20px;
 }
