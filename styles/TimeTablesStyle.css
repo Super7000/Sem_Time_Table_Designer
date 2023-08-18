@@ -160,17 +160,20 @@
         0 0 0px 6px dodgerblue,
         0 0 20px rgba(30, 144, 255, 1);
 }
-.week .class svg{
-    width: 15px;
-    float: right;
-    background: rgba(0, 0, 0, 0.1);
-    fill: #fff;
-    padding: 5px;
+
+.set_time_chart .att_chart .week .class {
+    width: 105px;
+    transition: 0.3s;
     border-radius: 5px;
-    display: none;
 }
-.week .class:hover svg{
-    display: block;
+
+.week .week_names{
+    width: 105px;
+}
+
+
+.att_chart .week .class .period{
+    top: 0px;
 }
 /* 
 

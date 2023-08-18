@@ -1,3 +1,5 @@
+
+createTT();
 // chart data
 const labels = ["tue", "wed", "thu", "fri", "sat"];
 let data = {
@@ -88,6 +90,34 @@ for (let i = 1; i < 6; i++) {
         }
         document.querySelector(`.week_${i} .class_${j}`).classList.add("alloc");
     }
+}
+
+function createTT(){
+    const weeks = ["Tue","Wed","Thu","Fri","Sat"];
+    let s = `<div class="times">
+                <div class="day_time_l">Day/Time</div>
+                <div class="class_label 1">9:30AM</div>
+                <div class="class_label 2">10:20AM</div>
+                <div class="class_label 3">11:10AM</div>
+                <div class="class_label 4">12:00PM</div>
+                <div class="class_label 5">01:40PM</div>
+                <div class="class_label 6">02:30PM</div>
+                <div class="class_label 7">03:20PM</div>
+                <div class="class_label 8">04:10PM</div>
+            </div>`;
+    for(j=1; j<=5; j++){
+        s = s + `<div class="week week_${j}">
+                    <div class="week_names">${weeks[j-1]}</div>`;
+        for(i=1;i<=8;i++){
+            s = s + `   <div class="class class_${i}" title="OOPS, SEM 5, LH-123">
+                            <div>OOPS</div>
+                            <div>SEM 5</div>                           
+                            <div>LH-123</div>
+                        </div>`
+        }
+        s = s + `</div>`
+    }
+    document.querySelector(".set_time_chart .att_chart").innerHTML = s;
 }
 // var b = new teach([545]);
 // function fun(a)

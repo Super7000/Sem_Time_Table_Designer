@@ -1,0 +1,149 @@
+.menubar {
+    background: #fff;
+    box-shadow: 0 0 25px rgba(30, 144, 255, 0.3);
+    float: left;
+    min-height: 100vh;
+    width: 10%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    transition: 0.3s;
+    z-index: 5;
+    overflow: hidden;
+}
+
+.menubar.active {
+    width: 20%;
+}
+
+.menubar.active .title {
+    font-size: 24px;
+}
+
+.menubar.active .link {
+    flex-direction: row;
+    justify-content: left;
+    margin-left: 20%;
+    width: 90%;
+}
+
+.menubar.active .link p {
+    margin-left: 15px;
+    font-size: 15px;
+}
+
+.menubar .m_t_arrow {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 0 10px 10px 0;
+    padding: 7px;
+    left: 10%;
+    transform: translate(-55%, 0);
+    z-index: 5;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.menubar.active .m_t_arrow {
+    left: 17.5%;
+    border-radius: 10px 0px 0px 10px;
+    transform: translate(-56%, 0) rotate(-180deg);
+}
+
+.menubar .link {
+    text-decoration: none;
+    width: 70px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.menubar .link:hover svg {
+    background: #1479FF;
+    color: #fff;
+    box-shadow: 5px 10px 15px rgba(30, 144, 255, 0.5);
+}
+
+.menubar .link.export:hover svg {
+    background: #1479FF;
+    color: #fff;
+    box-shadow: -5px -10px 15px rgba(30, 144, 255, 0.5);
+}
+
+.menubar .link.export svg {
+    transform: rotate(180deg);
+}
+
+
+.menubar .link:hover p {
+    color: #1479FF;
+}
+
+.menubar .link:hover svg path {
+    fill: #fff;
+}
+
+.menubar .link.active svg {
+    background: #1479FF;
+    color: #fff;
+    box-shadow: 5px 10px 15px rgba(30, 144, 255, 0.5);
+
+}
+
+.menubar .link.active svg path {
+    fill: #fff;
+}
+
+.menubar .link.active p {
+    color: #1479FF;
+
+}
+
+
+.menubar .link svg {
+    min-width: 25px;
+    min-height: 25px;
+    width: 25px;
+    height: 25px;
+    padding: 10px;
+    background: #edf1f7;
+    transition: 0.3s;
+    border-radius: 10px;
+    color: #1479FF;
+    transition: 0.3s;
+}
+
+.menubar svg path {
+    fill: #1479FF;
+}
+
+.menubar .link p {
+    margin: 0;
+    margin-top: 3px;
+    color: #000;
+    transition: 0.3s;
+    font-size: 12px;
+    transition: 0.3s;
+}
+
+.menubar .title {
+    font-size: 20px;
+    color: #1479FF;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.menubar input {
+    position: absolute;
+    height: 80px;
+    width: 13.7%;
+    opacity: 0;
+}
+

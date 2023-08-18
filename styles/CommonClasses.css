@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    user-select: none;
+}
+
+.container {
+    min-height: calc(100vh-20px);
+    width: 100%;
+    position: relative;
+    padding: 20px;
+    background: #ebebeb;
+}
