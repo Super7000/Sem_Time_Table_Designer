@@ -168,21 +168,6 @@
                             <path d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"/>
                         </svg>
                     </div>
-                    <div class="card">SUB15</div>
-                    <div class="card">SUB14</div>
-                    <div class="card">SUB13</div>
-                    <div class="card">SUB12</div>
-                    <div class="card">SUB11</div>
-                    <div class="card">SUB10</div>
-                    <div class="card">SUB9</div>
-                    <div class="card">SUB8</div>
-                    <div class="card">SUB7</div>
-                    <div class="card">SUB6</div>
-                    <div class="card">SUB5</div>
-                    <div class="card">SUB4</div>
-                    <div class="card">SUB3</div>
-                    <div class="card">SUB2</div>
-                    <div class="card">SUB1</div>
                 </div>
                 <div class="t_d s_d"> <!--t_d = teacher details-->
                     <div class="con heading">
@@ -194,7 +179,7 @@
                     </div>
                     <div class="con sems">
                         <div>Semester</div>
-                        <input type="number" placeholder="Ex. 5, 3, 8 (Priority: 5 > 3 > 8)">
+                        <input type="number" min="1" max="8" placeholder="Ex. 5">
                     </div>
                     <div class="con a_time">
                         <div>Lecture Count per Week</div>
@@ -216,6 +201,7 @@
             </div>
         
     </body>
-    <script src="./scripts/AddTeacher.js"></script>
+    <script src="./scripts/AddSubjects.js"></script>
+    <script src="./scripts/AddSub_and_AddTeac.js"></script>
     <script src="./scripts/Common.js"></script>
 </html>
