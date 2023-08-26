@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="styles/Menubar.css">
+        <link rel="stylesheet" href="styles/CommonClasses.css">
+        <link rel="stylesheet" href="styles/TimeTable.css">
+        <link rel="stylesheet" href="styles/TimeTablesStyle.css">
+    </head>
+    <script type="module">
+        import {Algorithm} from "./scripts/Algorithms.js";
+        import * as util from "./scripts/Util.js";
+        var t1 = new util.Teacher("SKB",[5,4,6],[],["JAVA","PYTHON","DSA"]);
+        var s1 = new util.Subject("JAVA",5,5,false);
+        var t = new Algorithm([t1],[s1]);
+        console.log(t);
+    </script>
+    <body class="active">
+            <div class="menubar active">
+            </div>
+            <div class="container">
+                <div class="subcon">
+                    <div class="top">
+                        <div class="sem_cards_container">
+                            <svg viewBox="0 0 96 96" class="l_t_arrow arrow" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M69.8437,43.3876,33.8422,13.3863a6.0035,6.0035,0,0,0-7.6878,9.223l30.47,25.39-30.47,25.39a6.0035,6.0035,0,0,0,7.6878,9.2231L69.8437,52.6106a6.0091,6.0091,0,0,0,0-9.223Z"/>
+                            </svg>
+                            <div class="cards">
+                                <div class="active">Sem 1</div>
+                                <div>Sem 2</div>
+                                <div>Sem 3</div>
+                                <div>Sem 4</div>
+                                <div>Sem 5</div>
+                                <div>Sem 6</div>
+                                <div>Sem 7</div>
+                                <div>Sem 8</div>
+                            </div>
+                            
+                            <svg viewBox="0 0 96 96" class="r_t_arrow arrow" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M69.8437,43.3876,33.8422,13.3863a6.0035,6.0035,0,0,0-7.6878,9.223l30.47,25.39-30.47,25.39a6.0035,6.0035,0,0,0,7.6878,9.2231L69.8437,52.6106a6.0091,6.0091,0,0,0,0-9.223Z"/>
+                            </svg>
+                        </div>
+                        <div class="filters">
+                            <div class="options">
+                                <div class="opt">Auto Fill</div>
+                                <div class="opt">Auto Fill All Semesters</div>
+                                <div class="opt active">Fill Manually</div>
+                            </div>
+                            <div class="section">
+                                <div class="sec">A</div>
+                                <div class="sec active">B</div>
+                                <div class="sec">C</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="set_time_chart">
+                        <p>Time Table for Sem 1 Sec B</p>
+                        <div class="att_chart"> <!-- att = Allocated time table -->
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </body>    
+    <script src="./scripts/TimeTable.js"></script>
+    <script src="./scripts/Common.js"></script>
+</html>

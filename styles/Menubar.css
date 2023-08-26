@@ -3,7 +3,6 @@
     box-shadow: 0 0 25px rgba(30, 144, 255, 0.3);
     float: left;
     min-height: 100vh;
-    width: 10%;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -11,10 +10,6 @@
     transition: 0.3s;
     z-index: 5;
     overflow: hidden;
-}
-
-.menubar.active {
-    width: 20%;
 }
 
 .menubar.active .title {
@@ -48,7 +43,7 @@
 }
 
 .menubar.active .m_t_arrow {
-    left: 17.5%;
+    left: 15%;
     border-radius: 10px 0px 0px 10px;
     transform: translate(-56%, 0) rotate(-180deg);
 }
@@ -146,4 +141,3 @@
     width: 13.7%;
     opacity: 0;
 }
-

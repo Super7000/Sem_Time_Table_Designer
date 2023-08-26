@@ -9,6 +9,9 @@ document.querySelectorAll(".card").forEach((t) => {
 });
 
 document.querySelector(".add.card").addEventListener("click",()=>{
+    document.querySelectorAll(".t_d .con input").forEach((e)=>{
+        e.value = "";
+    });
     document.querySelectorAll(".t_d .con input")[0].focus();
 });
 
