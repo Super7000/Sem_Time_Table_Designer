@@ -35,12 +35,12 @@ function showcards(){
     document.querySelectorAll(".teachers .r_cards .t_card")[0].classList.add("active");
 }
 showcards();
+createTT();
 
 window.onload = ()=>{    
     document.querySelector(".teachers .r_cards .t_card.active").click();
 }
 
-createTT();
 
 document.querySelector(".r_cards").addEventListener("wheel", (evt) => {
     evt.preventDefault();
@@ -78,39 +78,52 @@ document.querySelectorAll(".t_card").forEach((t) => {
     })
 });
 
-for (let i = 1; i < 6; i++) {
-    for (let j = 0; j < 9; j += Math.floor(Math.random() * 4)) {
-        if (j == 0) {
-            j = Math.floor(Math.random() * 4) + 1;
-        }
-        document.querySelector(`.week_${i} .class_${j}`).classList.add("alloc");
-    }
-}
+// for (let i = 1; i < 6; i++) {
+//     for (let j = 0; j < 9; j += Math.floor(Math.random() * 4)) {
+//         if (j == 0) {
+//             j = Math.floor(Math.random() * 4) + 1;
+//         }
+//         if(document.querySelector(`.week_${i} .class_${j}`)!=null)
+//         {
+//             document.querySelector(`.week_${i} .class_${j}`).classList.add("alloc");
+//         }
+//     }
+// }
 
 function createTT(){
     const weeks = ["Tue","Wed","Thu","Fri","Sat"];
+    const time = ["9:30AM","10:20AM","11:10AM","12:00PM","01:40PM","02:30PM","03:20PM","04:10PM"];
+    const time2 = ["9:30AM","10:20AM","11:10AM","12:00PM","01:40PM","02:30PM","03:20PM"];
     let s = `<div class="times">
-                <div class="day_time_l">Day/Time</div>
-                <div class="class_label 1">9:30AM</div>
-                <div class="class_label 2">10:20AM</div>
-                <div class="class_label 3">11:10AM</div>
-                <div class="class_label 4">12:00PM</div>
-                <div class="class_label 5">01:40PM</div>
-                <div class="class_label 6">02:30PM</div>
-                <div class="class_label 7">03:20PM</div>
-                <div class="class_label 8">04:10PM</div>
-            </div>`;
+                <div class="day_time_l">Day/Time</div>`;
+    for(k=1;k<=8;k++){
+        s += `<div class="class_label ${k}">${time[k-1]}</div>`;
+    }
+    s += `</div>`;
     for(j=1; j<=5; j++){
-        s = s + `<div class="week week_${j}">
+        s = s + `<div class="s_for_grid week week_${j}">
                     <div class="week_names">${weeks[j-1]}</div>`;
-        for(i=1;i<=8;i++){
-            s = s + `   <div class="class class_${i}" title="OOPS, SEM 5, LH-123">
-                            <div>OOPS</div>
-                            <div>SEM 5</div>                           
-                            <div>LH-123</div>
-                        </div>`
+        let pc=(Math.random());
+        if(pc<0.5){pc=5}else{pc=8};
+        for(i=1;i<=pc;i++){
+            s = s + `   <div class="s_for_grid class class_${i}">
+                            <div class="period">
+                                <div>OOPS</div>
+                                <div>SKB</div>                           
+                                <div>LH-123</div>
+                            </div>
+                        </div>`;
         }
-        s = s + `</div>`
+        if(pc==5){
+            s = s + `   <div class="s_for_grid class class_${i++}" style="grid-column: 7 / span 3;">
+                            <div class="period">
+                                <div>OOPS</div>
+                                <div>SKB</div>                           
+                                <div>LH-123</div>
+                            </div>
+                        </div>`;
+        }
+        s = s + `</div>`;
     }
     document.querySelector(".set_time_chart .att_chart").innerHTML = s;
 }
@@ -135,6 +148,47 @@ function createTT(){
 
 //     fr.readAsText(file);
 // }
+
+
+
+
+
+
+
+
+// const weeks = ["Tue","Wed","Thu","Fri","Sat"];
+//     let s = `<div class="times">
+//                 <div class="day_time_l">Day/Time</div>
+//                 <div class="class_label 1">9:30AM</div>
+//                 <div class="class_label 2">10:20AM</div>
+//                 <div class="class_label 3">11:10AM</div>
+//                 <div class="class_label 4">12:00PM</div>
+//                 <div class="class_label 5">01:40PM</div>
+//                 <div class="class_label 6">02:30PM</div>
+//                 <div class="class_label 7">03:20PM</div>
+//                 <div class="class_label 8">04:10PM</div>
+//             </div>`;
+//     for(j=1; j<=5; j++){
+//         s = s + `<div class="week week_${j}">
+//                     <div class="week_names">${weeks[j-1]}</div>`;
+//         for(i=1;i<=8;i++){
+//             s = s + `   <div class="class class_${i}" title="OOPS, SEM 5, LH-123">
+//                             <div>OOPS</div>
+//                             <div>SEM 5</div>                           
+//                             <div>LH-123</div>
+//                         </div>`
+//         }
+//         s = s + `</div>`
+//     }
+//     document.querySelector(".set_time_chart .att_chart").innerHTML = s;
+
+
+
+
+
+
+
+
 
 
 // chart data

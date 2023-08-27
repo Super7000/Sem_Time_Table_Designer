@@ -162,7 +162,6 @@ tmenubar();
 let active = true;
 function to_m_mb_res(){
     let w = window.outerWidth;
-    console.log(w);
     if(active == true && w < 1355){
         active = false;
         document.querySelector("body").classList.toggle("active");

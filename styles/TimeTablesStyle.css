@@ -1,12 +1,18 @@
 .subcon
 {
-    background: #ebebeb;
-    border-radius: 20px;
+    display: grid;
+    grid-template-rows: 20% auto;
+    gap: 10px;
+    padding: 10px;
+    height: 100%;
+    position: relative;
+    top: -10px;
 }
 .top
 {
-    background: #ebebeb;
-    height: 20%;
+    /* background: #ebebeb; */
+    display: grid;
+    grid-template-rows: auto auto;
 }
 .top .sem_cards_container,
 .top .options, .top .section{
@@ -14,17 +20,14 @@
     grid-auto-flow: column;
     justify-content: center;
     align-items: center;
-    height: 55px;
     position: relative;
     gap: 10px;
-    cursor: pointer;
 }
 .top .sem_cards_container{
     width: 90%;
     left: 5%;
-    top: 10px;
 }
-.set_time_chart{
+/* .set_time_chart{
     height: 80%;
     border-radius: 20px;
 }
@@ -45,7 +48,7 @@
     width: 90%;
     height: 85%;
     box-shadow: 0 0 20px rgba(30, 144, 255, 0.3);
-}
+} */
 .container .top .cards{
     width: 100%;
     height: 55px;
@@ -103,7 +106,6 @@
 {
     position: relative;
     left: 5%;
-    top: 20px;
     width: 90%;
     display: grid;
     grid-template-columns: auto auto auto;
@@ -121,6 +123,7 @@
     box-shadow: 0 0 0px 2px #fff,
                 0 0 20px rgba(0, 0, 0, 0.1);
     transition: 0.2s;
+    cursor: pointer;
 }
 .top .options div.active,.top .options div.active:hover{
     padding: 8px 18px;
@@ -145,6 +148,7 @@
     box-shadow: 0 0 0px 2px #fff,
                 0 0 20px rgba(0, 0, 0, 0.1);
     transition: 0.2s;
+    cursor: pointer;
 }
 .top .section div.active,.top .section div.active:hover{
     box-shadow: 0 0 0px 2px dodgerblue, 
@@ -160,7 +164,7 @@
         0 0 0px 6px dodgerblue,
         0 0 20px rgba(30, 144, 255, 1);
 }
-
+/* 
 .set_time_chart .att_chart .week .class {
     width: 105px;
     transition: 0.3s;
@@ -175,7 +179,7 @@
 .att_chart .week .class .period{
     top: 0px;
 }
-/* 
+
 
 .set_time_chart .att_chart .week:nth-child(4) .class.alloc svg{
     background: #1083ca;

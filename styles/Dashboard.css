@@ -192,6 +192,7 @@
 
 .right .details {
     position: relative;
+    top: 25px;
     height: 16%;
     width: 100%;
     grid-area: 6;
@@ -251,16 +252,6 @@
     padding: 0 5px;
 }
 
-.right .main_chart {
-    position: relative;
-    max-width: 350px;
-    max-height: 250px;
-    left: 50%;
-    top: 40%;
-    transform: translate(-55%, -50%);
-    margin: 0;
-}
-
 .r_cards .t_card svg {
     width: 15px;
     height: 15px;
@@ -271,4 +262,30 @@
     right: 5px;
     cursor: pointer;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+
+/* Time Table */
+
+
+.set_time_chart {
+    height: 45%;
+    width: 95%;
+    position: relative;
+    top: -10px;
+    left: 2.5%;
+}
+.set_time_chart p {
+    font-size: 18px;
+}
+.set_time_chart .att_chart {
+    height: 100%;
+    font-size: 12px;
+}
+.period {
+    padding: 0;
+    height: 90%;
 }

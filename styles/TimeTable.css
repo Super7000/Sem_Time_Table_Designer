@@ -1,4 +1,4 @@
-.set_time_chart {
+/* .set_time_chart {
     position: relative;
     top: 0;
     height: 50%;
@@ -39,6 +39,7 @@
     height: 35px;
     align-items: center;
     font-size: 12px;
+    background: yellow;
 }
 
 .set_time_chart .att_chart .week .class {
@@ -118,6 +119,7 @@
     top: -27.5px;
     width: 100%;
     transition: 0.3s;
+    background: greenyellow;
 }
 .week .class:hover .period
 {
@@ -141,6 +143,69 @@
 .week .week_names{
     width: 70px;
     height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rebeccapurple
+}
+.class_label{
+    background: red;
+} */
+
+
+
+.set_time_chart{
+    /* background: blue; */
+}
+
+.set_time_chart p {
+    /* background: #fff; */
+    font-size: 26px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    margin: 7px 0;
+}
+.att_chart {
+    display: grid;
+    grid-template-rows: auto auto auto auto auto auto;
+    height: 90%;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    padding-bottom: 5px;
+    padding-left: 0px;
+}
+.set_time_chart .times, .set_time_chart .week {
+    /* background:dodgerblue; */
+    display: grid;
+    grid-template-columns: 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5%;
+    justify-content: space-around;
+    justify-items: center;
+}
+.set_time_chart .times div{
+    /* background: darkorchid; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.set_time_chart .week .s_for_grid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background: violet; */
+}
+.period {
+    width: 100%;
+    padding: 10px 0;
+    background: dodgerblue;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+}
+.period div {
     display: flex;
     justify-content: center;
     align-items: center;

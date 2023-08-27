@@ -60,11 +60,11 @@ function createTT(){
     s += `</div>`;
     for(j=1; j<=5; j++){
         s = s + `<div class="week week_${j}">
-                    <div class="week_names">${weeks[j-1]}</div>`;
+                    <div class="s_for_grid week_names">${weeks[j-1]}</div>`;
         let pc=(Math.random());
         if(pc<0.5){pc=5}else{pc=8};
         for(i=1;i<=pc;i++){
-            s = s + `   <div class="class class_${i} alloc">
+            s = s + `   <div class="s_for_grid class class_${i} alloc">
                             <div class="period">
                                 <div>OOPS</div>
                                 <div>SKB</div>                           
@@ -73,11 +73,11 @@ function createTT(){
                         </div>`;
         }
         if(pc==5){
-            s = s + `   <div class="class class_${i++} alloc" style="grid-column: 7 / span 3; width: ${105*3}px">
+            s = s + `   <div class="s_for_grid class class_${i++} alloc" style="grid-column: 7 / span 3;">
                             <div class="period">
-                                <div>OOPS</div>
-                                <div>SKB</div>                           
-                                <div>LH-123</div>
+                                <div>OS</div>
+                                <div>DG</div>                           
+                                <div>LAB-1/2/3</div>
                             </div>
                         </div>`;
         }
