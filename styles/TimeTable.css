@@ -154,9 +154,9 @@
 
 
 
-.set_time_chart{
-    /* background: blue; */
-}
+/* .set_time_chart{
+    background: blue;
+} */
 
 .set_time_chart p {
     /* background: #fff; */
@@ -190,11 +190,18 @@
 }
 .set_time_chart .week .s_for_grid {
     width: 100%;
-    height: 100%;
+    height: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
     /* background: violet; */
+}
+.set_time_chart .week .class{
+    opacity: 0;
+}
+.set_time_chart .week .class.alloc{
+    opacity: 1;
+    cursor: pointer;
 }
 .period {
     width: 100%;
@@ -203,10 +210,37 @@
     border-radius: 5px;
     font-weight: bold;
     color: #fff;
-    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .period div {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.set_time_chart .att_chart .week:nth-child(4) .class.alloc .period{
+    background: #14A5FF;
+    box-shadow:
+                5px 5px 10px rgba(20, 165, 255, 0.5);
+}
+
+.set_time_chart .att_chart .week .class.alloc .period{
+    background: #1479FF;
+    box-shadow:
+                5px 5px 10px rgba(20, 121, 255, 0.5);
+}
+
+.set_time_chart .att_chart .week:nth-child(3) .class.alloc .period{
+    background: #14D2FF;
+    box-shadow:
+                5px 5px 10px rgba(20, 210, 255, 0.5);
+}
+
+.set_time_chart .att_chart .week:nth-child(5) .class.alloc .period{
+    background: #37DBE6;
+    box-shadow: 
+                5px 5px 10px rgba(55, 219, 230, 0.5);
 }

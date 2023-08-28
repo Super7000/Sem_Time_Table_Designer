@@ -192,7 +192,7 @@
 
 .right .details {
     position: relative;
-    top: 25px;
+    top: 35px;
     height: 16%;
     width: 100%;
     grid-area: 6;
@@ -272,7 +272,7 @@
 
 
 .set_time_chart {
-    height: 45%;
+    height: 43.5%;
     width: 95%;
     position: relative;
     top: -10px;
@@ -288,4 +288,7 @@
 .period {
     padding: 0;
     height: 90%;
+}
+.set_time_chart .week .s_for_grid{
+    height: 100%;
 }

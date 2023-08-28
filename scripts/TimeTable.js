@@ -1,4 +1,4 @@
-createTT();
+createTT(1);
 
 document.querySelector(".cards").addEventListener("wheel", (evt) => {
     evt.preventDefault();
@@ -45,16 +45,30 @@ document.querySelectorAll(".sem_cards_container .cards div").forEach((c)=>{
             let s = document.querySelector(".set_time_chart p").innerHTML
             s = s.slice(0,15) + c.innerHTML + s.slice(20,s.length);
             document.querySelector(".set_time_chart p").innerHTML = s;
+
+            //updating Time Table
+            if(c.innerHTML == "Sem 1" || c.innerHTML =="Sem 2"){
+                createTT(1);
+            } else {
+                createTT();
+            }
         }
     })
 })
-function createTT(){
+function createTT(year){
     const weeks = ["Tue","Wed","Thu","Fri","Sat"];
-    const time = ["9:30AM","10:20AM","11:10AM","12:00PM","01:40PM","02:30PM","03:20PM","04:10PM"];
-    const time2 = ["9:30AM","10:20AM","11:10AM","12:00PM","01:40PM","02:30PM","03:20PM"];
+    let time = ["9:30AM","10:20AM","11:10AM","12:00PM","01:40PM","02:30PM","03:20PM","04:10PM"];
+    const time2 = ["9:30AM","10:20AM","11:10AM","12:00PM","02:30PM","03:20PM","04:10PM"];
+    let tl=8;
+    let span_len=3;
+    if(year==1){
+        time = time2;
+        tl = 7;
+        span_len = 2;
+    }
     let s = `<div class="times">
                 <div class="day_time_l">Day/Time</div>`;
-    for(k=1;k<=8;k++){
+    for(k=1;k<=tl;k++){
         s += `<div class="class_label ${k}">${time[k-1]}</div>`;
     }
     s += `</div>`;
@@ -62,7 +76,7 @@ function createTT(){
         s = s + `<div class="week week_${j}">
                     <div class="s_for_grid week_names">${weeks[j-1]}</div>`;
         let pc=(Math.random());
-        if(pc<0.5){pc=5}else{pc=8};
+        if(pc<0.5){pc=5}else{if(year!=1){pc=8}else{pc=7}};
         for(i=1;i<=pc;i++){
             s = s + `   <div class="s_for_grid class class_${i} alloc">
                             <div class="period">
@@ -73,7 +87,7 @@ function createTT(){
                         </div>`;
         }
         if(pc==5){
-            s = s + `   <div class="s_for_grid class class_${i++} alloc" style="grid-column: 7 / span 3;">
+            s = s + `   <div class="s_for_grid class class_${i++} alloc" style="grid-column: 7 / span ${span_len};">
                             <div class="period">
                                 <div>OS</div>
                                 <div>DG</div>                           
@@ -84,4 +98,10 @@ function createTT(){
         s = s + `</div>`;
     }
     document.querySelector(".set_time_chart .att_chart").innerHTML = s;
+    if(year==1){        
+        document.querySelectorAll(".week").forEach((e)=>{
+            e.style.cssText = "grid-template-columns: 11.5% 11.5% 11.5% 11.5% 11.5% 11.5% 11.5% 11.5%;";
+        })
+        document.querySelector(".times").style.cssText = "grid-template-columns: 11.5% 11.5% 11.5% 11.5% 11.5% 11.5% 11.5% 11.5%;";
+    }
 }

@@ -78,22 +78,26 @@ document.querySelectorAll(".t_card").forEach((t) => {
     })
 });
 
-// for (let i = 1; i < 6; i++) {
-//     for (let j = 0; j < 9; j += Math.floor(Math.random() * 4)) {
-//         if (j == 0) {
-//             j = Math.floor(Math.random() * 4) + 1;
-//         }
-//         if(document.querySelector(`.week_${i} .class_${j}`)!=null)
-//         {
-//             document.querySelector(`.week_${i} .class_${j}`).classList.add("alloc");
-//         }
-//     }
-// }
+for (let i = 1; i < 6; i++) {
+    for (let j = 1; j < 9; j++) {
+        let a_v = false;
+        if(Math.random()<=0.5){
+            a_v = true;
+        } else {
+            a_v = false;
+        }
+        if(document.querySelector(`.week_${i} .class_${j}`)!=null && a_v == true)
+        {
+            document.querySelector(`.week_${i} .class_${j}`).classList.add("alloc");
+        }
+    }
+}
 
-function createTT(){
+function createTT(year){
     const weeks = ["Tue","Wed","Thu","Fri","Sat"];
     const time = ["9:30AM","10:20AM","11:10AM","12:00PM","01:40PM","02:30PM","03:20PM","04:10PM"];
     const time2 = ["9:30AM","10:20AM","11:10AM","12:00PM","01:40PM","02:30PM","03:20PM"];
+    
     let s = `<div class="times">
                 <div class="day_time_l">Day/Time</div>`;
     for(k=1;k<=8;k++){
@@ -101,10 +105,10 @@ function createTT(){
     }
     s += `</div>`;
     for(j=1; j<=5; j++){
-        s = s + `<div class="s_for_grid week week_${j}">
-                    <div class="week_names">${weeks[j-1]}</div>`;
+        s = s + `<div class="week week_${j}">
+                    <div class="s_for_grid week_names">${weeks[j-1]}</div>`;
         let pc=(Math.random());
-        if(pc<0.5){pc=5}else{pc=8};
+        if(pc<0.5){pc=5}else{if(year!=1){pc=8}else{pc=7}};
         for(i=1;i<=pc;i++){
             s = s + `   <div class="s_for_grid class class_${i}">
                             <div class="period">
