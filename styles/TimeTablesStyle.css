@@ -24,8 +24,8 @@
     gap: 10px;
 }
 .top .sem_cards_container{
-    width: 90%;
-    left: 5%;
+    width: 95%;
+    left: 2.5%;
 }
 /* .set_time_chart{
     height: 80%;
@@ -105,8 +105,8 @@
 .top .filters
 {
     position: relative;
-    left: 5%;
-    width: 90%;
+    left: 2.5%;
+    width: 95%;
     display: grid;
     grid-template-columns: auto auto auto;
 }

@@ -1,6 +1,6 @@
 function showcards(){
     let s = "";
-    let i = 18;
+    let i = 35;
     for(i; i >= 1; i--){
         s += `<div class="d_card card">SIR${i}</div>`;
     }

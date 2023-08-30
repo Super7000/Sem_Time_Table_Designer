@@ -5,6 +5,7 @@
 }
 .cards{
     width: 100%;
+    max-height: 92vh;
     height: 100%;
     display: grid;
     grid-template-columns: 100px 100px 100px 100px 100px 100px;

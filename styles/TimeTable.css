@@ -163,17 +163,24 @@
     font-size: 26px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 700;
-    margin: 7px 0;
+    margin: 0;
+    margin-bottom: 10px;
+    position: relative;
+    left: 20px;
 }
 .att_chart {
     display: grid;
     grid-template-rows: auto auto auto auto auto auto;
     height: 90%;
+    width: 97%;
+    position: relative;
+    left: 1.5%;
     background: #fff;
     border-radius: 10px;
     padding: 10px;
     padding-bottom: 5px;
     padding-left: 0px;
+    box-shadow: 0 0 15px rgba(30, 144, 255, 0.3);
 }
 .set_time_chart .times, .set_time_chart .week {
     /* background:dodgerblue; */

@@ -113,7 +113,7 @@ function createTT(year){
             s = s + `   <div class="s_for_grid class class_${i}">
                             <div class="period">
                                 <div>OOPS</div>
-                                <div>SKB</div>                           
+                                <div>SEM</div>                           
                                 <div>LH-123</div>
                             </div>
                         </div>`;
@@ -122,7 +122,7 @@ function createTT(year){
             s = s + `   <div class="s_for_grid class class_${i++}" style="grid-column: 7 / span 3;">
                             <div class="period">
                                 <div>OOPS</div>
-                                <div>SKB</div>                           
+                                <div>SEM</div>                           
                                 <div>LH-123</div>
                             </div>
                         </div>`;
