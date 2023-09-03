@@ -19,6 +19,9 @@ body.active{
     background: rgba(235, 235, 235, 0.8);
 }
 
+
+/* Error Box Design */
+
 .errorBox {
     width: 25%;
     height: 60px;
@@ -59,4 +62,10 @@ body.active{
     background: rgba(0,0,0,0.1);
     width: 25px;
     border-radius: 50%;
+}
+
+.footer {
+    position: fixed;
+    bottom: 5px;
+    font-size: 12px;
 }

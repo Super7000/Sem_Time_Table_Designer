@@ -105,3 +105,19 @@ function createTT(year){
         document.querySelector(".times").style.cssText = "grid-template-columns: 11.5% 11.5% 11.5% 11.5% 11.5% 11.5% 11.5% 11.5%;";
     }
 }
+document.querySelectorAll(".week .class").forEach((e)=>{
+    e.addEventListener("click",()=>{
+        if(document.querySelector(".options .opt.manual.active")!=null){            
+            document.querySelector(".allocTeacherBox").classList.add("active");
+            document.querySelector(".allocTeacherBoxBG").classList.add("active");
+        }
+    })
+})
+window.onload = function(){
+    document.onclick = function(e){
+        if(e.target.classList[0] == "allocTeacherBoxBG"){
+            document.querySelector(".allocTeacherBox").classList.remove("active");
+            document.querySelector(".allocTeacherBoxBG").classList.remove("active");
+        }
+    };
+  };
