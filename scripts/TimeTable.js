@@ -6,12 +6,36 @@ function showcards(){
     let i = 35;
     for(i; i >= 1; i--){
         s += `<div class="d_card card">SIR${i}</div>`;
-        s2 += `<div class="d_card card disabled" onclick="terrorbox('Sir is Busy','255, 203, 130',5000)">SIR${i}</div>`;
+        s2 += `<div class="d_card card disabled" onclick="terrorbox('Sir is Busy','255, 203, 130',5000)">SIR${35+i}</div>`;
     }
     document.querySelectorAll(".cardsCon")[0].innerHTML = s;
     document.querySelectorAll(".cardsCon")[1].innerHTML = s2;
 }
 showcards();
+
+document.querySelectorAll(".d_card").forEach((e)=>{
+    e.addEventListener("click",()=>{
+        if(e!=document.querySelector(".d_card.active")){            
+            try {
+                document.querySelector(".d_card.active").classList.remove("active");
+            } catch (error) {
+                console.log(error);
+            }
+            e.classList.add("active");
+        }
+    })
+})
+
+function makeingClickTeacherCardClassActive(sirname){    
+    for(i=34;i>=0;i--){
+        var e = document.querySelectorAll(".d_card")[i];
+        if(e.innerHTML==`SIR${sirname}`){
+            e.click();
+            break;
+        }
+    }
+}
+makeingClickTeacherCardClassActive();
 
 document.querySelector(".cards").addEventListener("wheel", (evt) => {
     evt.preventDefault();
@@ -65,6 +89,9 @@ document.querySelectorAll(".sem_cards_container .cards div").forEach((c)=>{
             } else {
                 createTT();
             }
+
+            //Making click listener for class
+            clickListenerForClass();
         }
     })
 })
@@ -118,17 +145,23 @@ function createTT(year){
         document.querySelector(".times").style.cssText = "grid-template-columns: 11.5% 11.5% 11.5% 11.5% 11.5% 11.5% 11.5% 11.5%;";
     }
 }
-document.querySelectorAll(".week .class").forEach((e)=>{
-    e.addEventListener("click",()=>{
-        if(document.querySelector(".options .opt.manual.active")!=null){            
-            document.querySelector(".allocTeacherBox").classList.add("active");
-            document.querySelector(".allocTeacherBoxBG").classList.add("active");
-        }
+function clickListenerForClass(){
+    document.querySelectorAll(".week .class").forEach((e)=>{
+        e.addEventListener("click",()=>{
+            if(document.querySelector(".options .opt.manual.active")!=null){            
+                document.querySelector(".allocTeacherBox").classList.add("active");
+                document.querySelector(".allocTeacherBoxBG").classList.add("active");
+                
+                makeingClickTeacherCardClassActive(Math.floor((Math.random()*35)+1));
+            }
+        })
     })
-})
+}
+clickListenerForClass();
+
 window.onload = function(){
     document.onclick = function(e){
-        if(e.target.classList[0] == "allocTeacherBoxBG"){
+        if(e.target.classList[0] == "allocTeacherBoxBG" || e.target.classList[0] == "as" || e.target.classList[0] == "dnas"){
             document.querySelector(".allocTeacherBox").classList.remove("active");
             document.querySelector(".allocTeacherBoxBG").classList.remove("active");
         }

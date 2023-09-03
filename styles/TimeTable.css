@@ -362,6 +362,10 @@
 .allocTeacherBox .btns .btnOpts button:nth-child(2){
     background: orange;
 }
+.allocTeacherBox .btns .btnOpts button.notactive{
+    background: rgba(0,0,0,0.3);
+    cursor: unset;
+}
 .btnOpts{
     position: relative;
     right: 10px;
@@ -369,4 +373,8 @@
     grid-auto-flow: column;
     gap: 20px;
     justify-content: end;
+}
+.allocTeacherBox .heading{
+    font-size: 18px;
+    font-weight: bold;
 }
