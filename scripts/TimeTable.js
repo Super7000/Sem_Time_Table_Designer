@@ -1,5 +1,18 @@
 createTT(1);
 
+function showcards(){
+    let s = "";
+    let s2 = "";
+    let i = 35;
+    for(i; i >= 1; i--){
+        s += `<div class="d_card card">SIR${i}</div>`;
+        s2 += `<div class="d_card card disabled" onclick="terrorbox('Sir is Busy','255, 203, 130',5000)">SIR${i}</div>`;
+    }
+    document.querySelectorAll(".cardsCon")[0].innerHTML = s;
+    document.querySelectorAll(".cardsCon")[1].innerHTML = s2;
+}
+showcards();
+
 document.querySelector(".cards").addEventListener("wheel", (evt) => {
     evt.preventDefault();
     document.querySelector(".cards").scrollLeft += (evt.deltaY);
