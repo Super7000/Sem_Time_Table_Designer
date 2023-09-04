@@ -308,13 +308,19 @@
     gap: 15px;
     padding: 10px;
     justify-content: space-around;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
     border-radius: 10px;
     background: rgba(0, 0, 0, 0.1);
+    scroll-behavior: smooth;
 }
 .cardsCon::-webkit-scrollbar{
-    display: none;
+    width: 10px;
+}
+.cardsCon::-webkit-scrollbar-thumb{
+    background: rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.cardsCon::-webkit-scrollbar-thumb:hover{
+    background: rgba(0,0,0,0.3);
 }
 .card{
     background: #fff;

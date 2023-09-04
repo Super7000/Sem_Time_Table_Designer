@@ -54,7 +54,6 @@
     height: 55px;
     padding-right: 20px;
     scrollbar-width: 0;
-    background: #ebebeb;
     display: grid;
     grid-auto-flow: column;
     overflow: scroll;

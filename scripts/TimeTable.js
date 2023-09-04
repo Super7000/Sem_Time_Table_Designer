@@ -5,7 +5,7 @@ function showcards(){
     let s2 = "";
     let i = 35;
     for(i; i >= 1; i--){
-        s += `<div class="d_card card">SIR${i}</div>`;
+        s += `<div class="d_card card available" id="SIR${i}">SIR${i}</div>`;
         s2 += `<div class="d_card card disabled" onclick="terrorbox('Sir is Busy','255, 203, 130',5000)">SIR${35+i}</div>`;
     }
     document.querySelectorAll(".cardsCon")[0].innerHTML = s;
@@ -13,7 +13,10 @@ function showcards(){
 }
 showcards();
 
-document.querySelectorAll(".d_card").forEach((e)=>{
+let sirname;
+let clickedPeriodTime;
+
+document.querySelectorAll(".d_card.available").forEach((e)=>{
     e.addEventListener("click",()=>{
         if(e!=document.querySelector(".d_card.active")){            
             try {
@@ -22,20 +25,32 @@ document.querySelectorAll(".d_card").forEach((e)=>{
                 console.log(error);
             }
             e.classList.add("active");
+
+            //Making btns active
+            if(e.innerHTML != "SIR"+sirname){
+                if(document.querySelector(".btns .btnOpts .as.notactive")!=null){
+                    document.querySelector(".btns .btnOpts .as.notactive").classList.remove("notactive");
+                    document.querySelector(".btns .btnOpts .dnas.notactive").classList.remove("notactive");
+                }
+            } else {
+                if(document.querySelector(".btns .btnOpts .as.notactive")==null){
+                    document.querySelector(".btns .btnOpts .as").classList.add("notactive");
+                    document.querySelector(".btns .btnOpts .dnas").classList.add("notactive");
+                }
+            }
         }
     })
 })
 
-function makeingClickTeacherCardClassActive(sirname){    
-    for(i=34;i>=0;i--){
-        var e = document.querySelectorAll(".d_card")[i];
-        if(e.innerHTML==`SIR${sirname}`){
+function makeingClickTeacherCardClassActive(sirname){
+    document.querySelectorAll(".d_card.available").forEach((e)=>{
+        if(e.innerHTML==sirname){
             e.click();
-            break;
         }
-    }
+    });
+        
 }
-makeingClickTeacherCardClassActive();
+
 
 document.querySelector(".cards").addEventListener("wheel", (evt) => {
     evt.preventDefault();
@@ -118,7 +133,7 @@ function createTT(year){
         let pc=(Math.random());
         if(pc<0.5){pc=5}else{if(year!=1){pc=8}else{pc=7}};
         for(i=1;i<=pc;i++){
-            s = s + `   <div class="s_for_grid class class_${i} alloc">
+            s = s + `   <div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]">
                             <div class="period">
                                 <div>OOPS</div>
                                 <div>SKB</div>                           
@@ -127,7 +142,8 @@ function createTT(year){
                         </div>`;
         }
         if(pc==5){
-            s = s + `   <div class="s_for_grid class class_${i++} alloc" style="grid-column: 7 / span ${span_len};">
+            i++;
+            s = s + `   <div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]" style="grid-column: 7 / span ${span_len};">
                             <div class="period">
                                 <div>OS</div>
                                 <div>DG</div>                           
@@ -151,17 +167,33 @@ function clickListenerForClass(){
             if(document.querySelector(".options .opt.manual.active")!=null){            
                 document.querySelector(".allocTeacherBox").classList.add("active");
                 document.querySelector(".allocTeacherBoxBG").classList.add("active");
-                
-                makeingClickTeacherCardClassActive(Math.floor((Math.random()*35)+1));
+
+                sirname = Math.floor((Math.random()*35)+1);
+                makeingClickTeacherCardClassActive("SIR"+sirname);
+
+                if(window.location.hash != null)
+                {
+                    window.location.href = window.location.href.split("#")[0] + "#SIR"+sirname;
+                } else {
+                    window.location.href += "#SIR"+sirname;
+                }
+
+                clickedPeriodTime = JSON.parse(e.dataset.pt);
             }
         })
     })
 }
 clickListenerForClass();
 
+document.querySelector(".btns .btnOpts .as").addEventListener("click",()=>{
+    if(document.querySelector(".btns .btnOpts .as.notactive")==null){
+        document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = document.querySelector(".d_card.active").innerHTML;
+    }
+})
+
 window.onload = function(){
     document.onclick = function(e){
-        if(e.target.classList[0] == "allocTeacherBoxBG" || e.target.classList[0] == "as" || e.target.classList[0] == "dnas"){
+        if(e.target.classList[0] == "allocTeacherBoxBG" || e.target.classList == "as" || e.target.classList == "dnas"){
             document.querySelector(".allocTeacherBox").classList.remove("active");
             document.querySelector(".allocTeacherBoxBG").classList.remove("active");
         }
