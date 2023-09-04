@@ -13,6 +13,7 @@ function showcards(){
 }
 showcards();
 
+//Global variables
 let sirname;
 let clickedPeriodTime;
 
@@ -31,11 +32,13 @@ document.querySelectorAll(".d_card.available").forEach((e)=>{
                 if(document.querySelector(".btns .btnOpts .as.notactive")!=null){
                     document.querySelector(".btns .btnOpts .as.notactive").classList.remove("notactive");
                     document.querySelector(".btns .btnOpts .dnas.notactive").classList.remove("notactive");
+                    document.querySelector(".btns .btnOpts .rs").classList.add("notactive");
                 }
             } else {
                 if(document.querySelector(".btns .btnOpts .as.notactive")==null){
                     document.querySelector(".btns .btnOpts .as").classList.add("notactive");
                     document.querySelector(".btns .btnOpts .dnas").classList.add("notactive");
+                    document.querySelector(".btns .btnOpts .rs.notactive").classList.remove("notactive");
                 }
             }
         }
@@ -185,15 +188,24 @@ function clickListenerForClass(){
 }
 clickListenerForClass();
 
+
+//Yes btn click listener of allocated teacher box popup
 document.querySelector(".btns .btnOpts .as").addEventListener("click",()=>{
     if(document.querySelector(".btns .btnOpts .as.notactive")==null){
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = document.querySelector(".d_card.active").innerHTML;
     }
 })
 
+//Remove btn click listener of allocated teacher box popup
+document.querySelector(".btns .btnOpts .rs").addEventListener("click",()=>{
+    if(document.querySelector(".btns .btnOpts .rs.notactive")==null){
+        document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = "No Sir";
+    }
+})
+
 window.onload = function(){
     document.onclick = function(e){
-        if(e.target.classList[0] == "allocTeacherBoxBG" || e.target.classList == "as" || e.target.classList == "dnas"){
+        if(e.target.classList[0] == "allocTeacherBoxBG" || e.target.classList == "as" || e.target.classList == "dnas" || e.target.classList == "rs"){
             document.querySelector(".allocTeacherBox").classList.remove("active");
             document.querySelector(".allocTeacherBoxBG").classList.remove("active");
         }

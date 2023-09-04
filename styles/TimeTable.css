@@ -365,7 +365,7 @@
     border-radius: 10px;
     cursor: pointer;
 }
-.allocTeacherBox .btns .btnOpts button:nth-child(2){
+.allocTeacherBox .btns .btnOpts button:nth-child(1){
     background: orange;
 }
 .allocTeacherBox .btns .btnOpts button.notactive{
