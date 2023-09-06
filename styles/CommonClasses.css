@@ -46,10 +46,10 @@ body.active{
     top: 10px;
 }
 
-.errorBox .errorMsg {
-    /* position: relative;
-    left: 30px; */
-}
+/* .errorBox .errorMsg {
+    position: relative;
+    left: 30px;
+} */
 
 .cross svg{
     transform: rotate(45deg);
