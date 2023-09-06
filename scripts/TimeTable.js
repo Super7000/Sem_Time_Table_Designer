@@ -1,5 +1,7 @@
+//Printing HTML code of Time Table for first year
 createTT(1);
 
+//Printing Teacher Cards in Allocation Teacher Box 
 function showcards(){
     let s = "";
     let s2 = "";
@@ -14,8 +16,8 @@ function showcards(){
 showcards();
 
 //Global variables
-let sirname;
-let clickedPeriodTime;
+let sirname; //An unique ID for Sirs of String
+let clickedPeriodTime; //2D array of int Ex.: [1,2] means day 1 period 2
 
 document.querySelectorAll(".d_card.available").forEach((e)=>{
     e.addEventListener("click",()=>{
@@ -27,7 +29,7 @@ document.querySelectorAll(".d_card.available").forEach((e)=>{
             }
             e.classList.add("active");
 
-            //Making btns active
+            //Making Allocation Teacher Box Popup's btns active according to teacher card is clicked by user
             if(e.innerHTML != "SIR"+sirname){
                 if(document.querySelector(".btns .btnOpts .as.notactive")!=null){
                     document.querySelector(".btns .btnOpts .as.notactive").classList.remove("notactive");
@@ -51,7 +53,6 @@ function makeingClickTeacherCardClassActive(sirname){
             e.click();
         }
     });
-        
 }
 
 
@@ -66,6 +67,8 @@ document.querySelector(".r_t_arrow").addEventListener("click", () => {
     document.querySelector(".cards").scrollLeft += 190;
 });
 
+
+//Function of section btns for click listener
 document.querySelectorAll(".section .sec").forEach((c)=>{
     c.addEventListener("click",()=>{
         if (c != document.querySelector(".sec.active")) {
@@ -80,6 +83,7 @@ document.querySelectorAll(".section .sec").forEach((c)=>{
     })
 })
 
+//Click listener for option btns (Auto Fill, Auto Fill All Semester, Fill Manually)
 document.querySelectorAll(".options .opt").forEach((o)=>{
     o.addEventListener("click",()=>{
         if (o != document.querySelector(".opt.active")) {
@@ -89,7 +93,7 @@ document.querySelectorAll(".options .opt").forEach((o)=>{
     })
 })
 
-
+//Click Listener for Sem btns
 document.querySelectorAll(".sem_cards_container .cards div").forEach((c)=>{
     c.addEventListener("click",()=>{
         if (c != document.querySelector(".sem_cards_container .cards div.active")) {
@@ -113,17 +117,22 @@ document.querySelectorAll(".sem_cards_container .cards div").forEach((c)=>{
         }
     })
 })
+
+//Printing HTML code for Time Table when value of year is equal to 1 then it prints 7 periods per day outherwise 8 period per day
 function createTT(year){
     const weeks = ["Tue","Wed","Thu","Fri","Sat"];
     let time = ["9:30AM","10:20AM","11:10AM","12:00PM","01:40PM","02:30PM","03:20PM","04:10PM"];
     const time2 = ["9:30AM","10:20AM","11:10AM","12:00PM","02:30PM","03:20PM","04:10PM"];
     let tl=8;
     let span_len=3;
+
+    //checking value of year parameter and changing period counts accrding to it 
     if(year==1){
         time = time2;
         tl = 7;
         span_len = 2;
     }
+
     let s = `<div class="times">
                 <div class="day_time_l">Day/Time</div>`;
     for(k=1;k<=tl;k++){
@@ -157,6 +166,8 @@ function createTT(year){
         s = s + `</div>`;
     }
     document.querySelector(".set_time_chart .att_chart").innerHTML = s;
+
+    //Updating CSS of week class according to year parameter value
     if(year==1){        
         document.querySelectorAll(".week").forEach((e)=>{
             e.style.cssText = "grid-template-columns: 11.5% 11.5% 11.5% 11.5% 11.5% 11.5% 11.5% 11.5%;";
@@ -164,6 +175,8 @@ function createTT(year){
         document.querySelector(".times").style.cssText = "grid-template-columns: 11.5% 11.5% 11.5% 11.5% 11.5% 11.5% 11.5% 11.5%;";
     }
 }
+
+
 function clickListenerForClass(){
     document.querySelectorAll(".week .class").forEach((e)=>{
         e.addEventListener("click",()=>{
@@ -174,6 +187,8 @@ function clickListenerForClass(){
                 sirname = Math.floor((Math.random()*35)+1);
                 makeingClickTeacherCardClassActive("SIR"+sirname);
 
+
+                //Making Automatically Scrolled to Allocated teacher in Allocation Teacher Box Popup
                 if(window.location.hash != null)
                 {
                     window.location.href = window.location.href.split("#")[0] + "#SIR"+sirname;
@@ -203,6 +218,7 @@ document.querySelector(".btns .btnOpts .rs").addEventListener("click",()=>{
     }
 })
 
+//Hiding Allocation Teacher Box Popup when clicking outside of the box and btns
 window.onload = function(){
     document.onclick = function(e){
         if(e.target.classList[0] == "allocTeacherBoxBG" || e.target.classList == "as" || e.target.classList == "dnas" || e.target.classList == "rs"){

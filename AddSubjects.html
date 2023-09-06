@@ -42,11 +42,11 @@
                     </div>
                     <div class="con s_name">
                         <div>Subject Name</div>
-                        <input type="text" placeholder="Ex. PCC-CS501">
+                        <input type="text" placeholder="Ex. PCC-CS501" required>
                     </div>
                     <div class="con sems">
                         <div>Semester</div>
-                        <input type="number" min="1" max="8" placeholder="Ex. 5">
+                        <input type="number" min="1" max="8" placeholder="Ex. 5" required>
                     </div>
                     <div class="con a_time">
                         <div>Lecture Count per Week</div>
@@ -54,14 +54,14 @@
                     </div>
                     <div class="con c_room">
                         <div>Classroom</div>
-                        <input type="text" placeholder="Ex. LH-123, LH-124 ..">
+                        <input type="text" placeholder="Ex. LH-123, LH-124 .." required>
                     </div>
                     <div class="con s_type">
                         <div>Subject Type (On if sub. is Practical)</div>
                         <input type="checkbox">
                     </div>
                     <div class="btn_con">    
-                        <button class="dsb">Save</button> <!--dsb = details save button-->
+                        <button class="dsb new">Save</button> <!--dsb = details save button-->
                         <button class="ddb">Delete</button>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                 </div>
             </div>
     </body>
-    <script src="./scripts/AddSubjects.js"></script>
+    <script type="module" src="./scripts/AddSubjects.js"></script>
     <script src="./scripts/AddSub_and_AddTeac.js"></script>
     <script src="./scripts/Common.js"></script>
 </html>

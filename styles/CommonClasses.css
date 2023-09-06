@@ -23,8 +23,8 @@ body.active{
 /* Error Box Design */
 
 .errorBox {
-    width: 25%;
-    height: 60px;
+    /* width: 25%; 
+    height: 60px;*/
     background: rgb(255, 203, 130);
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
     position: fixed;
@@ -34,7 +34,9 @@ body.active{
     z-index: 8;
     border-radius: 10px;
     display: grid;
-    grid-template-columns: auto 15%;
+    grid-template-columns: auto 35px;
+    gap: 10px;
+    padding: 15px 20px;
     justify-content: space-between;
     align-items: center;
     transition: 0.3s;
@@ -45,8 +47,8 @@ body.active{
 }
 
 .errorBox .errorMsg {
-    position: relative;
-    left: 30px;
+    /* position: relative;
+    left: 30px; */
 }
 
 .cross svg{
@@ -57,10 +59,10 @@ body.active{
 }
 .cross{
     padding: 5px;
+    width: 25px;
 }
 .cross:hover {
     background: rgba(0,0,0,0.1);
-    width: 25px;
     border-radius: 50%;
 }
 

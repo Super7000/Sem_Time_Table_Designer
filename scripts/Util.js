@@ -112,3 +112,89 @@ export class SubjectList {
         return this.data.size;
     }
 }
+export function terrorbox(errMSg, color, timeout) {
+    document.querySelector(".errorBox").classList.add("active");
+    document.querySelector(".errorBox .errorMsg").innerHTML = errMSg;
+
+    if(color!=""){
+        document.querySelector(".errorBox").style.cssText = `background: rgb(${color});`;
+    }
+    document.querySelector(".close_err_btn.cross").addEventListener("click", () => {
+        document.querySelector(".errorBox").classList.remove("active");
+    })
+    setTimeout(() => {
+        if (document.querySelector(".errorBox.active") != null) {
+            document.querySelector(".errorBox").classList.remove("active");
+        };
+    }, timeout);
+}
+
+//Click listener for Cards
+export function clickListenerForCardActivator(){
+    document.querySelectorAll(".card").forEach((t) => {
+        t.addEventListener("click", () => {
+            if (t != document.querySelector(".card.active")) {
+                if(document.querySelector(".card.active")!=null){
+                    document.querySelector(".card.active").classList.remove("active");
+                }
+                t.classList.add("active");
+            }
+        })
+    });
+}
+
+export function addCardClickListener(){
+    document.querySelector(".add.card").addEventListener("click",()=>{
+        document.querySelectorAll(".t_d .con input").forEach((e)=>{
+            e.value = "";
+        });
+        document.querySelector(".btn_con .ddb").style.display = "none";
+        document.querySelectorAll(".t_d .con input")[0].focus();
+        if(document.querySelector(".dsb.edit")!=null){
+            document.querySelector(".dsb.edit").classList.remove("edit");
+            document.querySelector(".dsb").classList.add("new");
+        }
+    });
+}
+
+export function deleteBtnFunc(){
+    document.querySelector(".cBtns .cBtn").addEventListener("click",()=>{
+        document.querySelector(".d_card.active").remove();
+        document.querySelector(".add.card").click();
+    })
+}
+
+export function saveBtnClickListener(){
+    document.querySelector(".dsb").addEventListener("click",()=>{
+        let val = document.querySelectorAll(".con input")[0].value.toUpperCase();
+        if(val.length < 9){
+            if(document.querySelector(".dsb.new")!==null){        
+                let s=`<div class="d_card card" id="${val}">${val}</div>`;
+                document.querySelector(".add.card.active").insertAdjacentHTML("afterend", s);;
+                document.querySelectorAll(".con input").forEach((e)=>{
+                    e.value="";
+                })
+                clickListenerForCards();
+                clickListenerForCardActivator();
+            } 
+            if(document.querySelector(".dsb.edit")!==null){
+                document.querySelector(".d_card.active").innerHTML = val;
+            }
+        } else {
+            terrorbox("Length of the name must be less than 9","",5000);
+        }
+    })
+}
+
+export function clickListenerForCards(){ 
+    document.querySelectorAll(".cards .d_card").forEach((e)=>{
+        e.addEventListener("click",()=>{
+            document.querySelectorAll(".t_d .con input")[0].value = e.innerHTML;
+            document.querySelector(".btn_con .ddb").style.display = "block";
+            if(document.querySelector(".dsb.new")!=null){
+                document.querySelector(".dsb.new").classList.remove("new");
+                document.querySelector(".dsb").classList.add("edit");
+            }
+        })
+    })
+}

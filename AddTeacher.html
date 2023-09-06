@@ -42,18 +42,18 @@
                     </div>
                     <div class="con t_name">
                         <div>Teacher Name</div>
-                        <input type="text" placeholder="Ex. SKB">
+                        <input type="text" placeholder="Ex. SKB" required>
                     </div>
                     <div class="con s_names">
                         <div>Subject Names</div>
-                        <input type="text" placeholder="Ex. PCC-CS501, PCC-CS502, ..">
+                        <input type="text" placeholder="Ex. PCC-CS501, PCC-CS502, .." required>
                     </div>
                     <div class="con a_time">
                         <div>Avaiable Times</div>
-                        <input type="text" placeholder="Ex. (0,3),(0,5).. means (Mon,3rd Period)..">
+                        <input type="text" placeholder="Ex. (0,3),(0,5).. means (Mon,3rd Period).." required>
                     </div>
                     <div class="btn_con">    
-                        <button class="dsb">Save</button> <!--dsb = details save button-->
+                        <button class="dsb new">Save</button> <!--dsb = details save button-->
                         <button class="ddb">Delete</button>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
             </div>
         
     </body>
-    <script src="./scripts/AddTeacher.js"></script>
+    <script type="module" src="./scripts/AddTeacher.js"></script>
     <script src="./scripts/AddSub_and_AddTeac.js"></script>
     <script src="./scripts/Common.js"></script>
 </html>

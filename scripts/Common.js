@@ -188,18 +188,18 @@ window.addEventListener("resize", to_m_mb_res)
 
 //toggle error box
 
-function terrorbox(errMSg, color, timeout) {
-    document.querySelector(".errorBox").classList.add("active");
-    document.querySelector(".errorBox .errorMsg").innerHTML = errMSg;
+// function terrorbox(errMSg, color, timeout) {
+//     document.querySelector(".errorBox").classList.add("active");
+//     document.querySelector(".errorBox .errorMsg").innerHTML = errMSg;
 
-    document.querySelector(".errorBox").style.cssText = `background: rgb(${color});`;
-    document.querySelector(".close_err_btn.cross").addEventListener("click", () => {
-        document.querySelector(".errorBox").classList.remove("active");
-    })
-    setTimeout(() => {
-        if (document.querySelector(".errorBox.active") != null) {
-            document.querySelector(".errorBox").classList.remove("active");
-        };
-    }, timeout);
-}
+//     document.querySelector(".errorBox").style.cssText = `background: rgb(${color});`;
+//     document.querySelector(".close_err_btn.cross").addEventListener("click", () => {
+//         document.querySelector(".errorBox").classList.remove("active");
+//     })
+//     setTimeout(() => {
+//         if (document.querySelector(".errorBox.active") != null) {
+//             document.querySelector(".errorBox").classList.remove("active");
+//         };
+//     }, timeout);
+// }
 // terrorbox(`201, 255, 172`, `5000`);
