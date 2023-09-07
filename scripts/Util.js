@@ -112,6 +112,8 @@ export class SubjectList {
         return this.data.size;
     }
 }
+
+
 export function terrorbox(errMSg, color, timeout) {
     document.querySelector(".errorBox").classList.add("active");
     document.querySelector(".errorBox .errorMsg").innerHTML = errMSg;
@@ -127,4 +129,44 @@ export function terrorbox(errMSg, color, timeout) {
             document.querySelector(".errorBox").classList.remove("active");
         };
     }, timeout);
+}
+export function clickListenerForCardActivator() {
+    document.querySelectorAll(".card").forEach((t) => {
+        t.addEventListener("click", () => {
+            if (t != document.querySelector(".card.active")) {
+                if (document.querySelector(".card.active") != null) {
+                    document.querySelector(".card.active").classList.remove("active");
+                }
+                t.classList.add("active");
+            }
+        })
+    });
+}
+
+export function addCardClickListener() {
+    document.querySelector(".add.card").addEventListener("click", () => {
+        document.querySelectorAll(".t_d .con input").forEach((e) => {
+            e.value = "";
+        });
+        document.querySelector(".btn_con .ddb").style.display = "none";
+        document.querySelectorAll(".t_d .con input")[0].focus();
+        if (document.querySelector(".dsb.edit") != null) {
+            document.querySelector(".dsb.edit").classList.remove("edit");
+            document.querySelector(".dsb").classList.add("new");
+        }
+    });
+}
+
+
+export function clickListenerForCards() {
+    document.querySelectorAll(".cards .d_card").forEach((e) => {
+        e.addEventListener("click", () => {
+            document.querySelectorAll(".t_d .con input")[0].value = e.innerHTML;
+            document.querySelector(".btn_con .ddb").style.display = "block";
+            if (document.querySelector(".dsb.new") != null) {
+                document.querySelector(".dsb.new").classList.remove("new");
+                document.querySelector(".dsb").classList.add("edit");
+            }
+        })
+    })
 }
