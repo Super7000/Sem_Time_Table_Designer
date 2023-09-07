@@ -265,11 +265,11 @@
     z-index: 7;
     border-radius: 10px;
     padding: 20px;
+    padding-right: 40px;
     transition: 0.3s;
     display: grid;
     gap: 20px;
-    grid-template-areas: 'a b'
-                        'c c';
+    grid-template-columns: 50% 50%;
 }
 .allocTeacherBox.active{
     top: 50%;
@@ -285,24 +285,19 @@
 .allocTeacherBoxBG.active{
     display: block;
 }
-.availableSirsCon{
-    grid-area: a;
-    position: relative;
-    left: 10px;
-    width: 98%;
+
+.allocTeacherBox .mainSirsCon, .allocTeacherBox .mainSubsCon{
+    display: grid;
+    gap: 10px;
+    grid-template-rows: auto 40px;
 }
-.unavailableSirsCon{
-    grid-area: b;
-    width: 98%;
-}
-.btns{
-    grid-area: c;
-}
+
 .cardsCon{
     overflow-y: scroll;
     position: relative;
-    top: 15px;
-    max-height: 64vh;
+    top: 10px;
+    height: 100%;
+    max-height: 65vh;
     display: grid;
     grid-template-columns: 20% 20% 20% 20%;
     gap: 15px;
@@ -349,6 +344,7 @@
 .allocTeacherBox .btns{
     display: grid;
     grid-template-columns: auto auto;
+    justify-content: space-between;
     align-items: center;
 }
 .allocTeacherBox .heading, .allocTeacherBox .btns .txt{
@@ -358,8 +354,8 @@
 .allocTeacherBox .btns .btnOpts button{
     background: dodgerblue;
     border: 0;
-    padding: 10px 20px;
-    font-size: 18px;
+    padding: 8px 15px;
+    font-size: 16px;
     font-family: verdana;
     color: #fff;
     border-radius: 10px;
@@ -377,7 +373,7 @@
     right: 10px;
     display: grid;
     grid-auto-flow: column;
-    gap: 20px;
+    gap: 10px;
     justify-content: end;
 }
 .allocTeacherBox .heading{

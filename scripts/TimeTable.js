@@ -34,10 +34,22 @@ function showcards(){
     
     // document.querySelectorAll(".cardsCon")[1].innerHTML = s2;
 }
-showcards();
+function fun(){
+    let s= "";
+    let s2="";
+    for(var i = 1; i < 20; i++){
+        s+=`<div class="d_card teacher card available" id="SIR${i}">SIR${i}</div>`;
+        s2+=`<div class="d_card subject card available" id="SUB${i}">SUB${i}</div>`;
+    }
+    document.querySelectorAll(".cardsCon")[0].innerHTML = s;
+    document.querySelectorAll(".cardsCon")[1].innerHTML = s2;
+
+}fun();
+    
 
 //Global variables
 let sirname; //An unique ID for Sirs of String
+let subname; //An unique ID for Subjects of String
 let clickedPeriodTime; //2D array of int Ex.: [1,2] means day 1 period 2
 
 function clickListenerforAvailableTeacherCards(){
@@ -52,7 +64,7 @@ function clickListenerforAvailableTeacherCards(){
                 e.classList.add("active");
 
                 //Making Allocation Teacher Box Popup's btns active according to teacher card is clicked by user
-                if(e.innerHTML != "SIR"+sirname){
+                if(e.innerHTML != sirname){
                     if(document.querySelector(".btns .btnOpts .as.notactive")!=null){
                         document.querySelector(".btns .btnOpts .as.notactive").classList.remove("notactive");
                         document.querySelector(".btns .btnOpts .dnas.notactive").classList.remove("notactive");
@@ -74,6 +86,13 @@ clickListenerforAvailableTeacherCards();
 function makeingClickTeacherCardClassActive(sirname){
     document.querySelectorAll(".d_card.teacher").forEach((e)=>{
         if(e.innerHTML==sirname){
+            e.click();
+        }
+    });
+}
+function makeingClickSubjectCardClassActive(subname){
+    document.querySelectorAll(".d_card.subject").forEach((e)=>{
+        if(e.innerHTML==subname){
             e.click();
         }
     });
@@ -166,9 +185,7 @@ function createTT(year){
     for(j=1; j<=5; j++){
         s = s + `<div class="week week_${j}">
                     <div class="s_for_grid week_names">${weeks[j-1]}</div>`;
-        let pc=(Math.random());
-        if(pc<0.5){pc=5}else{if(year!=1){pc=8}else{pc=7}};
-        for(i=1;i<=pc;i++){
+        for(i=1;i<=tl;i++){
             s = s + `   <div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]">
                             <div class="period">
                                 <div>Subject</div>
@@ -177,16 +194,16 @@ function createTT(year){
                             </div>
                         </div>`;
         }
-        if(pc==5){
-            i++;
-            s = s + `   <div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]" style="grid-column: 7 / span ${span_len};">
-                            <div class="period">
-                                <div>Subject</div>
-                                <div>Sir</div>                           
-                                <div>Room no.</div>
-                            </div>
-                        </div>`;
-        }
+        // if(pc==5){
+        //     i++;
+        //     s = s + `   <div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]" style="grid-column: 7 / span ${span_len};">
+        //                     <div class="period">
+        //                         <div>Subject</div>
+        //                         <div>Sir</div>                           
+        //                         <div>Room no.</div>
+        //                     </div>
+        //                 </div>`;
+        // }
         s = s + `</div>`;
     }
     document.querySelector(".set_time_chart .att_chart").innerHTML = s;
@@ -208,16 +225,18 @@ function clickListenerForClass(){
                 document.querySelector(".allocTeacherBox").classList.add("active");
                 document.querySelector(".allocTeacherBoxBG").classList.add("active");
 
+                subname = e.querySelectorAll(".period div")[0].innerHTML;
                 sirname = e.querySelectorAll(".period div")[1].innerHTML;
                 makeingClickTeacherCardClassActive(sirname);
+                makeingClickSubjectCardClassActive(subname);
 
 
                 //Making Automatically Scrolled to Allocated teacher in Allocation Teacher Box Popup
                 if(window.location.hash != null)
                 {
-                    window.location.href = window.location.href.split("#")[0] + "#SIR"+sirname;
+                    window.location.href = window.location.href.split("#")[0] + "#"+sirname;
                 } else {
-                    window.location.href += "#SIR"+sirname;
+                    window.location.href += "#"+sirname;
                 }
 
                 clickedPeriodTime = JSON.parse(e.dataset.pt);
