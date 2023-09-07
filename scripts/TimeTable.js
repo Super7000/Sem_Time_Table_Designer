@@ -28,23 +28,13 @@ function showcards(){
             s += `<div class="d_card subject card available" id="SUB${key}">${key}</div>`;
         }
         document.querySelectorAll(".cardsCon")[1].innerHTML = s;
-        clickListenerforAvailableTeacherCards();
+        clickListenerforAvailableSubjectCards();
     })
     //     s2 += `<div class="d_card card disabled" onclick="terrorbox('Sir is Busy','255, 203, 130',5000)">SIR${35+i}</div>`;
     
     // document.querySelectorAll(".cardsCon")[1].innerHTML = s2;
 }
-function fun(){
-    let s= "";
-    let s2="";
-    for(var i = 1; i < 20; i++){
-        s+=`<div class="d_card teacher card available" id="SIR${i}">SIR${i}</div>`;
-        s2+=`<div class="d_card subject card available" id="SUB${i}">SUB${i}</div>`;
-    }
-    document.querySelectorAll(".cardsCon")[0].innerHTML = s;
-    document.querySelectorAll(".cardsCon")[1].innerHTML = s2;
-
-}fun();
+showcards();
     
 
 //Global variables
@@ -54,8 +44,7 @@ let clickedPeriodTime; //2D array of int Ex.: [1,2] means day 1 period 2
 
 function clickListenerforAvailableTeacherCards(){
     document.querySelectorAll(".d_card.teacher").forEach((e)=>{
-        e.addEventListener("click",()=>{
-            if(e!=document.querySelector(".d_card.teacher.active")){            
+        e.addEventListener("click",()=>{         
                 try {
                     document.querySelector(".d_card.teacher.active").classList.remove("active");
                 } catch (error) {
@@ -64,24 +53,62 @@ function clickListenerforAvailableTeacherCards(){
                 e.classList.add("active");
 
                 //Making Allocation Teacher Box Popup's btns active according to teacher card is clicked by user
-                if(e.innerHTML != sirname){
-                    if(document.querySelector(".btns .btnOpts .as.notactive")!=null){
-                        document.querySelector(".btns .btnOpts .as.notactive").classList.remove("notactive");
-                        document.querySelector(".btns .btnOpts .dnas.notactive").classList.remove("notactive");
-                        document.querySelector(".btns .btnOpts .rs").classList.add("notactive");
+                if(e.innerHTML == sirname){
+                    if(document.querySelector(".mainSirsCon .btns .btnOpts .as.notactive")==null){
+                        document.querySelector(".mainSirsCon .btns .btnOpts .as").classList.add("notactive");
+                        document.querySelector(".mainSirsCon .btns .btnOpts .dnas").classList.add("notactive");
+                        if(document.querySelector(".mainSirsCon .btns .btnOpts .rs.notactive")!=null){
+                            document.querySelector(".mainSirsCon .btns .btnOpts .rs").classList.remove("notactive");
+                        }
+                        
                     }
                 } else {
-                    if(document.querySelector(".btns .btnOpts .as.notactive")==null){
-                        document.querySelector(".btns .btnOpts .as").classList.add("notactive");
-                        document.querySelector(".btns .btnOpts .dnas").classList.add("notactive");
-                        document.querySelector(".btns .btnOpts .rs.notactive").classList.remove("notactive");
+                    if(document.querySelector(".mainSirsCon .btns .btnOpts .as.notactive")!=null){
+                        document.querySelector(".mainSirsCon .btns .btnOpts .as").classList.remove("notactive");
+                        document.querySelector(".mainSirsCon .btns .btnOpts .dnas").classList.remove("notactive");
+                        if(document.querySelector(".mainSirsCon .btns .btnOpts .rs.notactive")==null){
+                            document.querySelector(".mainSirsCon .btns .btnOpts .rs").classList.add("notactive");
+                        }
                     }
                 }
-            }
         })
     })
 }
 clickListenerforAvailableTeacherCards();
+
+function clickListenerforAvailableSubjectCards(){
+    document.querySelectorAll(".d_card.subject").forEach((e)=>{
+        e.addEventListener("click",()=>{         
+                try {
+                    document.querySelector(".d_card.subject.active").classList.remove("active");
+                } catch (error) {
+                    console.log(error);
+                }
+                e.classList.add("active");
+
+                //Making Allocation Teacher Box Popup's btns active according to subject card is clicked by user
+                if(e.innerHTML == subname){
+                    if(document.querySelector(".mainSubsCon .btns .btnOpts .as.notactive")==null){
+                        document.querySelector(".mainSubsCon .btns .btnOpts .as").classList.add("notactive");
+                        document.querySelector(".mainSubsCon .btns .btnOpts .dnas").classList.add("notactive");
+                        if(document.querySelector(".mainSubsCon .btns .btnOpts .rs.notactive")!=null){
+                            document.querySelector(".mainSubsCon .btns .btnOpts .rs").classList.remove("notactive");
+                        }
+                        
+                    }
+                } else {
+                    if(document.querySelector(".mainSubsCon .btns .btnOpts .as.notactive")!=null){
+                        document.querySelector(".mainSubsCon .btns .btnOpts .as").classList.remove("notactive");
+                        document.querySelector(".mainSubsCon .btns .btnOpts .dnas").classList.remove("notactive");
+                        if(document.querySelector(".mainSubsCon .btns .btnOpts .rs.notactive")==null){
+                            document.querySelector(".mainSubsCon .btns .btnOpts .rs").classList.add("notactive");
+                        }
+                    }
+                }
+        })
+    })
+}
+clickListenerforAvailableSubjectCards();
 
 function makeingClickTeacherCardClassActive(sirname){
     document.querySelectorAll(".d_card.teacher").forEach((e)=>{
@@ -234,11 +261,22 @@ function clickListenerForClass(){
                 //Making Automatically Scrolled to Allocated teacher in Allocation Teacher Box Popup
                 if(window.location.hash != null)
                 {
-                    window.location.href = window.location.href.split("#")[0] + "#"+sirname;
+                    window.location.href = window.location.href.split("#")[0] + "#SIR"+sirname;
                 } else {
                     window.location.href += "#"+sirname;
                 }
-
+                
+                //Making Automatically Scrolled to Allocated subject in Allocation Teacher Box Popup
+                setTimeout(()=>{
+                    if(window.location.hash != null)
+                    {
+                        window.location.href = window.location.href.split("#")[0] + "#SUB"+subname;
+                    } else {
+                        window.location.href += "#"+subname;
+                    }
+                },300);                    
+                    
+                
                 clickedPeriodTime = JSON.parse(e.dataset.pt);
             }
         })
@@ -248,16 +286,28 @@ clickListenerForClass();
 
 
 //Yes btn click listener of allocated teacher box popup
-document.querySelector(".btns .btnOpts .as").addEventListener("click",()=>{
-    if(document.querySelector(".btns .btnOpts .as.notactive")==null){
-        document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = document.querySelector(".d_card.active").innerHTML;
+document.querySelector(".mainSirsCon .btns .btnOpts .as").addEventListener("click",()=>{
+    if(document.querySelector(".mainSirsCon .btns .btnOpts .as.notactive")==null){
+        document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = document.querySelector(".d_card.teacher.active").innerHTML;
+    }
+})
+document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("click",()=>{
+    if(document.querySelector(".mainSubsCon .btns .btnOpts .as.notactive")==null){
+        document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = document.querySelector(".d_card.subject.active").innerHTML;
     }
 })
 
 //Remove btn click listener of allocated teacher box popup
-document.querySelector(".btns .btnOpts .rs").addEventListener("click",()=>{
-    if(document.querySelector(".btns .btnOpts .rs.notactive")==null){
+document.querySelector(".mainSirsCon .btns .btnOpts .rs").addEventListener("click",()=>{
+    if(document.querySelector(".mainSirsCon .btns .btnOpts .rs.notactive")==null){
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = "No Sir";
+        sirname =  "No Sir";
+    }
+})
+document.querySelector(".mainSubsCon .btns .btnOpts .rs").addEventListener("click",()=>{
+    if(document.querySelector(".mainSubsCon .btns .btnOpts .rs.notactive")==null){
+        document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = "No Subject";
+        subname = "No Subject";
     }
 })
 
