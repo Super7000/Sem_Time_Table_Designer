@@ -118,8 +118,9 @@ function clickListenerForCards() {
 
                     //if data is found in server then show it in details box
                     let details = JSON.parse(data);
+                    let time = JSON.stringify(details["freeTime"]);
                     document.querySelectorAll(".t_d .con input")[1].value = details["subjects"];
-                    document.querySelectorAll(".t_d .con input")[2].value = JSON.stringify(details["freeTime"]).slice(1,-1);
+                    document.querySelectorAll(".t_d .con input")[2].value = time.slice(1,time.length-1);
                 })
         })
     })

@@ -48,7 +48,7 @@ function clickListenerforAvailableTeacherCards(){
                 try {
                     document.querySelector(".d_card.teacher.active").classList.remove("active");
                 } catch (error) {
-                    console.log(error);
+                    console.log("error in activating Teacher card");
                 }
                 e.classList.add("active");
 
@@ -82,7 +82,7 @@ function clickListenerforAvailableSubjectCards(){
                 try {
                     document.querySelector(".d_card.subject.active").classList.remove("active");
                 } catch (error) {
-                    console.log(error);
+                    console.log("error in activating Subject card");
                 }
                 e.classList.add("active");
 
@@ -301,12 +301,26 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
 document.querySelector(".mainSirsCon .btns .btnOpts .rs").addEventListener("click",()=>{
     if(document.querySelector(".mainSirsCon .btns .btnOpts .rs.notactive")==null){
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = "No Sir";
+        try {
+            document.querySelector(".d_card.teacher.active").classList.remove("active");            
+            document.querySelector(".mainSirsCon .btns .btnOpts .rs").classList.add("notactive");
+            document.querySelector(".allocTeacherBoxBG").click();
+        } catch (error) {
+            console.log("error in remove")
+        }
         sirname =  "No Sir";
     }
 })
 document.querySelector(".mainSubsCon .btns .btnOpts .rs").addEventListener("click",()=>{
     if(document.querySelector(".mainSubsCon .btns .btnOpts .rs.notactive")==null){
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = "No Subject";
+        try {
+            document.querySelector(".d_card.subject.active").classList.remove("active");            
+            document.querySelector(".mainSubsCon .btns .btnOpts .rs").classList.add("notactive");
+            document.querySelector(".allocTeacherBoxBG").click();
+        } catch (error) {
+            console.log("error in remove")
+        }
         subname = "No Subject";
     }
 })
