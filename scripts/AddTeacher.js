@@ -1,4 +1,4 @@
-import { terrorbox, clickListenerForCardActivator, addCardClickListener, clickListenerForCards } from "./Util.js";
+import { terrorbox, clickListenerForCardActivator, addCardClickListener } from "./Util.js";
 //Printing HTML code of Card of each sir
 // function showcards() {
 //     let s = "";
@@ -97,3 +97,32 @@ function deleteBtnFunc() {
     })
 }
 deleteBtnFunc();
+
+
+function clickListenerForCards() {
+    document.querySelectorAll(".cards .d_card").forEach((e) => {
+        e.addEventListener("click", () => {
+            document.querySelectorAll(".t_d .con input")[0].value = e.innerHTML;
+            document.querySelector(".btn_con .ddb").style.display = "block";
+            if (document.querySelector(".dsb.new") != null) {
+                document.querySelector(".dsb.new").classList.remove("new");
+                document.querySelector(".dsb").classList.add("edit");
+            }
+
+            fetch(url + "/" + e.innerHTML)
+                .then(Response => Response.text())
+                .then(data => {
+                    if (data == "Teacher not found") {
+                        terrorbox("Something went wrong", "", 5000);
+                        return;
+                    }
+
+                    //if data is found in server then show it in details box
+                    let details = JSON.parse(data);
+                    document.querySelectorAll(".t_d .con input")[1].value = details["subjects"];
+                    document.querySelectorAll(".t_d .con input")[2].value = JSON.stringify(details["freeTime"]).slice(1,-1);
+                })
+        })
+    })
+}
+clickListenerForCards();

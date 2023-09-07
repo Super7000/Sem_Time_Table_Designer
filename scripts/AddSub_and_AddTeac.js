@@ -1,4 +1,4 @@
-import { clickListenerForCardActivator, addCardClickListener, clickListenerForCards } from "./Util.js";
+import { clickListenerForCardActivator, addCardClickListener } from "./Util.js";
 // toggle confirmation box function
 function tconfirmationbox(cmsg) {
     document.querySelector(".cBox .cMsg").innerHTML = cmsg;
@@ -21,4 +21,3 @@ clickListenerForCardActivator();
 
 addCardClickListener();
 
-clickListenerForCards();

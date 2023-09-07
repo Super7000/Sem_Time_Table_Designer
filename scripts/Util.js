@@ -156,17 +156,3 @@ export function addCardClickListener() {
         }
     });
 }
-
-
-export function clickListenerForCards() {
-    document.querySelectorAll(".cards .d_card").forEach((e) => {
-        e.addEventListener("click", () => {
-            document.querySelectorAll(".t_d .con input")[0].value = e.innerHTML;
-            document.querySelector(".btn_con .ddb").style.display = "block";
-            if (document.querySelector(".dsb.new") != null) {
-                document.querySelector(".dsb.new").classList.remove("new");
-                document.querySelector(".dsb").classList.add("edit");
-            }
-        })
-    })
-}

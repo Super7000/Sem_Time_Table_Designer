@@ -149,7 +149,11 @@ l-195 0 0 261 0 261 -29 29 c-35 34 -93 39 -127 11z"/>
 </svg>
 <p>Export</p>
 </div>`;
-document.querySelector(`.menubar .link[href="${filename}"]`).classList.add("active");
+try{    
+    document.querySelector(`.menubar .link[href="${filename}"]`).classList.add("active");
+} catch (e){
+    document.querySelector(`.menubar .link[href="Dashboard.html"]`).classList.add("active");
+}
 
 // Toggle Menubar
 function tmenubar() {
