@@ -1,17 +1,38 @@
 //Printing HTML code of Time Table for first year
 createTT(1);
 
+let url = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1);
+console.log(url)
+
 //Printing Teacher Cards in Allocation Teacher Box 
 function showcards(){
-    let s = "";
-    let s2 = "";
-    let i = 35;
-    for(i; i >= 1; i--){
-        s += `<div class="d_card card available" id="SIR${i}">SIR${i}</div>`;
-        s2 += `<div class="d_card card disabled" onclick="terrorbox('Sir is Busy','255, 203, 130',5000)">SIR${35+i}</div>`;
-    }
-    document.querySelectorAll(".cardsCon")[0].innerHTML = s;
-    document.querySelectorAll(".cardsCon")[1].innerHTML = s2;
+    let urlForSirs = url + "io/teachers";
+    console.log(urlForSirs)
+    fetch(urlForSirs)
+    .then(Response => Response.text())
+    .then(data => {
+        let s = "";
+        for (let key in JSON.parse(data)) {
+            s += `<div class="d_card teacher card available" id="SIR${key}">${key}</div>`;
+        }
+        document.querySelectorAll(".cardsCon")[0].innerHTML = s;
+        clickListenerforAvailableTeacherCards();
+    })
+    let urlForSubj = url + "io/subjects";
+    console.log(urlForSubj)
+    fetch(urlForSubj)
+    .then(Response => Response.text())
+    .then(data => {
+        let s = "";
+        for (let key in JSON.parse(data)) {
+            s += `<div class="d_card subject card available" id="SUB${key}">${key}</div>`;
+        }
+        document.querySelectorAll(".cardsCon")[1].innerHTML = s;
+        clickListenerforAvailableTeacherCards();
+    })
+    //     s2 += `<div class="d_card card disabled" onclick="terrorbox('Sir is Busy','255, 203, 130',5000)">SIR${35+i}</div>`;
+    
+    // document.querySelectorAll(".cardsCon")[1].innerHTML = s2;
 }
 showcards();
 
@@ -19,36 +40,39 @@ showcards();
 let sirname; //An unique ID for Sirs of String
 let clickedPeriodTime; //2D array of int Ex.: [1,2] means day 1 period 2
 
-document.querySelectorAll(".d_card.available").forEach((e)=>{
-    e.addEventListener("click",()=>{
-        if(e!=document.querySelector(".d_card.active")){            
-            try {
-                document.querySelector(".d_card.active").classList.remove("active");
-            } catch (error) {
-                console.log(error);
-            }
-            e.classList.add("active");
+function clickListenerforAvailableTeacherCards(){
+    document.querySelectorAll(".d_card.teacher").forEach((e)=>{
+        e.addEventListener("click",()=>{
+            if(e!=document.querySelector(".d_card.teacher.active")){            
+                try {
+                    document.querySelector(".d_card.teacher.active").classList.remove("active");
+                } catch (error) {
+                    console.log(error);
+                }
+                e.classList.add("active");
 
-            //Making Allocation Teacher Box Popup's btns active according to teacher card is clicked by user
-            if(e.innerHTML != "SIR"+sirname){
-                if(document.querySelector(".btns .btnOpts .as.notactive")!=null){
-                    document.querySelector(".btns .btnOpts .as.notactive").classList.remove("notactive");
-                    document.querySelector(".btns .btnOpts .dnas.notactive").classList.remove("notactive");
-                    document.querySelector(".btns .btnOpts .rs").classList.add("notactive");
-                }
-            } else {
-                if(document.querySelector(".btns .btnOpts .as.notactive")==null){
-                    document.querySelector(".btns .btnOpts .as").classList.add("notactive");
-                    document.querySelector(".btns .btnOpts .dnas").classList.add("notactive");
-                    document.querySelector(".btns .btnOpts .rs.notactive").classList.remove("notactive");
+                //Making Allocation Teacher Box Popup's btns active according to teacher card is clicked by user
+                if(e.innerHTML != "SIR"+sirname){
+                    if(document.querySelector(".btns .btnOpts .as.notactive")!=null){
+                        document.querySelector(".btns .btnOpts .as.notactive").classList.remove("notactive");
+                        document.querySelector(".btns .btnOpts .dnas.notactive").classList.remove("notactive");
+                        document.querySelector(".btns .btnOpts .rs").classList.add("notactive");
+                    }
+                } else {
+                    if(document.querySelector(".btns .btnOpts .as.notactive")==null){
+                        document.querySelector(".btns .btnOpts .as").classList.add("notactive");
+                        document.querySelector(".btns .btnOpts .dnas").classList.add("notactive");
+                        document.querySelector(".btns .btnOpts .rs.notactive").classList.remove("notactive");
+                    }
                 }
             }
-        }
+        })
     })
-})
+}
+clickListenerforAvailableTeacherCards();
 
 function makeingClickTeacherCardClassActive(sirname){
-    document.querySelectorAll(".d_card.available").forEach((e)=>{
+    document.querySelectorAll(".d_card.teacher").forEach((e)=>{
         if(e.innerHTML==sirname){
             e.click();
         }
@@ -147,9 +171,9 @@ function createTT(year){
         for(i=1;i<=pc;i++){
             s = s + `   <div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]">
                             <div class="period">
-                                <div>OOPS</div>
-                                <div>SKB</div>                           
-                                <div>LH-123</div>
+                                <div>Subject</div>
+                                <div>Sir</div>                           
+                                <div>Room no.</div>
                             </div>
                         </div>`;
         }
@@ -157,9 +181,9 @@ function createTT(year){
             i++;
             s = s + `   <div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]" style="grid-column: 7 / span ${span_len};">
                             <div class="period">
-                                <div>OS</div>
-                                <div>DG</div>                           
-                                <div>LAB-1/2/3</div>
+                                <div>Subject</div>
+                                <div>Sir</div>                           
+                                <div>Room no.</div>
                             </div>
                         </div>`;
         }
@@ -184,8 +208,8 @@ function clickListenerForClass(){
                 document.querySelector(".allocTeacherBox").classList.add("active");
                 document.querySelector(".allocTeacherBoxBG").classList.add("active");
 
-                sirname = Math.floor((Math.random()*35)+1);
-                makeingClickTeacherCardClassActive("SIR"+sirname);
+                sirname = e.querySelectorAll(".period div")[1].innerHTML;
+                makeingClickTeacherCardClassActive(sirname);
 
 
                 //Making Automatically Scrolled to Allocated teacher in Allocation Teacher Box Popup
