@@ -148,6 +148,7 @@ export function addCardClickListener() {
         document.querySelectorAll(".t_d .con input").forEach((e) => {
             e.value = "";
         });
+        document.querySelectorAll(".t_d .con input")[4].checked = false;
         document.querySelector(".btn_con .ddb").style.display = "none";
         document.querySelectorAll(".t_d .con input")[0].focus();
         if (document.querySelector(".dsb.edit") != null) {

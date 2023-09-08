@@ -48,7 +48,7 @@ function clickListenerforAvailableTeacherCards(){
                 try {
                     document.querySelector(".d_card.teacher.active").classList.remove("active");
                 } catch (error) {
-                    console.log("error in activating Teacher card");
+                    console.log("%cnormal error in activating Teacher card","color: green");
                 }
                 e.classList.add("active");
 
@@ -82,7 +82,7 @@ function clickListenerforAvailableSubjectCards(){
                 try {
                     document.querySelector(".d_card.subject.active").classList.remove("active");
                 } catch (error) {
-                    console.log("error in activating Subject card");
+                    console.log("%cnormal error in activating Subject card","color: green");
                 }
                 e.classList.add("active");
 
@@ -306,7 +306,7 @@ document.querySelector(".mainSirsCon .btns .btnOpts .rs").addEventListener("clic
             document.querySelector(".mainSirsCon .btns .btnOpts .rs").classList.add("notactive");
             document.querySelector(".allocTeacherBoxBG").click();
         } catch (error) {
-            console.log("error in remove")
+            console.log("%cerror in remove teacher","color: red")
         }
         sirname =  "No Sir";
     }
@@ -319,7 +319,7 @@ document.querySelector(".mainSubsCon .btns .btnOpts .rs").addEventListener("clic
             document.querySelector(".mainSubsCon .btns .btnOpts .rs").classList.add("notactive");
             document.querySelector(".allocTeacherBoxBG").click();
         } catch (error) {
-            console.log("error in remove")
+            console.log("%cerror in remove subject","color: red")
         }
         subname = "No Subject";
     }

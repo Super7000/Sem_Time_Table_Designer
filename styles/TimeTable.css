@@ -306,6 +306,7 @@
     border-radius: 10px;
     background: rgba(0, 0, 0, 0.1);
     scroll-behavior: smooth;
+    align-content: start;
 }
 .cardsCon::-webkit-scrollbar{
     width: 10px;
