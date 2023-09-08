@@ -356,3 +356,13 @@ window.onload = function(){
         }
     };
   };
+
+
+//Sending generate request to server on "Auto fill all semester" btn click
+function generateTTRequest(){
+    console.log(`${url}io/schedule?generateNew=True`);
+    console.log("%cGenerate Request Send","color: blue");
+    fetch(`${url}io/schedule?generateNew=True`)
+    .then(Response=>Response.text())
+    .then(data=>console.log(JSON.parse(data)))
+}
