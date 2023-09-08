@@ -4,6 +4,12 @@ createTT(1);
 let url = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1);
 console.log(url)
 
+
+//stroing data get from server
+let serverDataAboutSubjects = "";
+let serverDataAboutTeachers = "";
+
+
 //Printing Teacher Cards in Allocation Teacher Box 
 function showcards(){
     let urlForSirs = url + "io/teachers";
@@ -11,6 +17,7 @@ function showcards(){
     fetch(urlForSirs)
     .then(Response => Response.text())
     .then(data => {
+        serverDataAboutTeachers = data;
         let s = "";
         for (let key in JSON.parse(data)) {
             s += `<div class="d_card teacher card available" id="SIR${key}">${key}</div>`;
@@ -23,6 +30,7 @@ function showcards(){
     fetch(urlForSubj)
     .then(Response => Response.text())
     .then(data => {
+        serverDataAboutSubjects = data;
         let s = "";
         for (let key in JSON.parse(data)) {
             s += `<div class="d_card subject card available" id="SUB${key}">${key}</div>`;
@@ -289,11 +297,25 @@ clickListenerForClass();
 document.querySelector(".mainSirsCon .btns .btnOpts .as").addEventListener("click",()=>{
     if(document.querySelector(".mainSirsCon .btns .btnOpts .as.notactive")==null){
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = document.querySelector(".d_card.teacher.active").innerHTML;
+        let teachersData = JSON.parse(serverDataAboutTeachers);
     }
 })
 document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("click",()=>{
     if(document.querySelector(".mainSubsCon .btns .btnOpts .as.notactive")==null){
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = document.querySelector(".d_card.subject.active").innerHTML;
+        
+        //checking if practical then marge 3 classes
+        let subjectsData = JSON.parse(serverDataAboutSubjects);
+        if(subjectsData[document.querySelector(".d_card.subject.active").innerHTML]["isPractical"]==true){
+            let span_len = 3;
+            let grid_start = JSON.parse(document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).dataset.pt)[1]+1;
+            document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).style.cssText = `grid-column: ${grid_start} / span ${span_len};`;
+            var periodSelector  = clickedPeriodTime[1];
+            for(var i=1;i<3;i++){
+                periodSelector+=1;
+                document.querySelector(`.week_${clickedPeriodTime[0]} .class_${periodSelector}`).remove();
+            }
+        };    
     }
 })
 
