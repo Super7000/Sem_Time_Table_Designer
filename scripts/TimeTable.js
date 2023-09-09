@@ -1,3 +1,4 @@
+import { terrorbox } from "./Util.js"
 //Printing HTML code of Time Table for first year
 createTT(1);
 
@@ -201,7 +202,7 @@ document.querySelectorAll(".sem_cards_container .cards div").forEach((c)=>{
 function createTT(year){
     const weeks = ["Tue","Wed","Thu","Fri","Sat"];
     let time = ["9:30AM","10:20AM","11:10AM","12:00PM","01:40PM","02:30PM","03:20PM","04:10PM"];
-    const time2 = ["9:30AM","10:20AM","11:10AM","12:00PM","02:30PM","03:20PM","04:10PM"];
+    const time2 = ["9:30AM","10:20AM","11:10AM","1:40PM","02:30PM","03:20PM","04:10PM"];
     let tl=8;
     let span_len=3;
 
@@ -214,14 +215,14 @@ function createTT(year){
 
     let s = `<div class="times">
                 <div class="day_time_l">Day/Time</div>`;
-    for(k=1;k<=tl;k++){
+    for(var k=1;k<=tl;k++){
         s += `<div class="class_label ${k}">${time[k-1]}</div>`;
     }
     s += `</div>`;
-    for(j=1; j<=5; j++){
+    for(var j=1; j<=5; j++){
         s = s + `<div class="week week_${j}">
                     <div class="s_for_grid week_names">${weeks[j-1]}</div>`;
-        for(i=1;i<=tl;i++){
+        for(var i=1;i<=tl;i++){
             s = s + `   <div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]">
                             <div class="period">
                                 <div>Subject</div>
@@ -303,19 +304,36 @@ document.querySelector(".mainSirsCon .btns .btnOpts .as").addEventListener("clic
 })
 document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("click",()=>{
     if(document.querySelector(".mainSubsCon .btns .btnOpts .as.notactive")==null){
+        let subjectName = document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML;
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = document.querySelector(".d_card.subject.active").innerHTML;
         
         //checking if practical then marge 3 classes
         let subjectsData = JSON.parse(serverDataAboutSubjects);
+        let returnValue = false;
         if(subjectsData[document.querySelector(".d_card.subject.active").innerHTML]["isPractical"]==true){
-            isLab = true;
-            let span_len = 3;
-            let grid_start = JSON.parse(document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).dataset.pt)[1]+1;
-            document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).style.cssText = `grid-column: ${grid_start} / span ${span_len};`;
-            var periodSelector  = clickedPeriodTime[1];
-            for(var i=1;i<3;i++){
-                periodSelector+=1;
-                document.querySelector(`.week_${clickedPeriodTime[0]} .class_${periodSelector}`).remove();
+            try{
+                let periodSelector = clickedPeriodTime[1];
+                let weekSelector = clickedPeriodTime[0];
+                for(var i = 0; i < 2; i++){
+                    periodSelector++;
+                    document.querySelector(`.week_${weekSelector} .class_${periodSelector}`).dataset.pt;
+                }
+            } catch(err){
+                terrorbox("you can't set a lab subject at this time","",5000);
+                returnValue = true;
+                document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = subjectName;
+                
+            }
+            if(returnValue==false){
+                isLab = true;
+                let span_len = 3;
+                let grid_start = JSON.parse(document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).dataset.pt)[1]+1;
+                document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).style.cssText = `grid-column: ${grid_start} / span ${span_len};`;
+                var periodSelector  = clickedPeriodTime[1];
+                for(var i=1;i<3;i++){
+                    periodSelector+=1;
+                    document.querySelector(`.week_${clickedPeriodTime[0]} .class_${periodSelector}`).remove();
+                }
             }
         } else {
             if(isLab!=true){
