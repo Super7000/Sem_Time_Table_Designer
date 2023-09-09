@@ -1,3 +1,6 @@
+let url = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1) + "io/teachers";
+console.log(url)
+
 //printing html code for teacher cards
 function showcards(){
     let s = "";
@@ -34,11 +37,38 @@ function showcards(){
     document.querySelector(".teachers .r_cards").innerHTML = s;
     document.querySelectorAll(".teachers .r_cards .t_card")[0].classList.add("active");
 }
-showcards();
+
 createTT();
 
 window.onload = ()=>{    
-    document.querySelector(".teachers .r_cards .t_card.active").click();
+    function getTechersFromServer(){
+        let s = "";
+        fetch(url)
+        .then(Response=> {
+            console.log(Response.status)
+            return Response.text()
+        })
+        .then(data=>{
+            console.log(JSON.parse(data));
+            for(var i in JSON.parse(data)){
+                let tts = [];
+                for(j=0; j < 5; j++){
+                    tts[j]=Math.floor(Math.random()*8)+1;
+                }
+                s += `<div class="t_card" data-tts="[${tts}]" data-sems="[5,6,8]"> <!-- tts = total time spend -->
+                        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                        </svg>
+                        <p>${i}</p>
+                    </div>`;
+            }
+            document.querySelector(".teachers .r_cards").innerHTML = s;
+            document.querySelectorAll(".teachers .r_cards .t_card")[0].classList.add("active");
+            clickListenerForTeacherCard();
+            document.querySelector(".r_cards .t_card.active").click();
+        })
+    }
+    getTechersFromServer();
 }
 
 
@@ -52,31 +82,35 @@ document.querySelector(".r_l_arrow").addEventListener("click", () => {
 document.querySelector(".r_r_arrow").addEventListener("click", () => {
     document.querySelector(".r_cards").scrollLeft += 130;
 });
-document.querySelectorAll(".t_card").forEach((t) => {
-    t.addEventListener("click", () => {
-        if (t != document.querySelector(".t_card.active")) {
-            document.querySelector(".t_card.active").classList.remove("active");
-            t.classList.add("active");
-        }
 
-        //charts updater
-        chart1.data.datasets[0].data = JSON.parse(t.dataset.tts);
-        chart1.update();
-        document.querySelector(".set_time_chart p").innerHTML = "Time Table for " + document.querySelector(".t_card.active p").innerHTML + " Sir";
-        
-        
-        //semesters printer
-        let sems = JSON.parse(t.dataset.sems);
-        let sem_str = "";
-        for(let a = 0; a < sems.length; a++)
-        {
-            sem_str += `<div>${sems[a]}</div>`;
-        }
-        document.querySelector(".semnc").innerHTML = sem_str;
-
-        //subjects updater
-    })
-});
+function clickListenerForTeacherCard(){
+    document.querySelectorAll(".t_card").forEach((t) => {
+        t.addEventListener("click", () => {
+            if (t != document.querySelector(".t_card.active")) {
+                document.querySelector(".t_card.active").classList.remove("active");
+                t.classList.add("active");
+            }
+    
+            //Updating Charts 
+            chart1.data.datasets[0].data = JSON.parse(t.dataset.tts);
+            chart1.update();
+            document.querySelector(".set_time_chart p").innerHTML = "Time Table for " + document.querySelector(".t_card.active p").innerHTML + " Sir";
+            
+            
+            //semesters printer
+            let sems = JSON.parse(t.dataset.sems);
+            let sem_str = "";
+            for(let a = 0; a < sems.length; a++)
+            {
+                sem_str += `<div>${sems[a]}</div>`;
+            }
+            document.querySelector(".semnc").innerHTML = sem_str;
+    
+            //subjects updater
+        })
+    });
+    
+}
 
 for (let i = 1; i < 6; i++) {
     for (let j = 1; j < 9; j++) {

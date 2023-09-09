@@ -317,8 +317,7 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
                 periodSelector+=1;
                 document.querySelector(`.week_${clickedPeriodTime[0]} .class_${periodSelector}`).remove();
             }
-        } 
-        else {
+        } else {
             if(isLab!=true){
                 return;
             }
@@ -328,6 +327,8 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
                 for(var i=1;i<3;i++){
                     periodNumber = periodNumber - 1;
                     let position = document.querySelector(`.week_${clickedPeriodTime[0]}`).children[clickedPeriodTime[1]+1];
+
+                    //creating class a HTML element
                     let newNode = document.createElement("div");
                     let period = document.createElement("div")
                     period.classList.add("period");
@@ -346,13 +347,16 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
                     newNode.classList.add(`class_${periodNumber}`)
                     newNode.classList.add(`alloc`);
                     newNode.setAttribute("data-pt",`[${weekNumber},${periodNumber}]`)
-                    let newElement = `<div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]">
-                                        <div class="period">
-                                            <div>Subject</div>
-                                            <div>Sir</div>                           
-                                            <div>Room no.</div>
-                                        </div>
-                                    </div>`;
+                    // let newElement = `<div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]">
+                    //                     <div class="period">
+                    //                         <div>Subject</div>
+                    //                         <div>Sir</div>                           
+                    //                         <div>Room no.</div>
+                    //                     </div>
+                    //                 </div>`;
+                    
+                    
+                    //adding the HTML element after current Time
                     document.querySelector(`.week_${clickedPeriodTime[0]}`).insertBefore(newNode,position);
                 }
                 clickListenerForClass();

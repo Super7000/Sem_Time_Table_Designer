@@ -34,14 +34,18 @@ function saveBtnClickListener() {
         let m = new Map();
         m[val] = teacherData;
         console.log(JSON.stringify(m));
+        let statusValue;
         fetch(url, {
             method: "PUT",
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(m)
         })
-            .then(Response => Response.text())
+            .then(Response => {
+                statusValue = Response.status;
+                return Response.text()
+            })
             .then(data => {
-                if (data != "Teachers updated") {
+                if (statusValue != 200) {
                     terrorbox("Something went wrong", "", 5000);
                     return;
                 }
@@ -79,12 +83,16 @@ window.onload = loadCards();
 
 function deleteBtnFunc() {
     document.querySelector(".cBtns .cBtn").addEventListener("click", () => {
+        let statusValue;
         fetch(url + "/" + document.querySelector(".d_card.active").innerHTML, {
             method: "DELETE"
         })
-            .then(Response => Response.text())
+            .then(Response => {
+                statusValue = Response.status;
+                return Response.text()
+            })
             .then(data => {
-                if (data != "Request accepted") {
+                if (statusValue != 200) {
                     terrorbox("Something went wrong", "", 5000);
                     return;
                 }
@@ -107,11 +115,14 @@ function clickListenerForCards() {
                 document.querySelector(".dsb.new").classList.remove("new");
                 document.querySelector(".dsb").classList.add("edit");
             }
-
+            let statusValue;
             fetch(url + "/" + e.innerHTML)
-                .then(Response => Response.text())
+                .then(Response => {
+                    statusValue = Response.status;
+                    return Response.text()
+                })
                 .then(data => {
-                    if (data == "Teacher not found") {
+                    if (statusValue != 200) {
                         terrorbox("Something went wrong", "", 5000);
                         return;
                     }

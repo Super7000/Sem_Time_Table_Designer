@@ -71,14 +71,19 @@ function saveBtnClickListener() {
         let m = new Map();
         m[val] = subjectData;
         console.log(JSON.stringify(m));
+
+        let statusValue;
         fetch(url, {
             method: "PUT",
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(m)
         })
-            .then(Response => Response.text())
+            .then(Response => {
+                statusValue = Response.status;
+                return Response.text();
+            })
             .then(data => {
-                if (data != "Subjects updated") {
+                if (statusValue != 200) {
                     terrorbox("Something went wrong", "", 5000);
                     return;
                 }
@@ -95,9 +100,17 @@ function saveBtnClickListener() {
 saveBtnClickListener();
 
 function loadCards() {
+    let statusValue;
     fetch(url)
-        .then(Response => Response.text())
+        .then(Response => {
+            statusValue = Response.status;
+            return Response.text();
+        })
         .then(data => {
+            if (statusValue != 200) {
+                terrorbox("Something went wrong", "", 5000);
+                return;
+            }
             let s = `<div class="add card active">
                         <svg height="32px" id="Layer_1" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <path d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"/>
@@ -116,13 +129,18 @@ window.onload = loadCards();
 
 function deleteBtnFunc() {
     document.querySelector(".cBtns .cBtn").addEventListener("click", () => {
-        console.log(url + "/" + document.querySelector(".d_card.active").innerHTML)
+        console.log(url + "/" + document.querySelector(".d_card.active").innerHTML);
+        
+        let statusValue;
         fetch(url + "/" + document.querySelector(".d_card.active").innerHTML, {
             method: "DELETE"
         })
-            .then(Response => Response.text())
+            .then(Response => {
+                statusValue = Response.status;
+                return Response.text()
+            })
             .then(data => {
-                if (data != "Request accepted") {
+                if (statusValue != 200) {
                     terrorbox("Something went wrong", "", 5000);
                     return;
                 }
@@ -146,10 +164,14 @@ function clickListenerForCards() {
                 document.querySelector(".dsb").classList.add("edit");
             }
 
+            let statusValue;
             fetch(url + "/" + e.innerHTML)
-                .then(Response => Response.text())
+                .then(Response => {
+                    statusValue = Response.status;
+                    return Response.text();
+                })
                 .then(data => {
-                    if (data == "Subject not found") {
+                    if (statusValue != 200) {
                         terrorbox("Something went wrong", "", 5000);
                         return;
                     }
