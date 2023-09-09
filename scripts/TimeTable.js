@@ -49,6 +49,7 @@ showcards();
 let sirname; //An unique ID for Sirs of String
 let subname; //An unique ID for Subjects of String
 let clickedPeriodTime; //2D array of int Ex.: [1,2] means day 1 period 2
+let isLab;
 
 function clickListenerforAvailableTeacherCards(){
     document.querySelectorAll(".d_card.teacher").forEach((e)=>{
@@ -307,6 +308,7 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
         //checking if practical then marge 3 classes
         let subjectsData = JSON.parse(serverDataAboutSubjects);
         if(subjectsData[document.querySelector(".d_card.subject.active").innerHTML]["isPractical"]==true){
+            isLab = true;
             let span_len = 3;
             let grid_start = JSON.parse(document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).dataset.pt)[1]+1;
             document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).style.cssText = `grid-column: ${grid_start} / span ${span_len};`;
@@ -315,7 +317,51 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
                 periodSelector+=1;
                 document.querySelector(`.week_${clickedPeriodTime[0]} .class_${periodSelector}`).remove();
             }
-        };    
+        } 
+        else {
+            if(isLab!=true){
+                return;
+            }
+            if(isLab==true){
+                let periodNumber = clickedPeriodTime[1]+3;
+                let weekNumber = clickedPeriodTime[0];
+                for(var i=1;i<3;i++){
+                    periodNumber = periodNumber - 1;
+                    let position = document.querySelector(`.week_${clickedPeriodTime[0]}`).children[clickedPeriodTime[1]+1];
+                    let newNode = document.createElement("div");
+                    let period = document.createElement("div")
+                    period.classList.add("period");
+                    let subjectdiv = document.createElement("div");
+                    subjectdiv.innerHTML = "Subject";
+                    let sirdiv = document.createElement("div");
+                    sirdiv.innerHTML="Sir";
+                    let roomdiv = document.createElement("div");
+                    roomdiv.innerHTML = "Room no.";
+                    period.appendChild(subjectdiv);
+                    period.appendChild(sirdiv);
+                    period.appendChild(roomdiv);
+                    newNode.appendChild(period);
+                    newNode.classList.add(`s_for_grid`)
+                    newNode.classList.add(`class`)
+                    newNode.classList.add(`class_${periodNumber}`)
+                    newNode.classList.add(`alloc`);
+                    newNode.setAttribute("data-pt",`[${weekNumber},${periodNumber}]`)
+                    let newElement = `<div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]">
+                                        <div class="period">
+                                            <div>Subject</div>
+                                            <div>Sir</div>                           
+                                            <div>Room no.</div>
+                                        </div>
+                                    </div>`;
+                    document.querySelector(`.week_${clickedPeriodTime[0]}`).insertBefore(newNode,position);
+                }
+                clickListenerForClass();
+                isLab = false;
+            }
+            let span_len = 1;
+            let grid_start = JSON.parse(document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).dataset.pt)[1]+1;
+            document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).style.cssText = `grid-column: ${grid_start} / span ${span_len};`;
+        }   
     }
 })
 
