@@ -43,12 +43,16 @@ createTT();
 window.onload = ()=>{    
     function getTechersFromServer(){
         let s = "";
+        let status;
         fetch(url)
         .then(Response=> {
-            console.log(Response.status)
-            return Response.text()
+            status = Response.status;
+            return Response.text();
         })
         .then(data=>{
+            if(status != 200){
+                return;
+            }
             console.log(JSON.parse(data));
             for(var i in JSON.parse(data)){
                 let tts = [];

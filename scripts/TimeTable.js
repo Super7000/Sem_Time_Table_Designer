@@ -15,9 +15,16 @@ let serverDataAboutTeachers = "";
 function showcards(){
     let urlForSirs = url + "io/teachers";
     console.log(urlForSirs)
+    let teacherDataStatus;
     fetch(urlForSirs)
-    .then(Response => Response.text())
+    .then(Response => {
+        teacherDataStatus = Response.status;
+        return Response.text();
+    })
     .then(data => {
+        if(teacherDataStatus!=200){
+            return;
+        }
         serverDataAboutTeachers = data;
         let s = "";
         for (let key in JSON.parse(data)) {
@@ -28,9 +35,16 @@ function showcards(){
     })
     let urlForSubj = url + "io/subjects";
     console.log(urlForSubj)
+    let subjectDataStatus;
     fetch(urlForSubj)
-    .then(Response => Response.text())
+    .then(Response => {
+        subjectDataStatus = Response.status;
+        return Response.text();
+    })
     .then(data => {
+        if(subjectDataStatus!=200){
+            return;
+        }
         serverDataAboutSubjects = data;
         let s = "";
         for (let key in JSON.parse(data)) {
@@ -206,7 +220,7 @@ function createTT(year){
     let tl=9;
     let span_len=3;
     let lunchTime = 5;
-
+    const lunchString = "LUNCH";
     //checking value of year parameter and changing period counts accrding to it 
     if(year==1){
         time = time2;
@@ -227,7 +241,7 @@ function createTT(year){
         for(var i=1;i<=tl;i++){
             if(i==lunchTime){
                 s = s + `<div class="s_for_grid">
-                            
+                            ${lunchString[j-1]}
                         </div>`;
             } else {
                 s = s + `   <div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]">
