@@ -185,7 +185,7 @@
 .set_time_chart .times, .set_time_chart .week {
     /* background:dodgerblue; */
     display: grid;
-    grid-template-columns: 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5%;
+    grid-template-columns: 8% 10% 10% 10% 10% 8% 10% 10% 10% 10%;
     justify-content: space-around;
     justify-items: center;
 }

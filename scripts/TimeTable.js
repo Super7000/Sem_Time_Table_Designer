@@ -201,16 +201,18 @@ document.querySelectorAll(".sem_cards_container .cards div").forEach((c)=>{
 //Printing HTML code for Time Table when value of year is equal to 1 then it prints 7 periods per day outherwise 8 period per day
 function createTT(year){
     const weeks = ["Tue","Wed","Thu","Fri","Sat"];
-    let time = ["9:30AM","10:20AM","11:10AM","12:00PM","01:40PM","02:30PM","03:20PM","04:10PM"];
-    const time2 = ["9:30AM","10:20AM","11:10AM","1:40PM","02:30PM","03:20PM","04:10PM"];
-    let tl=8;
+    let time = ["9:30AM","10:20AM","11:10AM","12:00PM","12:50PM","01:40PM","02:30PM","03:20PM","04:10PM"];
+    const time2 = ["9:30AM","10:20AM","11:10AM","12:00PM","1:40PM","02:30PM","03:20PM","04:10PM"];
+    let tl=9;
     let span_len=3;
+    let lunchTime = 5;
 
     //checking value of year parameter and changing period counts accrding to it 
     if(year==1){
         time = time2;
-        tl = 7;
+        tl = 8;
         span_len = 2;
+        lunchTime = 4;
     }
 
     let s = `<div class="times">
@@ -223,13 +225,20 @@ function createTT(year){
         s = s + `<div class="week week_${j}">
                     <div class="s_for_grid week_names">${weeks[j-1]}</div>`;
         for(var i=1;i<=tl;i++){
-            s = s + `   <div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]">
+            if(i==lunchTime){
+                s = s + `<div class="s_for_grid">
+                            
+                        </div>`;
+            } else {
+                s = s + `   <div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]">
                             <div class="period">
                                 <div>Subject</div>
                                 <div>Sir</div>                           
                                 <div>Room no.</div>
                             </div>
                         </div>`;
+            }
+            
         }
         // if(pc==5){
         //     i++;
@@ -248,9 +257,9 @@ function createTT(year){
     //Updating CSS of week class according to year parameter value
     if(year==1){        
         document.querySelectorAll(".week").forEach((e)=>{
-            e.style.cssText = "grid-template-columns: 11.5% 11.5% 11.5% 11.5% 11.5% 11.5% 11.5% 11.5%;";
+            e.style.cssText = "grid-template-columns: 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5%;";
         })
-        document.querySelector(".times").style.cssText = "grid-template-columns: 11.5% 11.5% 11.5% 11.5% 11.5% 11.5% 11.5% 11.5%;";
+        document.querySelector(".times").style.cssText = "grid-template-columns: 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5%;";
     }
 }
 
