@@ -108,7 +108,6 @@ function loadCards() {
         })
         .then(data => {
             if (statusValue != 200) {
-                terrorbox("Something went wrong", "", 5000);
                 return;
             }
             let s = `<div class="add card active">

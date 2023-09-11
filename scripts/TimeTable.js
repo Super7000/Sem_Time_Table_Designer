@@ -1,4 +1,192 @@
 import { terrorbox } from "./Util.js"
+//Time table data || format: [semester][section][day][period]{"teacherName","subjectCode"}
+let timeTableData = [
+                        [
+                            [
+                                [["Sirsem1secA","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ],
+                            [
+                                [["Sirsem1secB","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ],
+                            [
+                                [["Sirsem1secC","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ]
+                        ],
+                        [
+                            [
+                                [["Sirsem2secA","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ],
+                            [
+                                [["Sirsem2secB","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ],
+                            [
+                                [["Sirsem2secC","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ]
+                        ],
+                        [
+                            [
+                                [["Sirsem3secA","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ],
+                            [
+                                [["Sirsem3secB","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ],
+                            [
+                                [["Sirsem3secC","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ]
+                        ],
+                        [
+                            [
+                                [["Sirsem4secA","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ],
+                            [
+                                [["Sirsem4secB","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ],
+                            [
+                                [["Sirsem4secC","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ]
+                        ],
+                        [
+                            [
+                                [["Sirsem5secA","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ],
+                            [
+                                [["Sirsem5secB","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ],
+                            [
+                                [["Sirsem5secC","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ]
+                        ],
+                        [
+                            [
+                                [["Sirsem6secA","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ],
+                            [
+                                [["Sirsem6secB","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ],
+                            [
+                                [["Sirsem6secC","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ]
+                        ],
+                        [
+                            [
+                                [["Sirsem7secA","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ],
+                            [
+                                [["Sirsem7secB","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ],
+                            [
+                                [["Sirsem7secC","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ]
+                        ],
+                        [
+                            [
+                                [["Sirsem8secA","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ],
+                            [
+                                [["Sirsem8secB","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ],
+                            [
+                                [["Sirsem8secC","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                            ]
+                        ]
+                    ];
+console.log(timeTableData[0][1][0][0][0]);
 //Printing HTML code of Time Table for first year
 createTT(1);
 
@@ -173,6 +361,9 @@ document.querySelectorAll(".section .sec").forEach((c)=>{
             let s = document.querySelector(".set_time_chart p").innerHTML
             s = s.slice(0,25) + c.innerHTML;
             document.querySelector(".set_time_chart p").innerHTML = s;
+
+            //updating time table
+            createTT(document.querySelector(".sem_cards_container .cards .active").innerHTML[4])
         }
     })
 })
@@ -200,11 +391,8 @@ document.querySelectorAll(".sem_cards_container .cards div").forEach((c)=>{
             document.querySelector(".set_time_chart p").innerHTML = s;
 
             //updating Time Table
-            if(c.innerHTML == "Sem 1" || c.innerHTML =="Sem 2"){
-                createTT(1);
-            } else {
-                createTT();
-            }
+            let semNo = c.innerHTML;
+            createTT(semNo[4]);
 
             //Making click listener for class
             clickListenerForClass();
@@ -213,7 +401,7 @@ document.querySelectorAll(".sem_cards_container .cards div").forEach((c)=>{
 })
 
 //Printing HTML code for Time Table when value of year is equal to 1 then it prints 7 periods per day outherwise 8 period per day
-function createTT(year){
+function createTT(semester){
     const weeks = ["Tue","Wed","Thu","Fri","Sat"];
     let time = ["9:30AM","10:20AM","11:10AM","12:00PM","12:50PM","01:40PM","02:30PM","03:20PM","04:10PM"];
     const time2 = ["9:30AM","10:20AM","11:10AM","12:00PM","1:40PM","02:30PM","03:20PM","04:10PM"];
@@ -221,8 +409,18 @@ function createTT(year){
     let span_len=3;
     let lunchTime = 5;
     const lunchString = "LUNCH";
+    let section = document.querySelector(".filters .section .sec.active").innerHTML;
+    if(section == "A"){
+        section = 0;
+    } else if(section == "B"){
+        section = 1;
+    } else if(section == "C"){
+        section = 2;
+    } else {
+        terrorbox("An error occured in showing scedule");
+    }
     //checking value of year parameter and changing period counts accrding to it 
-    if(year==1){
+    if(semester==1 || semester==2){
         time = time2;
         tl = 8;
         span_len = 2;
@@ -238,6 +436,7 @@ function createTT(year){
     for(var j=1; j<=5; j++){
         s = s + `<div class="week week_${j}">
                     <div class="s_for_grid week_names">${weeks[j-1]}</div>`;
+        let classIteratorForArrayData = 0;
         for(var i=1;i<=tl;i++){
             if(i==lunchTime){
                 s = s + `<div class="s_for_grid">
@@ -246,11 +445,12 @@ function createTT(year){
             } else {
                 s = s + `   <div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]">
                             <div class="period">
-                                <div>Subject</div>
-                                <div>Sir</div>                           
+                                <div>${timeTableData[semester-1][section][j-1][classIteratorForArrayData][1]}</div>
+                                <div>${timeTableData[semester-1][section][j-1][classIteratorForArrayData][0]}</div>                           
                                 <div>Room no.</div>
                             </div>
                         </div>`;
+                classIteratorForArrayData++;
             }
             
         }
@@ -269,7 +469,7 @@ function createTT(year){
     document.querySelector(".set_time_chart .att_chart").innerHTML = s;
 
     //Updating CSS of week class according to year parameter value
-    if(year==1){        
+    if(semester==1 || semester==2){        
         document.querySelectorAll(".week").forEach((e)=>{
             e.style.cssText = "grid-template-columns: 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5%;";
         })
