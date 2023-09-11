@@ -534,6 +534,8 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
         let subjectsData = JSON.parse(serverDataAboutSubjects);
         let returnValue = false;
         if(subjectsData[document.querySelector(".d_card.subject.active").innerHTML]["isPractical"]==true){
+
+            //checking if margeing is possible
             try{
                 let periodSelector = clickedPeriodTime[1];
                 let weekSelector = clickedPeriodTime[0];
@@ -559,56 +561,60 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
                 }
             }
         } else {
-            if(isLab!=true){
-                return;
-            }
-            if(isLab==true){
-                let periodNumber = clickedPeriodTime[1]+3;
-                let weekNumber = clickedPeriodTime[0];
-                for(var i=1;i<3;i++){
-                    periodNumber = periodNumber - 1;
-                    let position = document.querySelector(`.week_${clickedPeriodTime[0]}`).children[clickedPeriodTime[1]+1];
-
-                    //creating class a HTML element
-                    let newNode = document.createElement("div");
-                    let period = document.createElement("div")
-                    period.classList.add("period");
-                    let subjectdiv = document.createElement("div");
-                    subjectdiv.innerHTML = "Subject";
-                    let sirdiv = document.createElement("div");
-                    sirdiv.innerHTML="Sir";
-                    let roomdiv = document.createElement("div");
-                    roomdiv.innerHTML = "Room no.";
-                    period.appendChild(subjectdiv);
-                    period.appendChild(sirdiv);
-                    period.appendChild(roomdiv);
-                    newNode.appendChild(period);
-                    newNode.classList.add(`s_for_grid`)
-                    newNode.classList.add(`class`)
-                    newNode.classList.add(`class_${periodNumber}`)
-                    newNode.classList.add(`alloc`);
-                    newNode.setAttribute("data-pt",`[${weekNumber},${periodNumber}]`)
-                    // let newElement = `<div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]">
-                    //                     <div class="period">
-                    //                         <div>Subject</div>
-                    //                         <div>Sir</div>                           
-                    //                         <div>Room no.</div>
-                    //                     </div>
-                    //                 </div>`;
-                    
-                    
-                    //adding the HTML element after current Time
-                    document.querySelector(`.week_${clickedPeriodTime[0]}`).insertBefore(newNode,position);
-                }
-                clickListenerForClass();
-                isLab = false;
-            }
-            let span_len = 1;
-            let grid_start = JSON.parse(document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).dataset.pt)[1]+1;
-            document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).style.cssText = `grid-column: ${grid_start} / span ${span_len};`;
+            removeLabClassAndPlaceTwoClass();
         }   
     }
 })
+
+function removeLabClassAndPlaceTwoClass() {
+    if(isLab!=true){
+        return;
+    }
+    if(isLab==true){
+        let periodNumber = clickedPeriodTime[1]+3;
+        let weekNumber = clickedPeriodTime[0];
+        for(var i=1;i<3;i++){
+            periodNumber = periodNumber - 1;
+            let position = document.querySelector(`.week_${clickedPeriodTime[0]}`).children[clickedPeriodTime[1]+1];
+
+            //creating a class HTML element
+            let newNode = document.createElement("div");
+            let period = document.createElement("div")
+            period.classList.add("period");
+            let subjectdiv = document.createElement("div");
+            subjectdiv.innerHTML = "Subject";
+            let sirdiv = document.createElement("div");
+            sirdiv.innerHTML="Sir";
+            let roomdiv = document.createElement("div");
+            roomdiv.innerHTML = "Room no.";
+            period.appendChild(subjectdiv);
+            period.appendChild(sirdiv);
+            period.appendChild(roomdiv);
+            newNode.appendChild(period);
+            newNode.classList.add(`s_for_grid`)
+            newNode.classList.add(`class`)
+            newNode.classList.add(`class_${periodNumber}`)
+            newNode.classList.add(`alloc`);
+            newNode.setAttribute("data-pt",`[${weekNumber},${periodNumber}]`)
+            // let newElement = `<div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]">
+            //                     <div class="period">
+            //                         <div>Subject</div>
+            //                         <div>Sir</div>                           
+            //                         <div>Room no.</div>
+            //                     </div>
+            //                 </div>`;
+            
+            
+            //adding the HTML element after current Time
+            document.querySelector(`.week_${clickedPeriodTime[0]}`).insertBefore(newNode,position);
+        }
+        clickListenerForClass();
+        isLab = false;
+    }
+    let span_len = 1;
+    let grid_start = JSON.parse(document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).dataset.pt)[1]+1;
+    document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).style.cssText = `grid-column: ${grid_start} / span ${span_len};`;
+}
 
 //Remove btn click listener of allocated teacher box popup
 document.querySelector(".mainSirsCon .btns .btnOpts .rs").addEventListener("click",()=>{
@@ -631,6 +637,7 @@ document.querySelector(".mainSubsCon .btns .btnOpts .rs").addEventListener("clic
             document.querySelector(".d_card.subject.active").classList.remove("active");            
             document.querySelector(".mainSubsCon .btns .btnOpts .rs").classList.add("notactive");
             document.querySelector(".allocTeacherBoxBG").click();
+            removeLabClassAndPlaceTwoClass();
         } catch (error) {
             console.log("%cerror in remove subject","color: red")
         }
