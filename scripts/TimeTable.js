@@ -428,7 +428,7 @@ function createTT(semester){
     } else {
         terrorbox("An error occured in showing scedule");
     }
-    //checking value of year parameter and changing period counts accrding to it 
+    //checking value of year parameter and changing period counts according to it 
     if(semester==1 || semester==2){
         time = time2;
         tl = 8;
@@ -482,17 +482,25 @@ function createTT(semester){
         })
         document.querySelector(".times").style.cssText = "grid-template-columns: 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5%;";
     }
+
+    //Assigning values to periods
     for(let j = 1; j <= 5; j++){
-        let classIterator=1;
         for(let i = 1; i <= timeTableData[semester-1][section][j-1].length; i++)
         {
-            if(classIterator==lunchTime) {
-                classIterator++;
+            if(i==lunchTime) {
+                continue;
             }
             //console.log(j+","+i+","+classIterator)
-            document.querySelector(`.week_${j} .class_${classIterator} .period div:nth-child(1)`).innerHTML = `${timeTableData[semester-1][section][j-1][i-1][1]}`;
-            document.querySelector(`.week_${j} .class_${classIterator} .period div:nth-child(2)`).innerHTML = `${timeTableData[semester-1][section][j-1][i-1][0]}`;
-            classIterator++;
+            if(timeTableData[semester-1][section][j-1][i-1][1] == null){
+                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `&nbsp &nbsp &nbsp`;
+                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `&nbsp &nbsp &nbsp`;
+                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = `&nbsp &nbsp &nbsp`;
+            } else {
+                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `${timeTableData[semester-1][section][j-1][i-1][1]}`;
+                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${timeTableData[semester-1][section][j-1][i-1][0]}`;
+                
+            }
+            
         }
     }
 }
@@ -681,5 +689,8 @@ function generateTTRequest(){
     console.log("%cGenerate Request Send","color: blue");
     fetch(`${url}io/schedule?generateNew=True`)
     .then(Response=>Response.text())
-    .then(data=>console.log(JSON.parse(data)))
+    .then(data=>{
+        console.log(JSON.parse(data));
+        timeTableData[4][0] = JSON.parse(data)[2][0];
+    })
 }
