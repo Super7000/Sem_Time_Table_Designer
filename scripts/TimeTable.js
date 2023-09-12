@@ -367,6 +367,8 @@ document.querySelectorAll(".section .sec").forEach((c)=>{
 
             //updating time table
             createTT(document.querySelector(".sem_cards_container .cards .active").innerHTML[4])
+
+            clickListenerForClass();
         }
     })
 })
@@ -487,7 +489,7 @@ function createTT(semester){
             if(classIterator==lunchTime) {
                 classIterator++;
             }
-            console.log(j+","+i+","+classIterator)
+            //console.log(j+","+i+","+classIterator)
             document.querySelector(`.week_${j} .class_${classIterator} .period div:nth-child(1)`).innerHTML = `${timeTableData[semester-1][section][j-1][i-1][1]}`;
             document.querySelector(`.week_${j} .class_${classIterator} .period div:nth-child(2)`).innerHTML = `${timeTableData[semester-1][section][j-1][i-1][0]}`;
             classIterator++;
