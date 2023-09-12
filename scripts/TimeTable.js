@@ -499,6 +499,25 @@ function createTT(semester){
                 document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `${timeTableData[semester-1][section][j-1][i-1][1]}`;
                 document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${timeTableData[semester-1][section][j-1][i-1][0]}`;
                 
+                if(section == 0 && document.querySelector(".filters .options .opt.active").innerHTML=="Auto Fill All Semesters"){
+                    let status;
+                    try{
+                        console.log(`${url}io/subjects/${document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML}`)
+                        fetch(`${url}io/subjects/${document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML}`)
+                        .then(Response=>{
+                            status = Response.status;
+                            return Response.text();
+                        })
+                        .then(data=>{
+                            if(status!=200){
+                                return;
+                            }
+                            document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = JSON.parse(data)["roomCode"];
+                        })
+                    } catch(err) {
+                        console.log("error in showing room code")
+                    }
+                }
             }
             
         }
@@ -692,5 +711,6 @@ function generateTTRequest(){
     .then(data=>{
         console.log(JSON.parse(data));
         timeTableData[4][0] = JSON.parse(data)[2][0];
+        createTT(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
     })
 }
