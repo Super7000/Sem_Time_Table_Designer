@@ -4,10 +4,10 @@ let timeTableData = [
                         [
                             [
                                 [["Sirsem1secA","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
-                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
-                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
-                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
-                                [["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
+                                [["1Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["2Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["3Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
+                                [["4Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sirlast","Subject"]]
                             ],
                             [
                                 [["Sirsem1secB","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"],["Sir","Subject"]],
@@ -187,8 +187,6 @@ let timeTableData = [
                         ]
                     ];
 console.log(timeTableData[0][1][0][0][0]);
-//Printing HTML code of Time Table for first year
-createTT(1);
 
 let url = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1);
 console.log(url)
@@ -253,6 +251,11 @@ let sirname; //An unique ID for Sirs of String
 let subname; //An unique ID for Subjects of String
 let clickedPeriodTime; //2D array of int Ex.: [1,2] means day 1 period 2
 let isLab;
+
+
+//Printing HTML code of Time Table for first year
+createTT(1);
+
 
 function clickListenerforAvailableTeacherCards(){
     document.querySelectorAll(".d_card.teacher").forEach((e)=>{
@@ -375,6 +378,10 @@ document.querySelectorAll(".options .opt").forEach((o)=>{
             document.querySelector(".opt.active").classList.remove("active");
             o.classList.add("active");
         }
+        if(o.innerHTML == "Auto Fill All Semesters")
+        {
+            generateTTRequest();
+        }
     })
 })
 
@@ -436,7 +443,6 @@ function createTT(semester){
     for(var j=1; j<=5; j++){
         s = s + `<div class="week week_${j}">
                     <div class="s_for_grid week_names">${weeks[j-1]}</div>`;
-        let classIteratorForArrayData = 0;
         for(var i=1;i<=tl;i++){
             if(i==lunchTime){
                 s = s + `<div class="s_for_grid">
@@ -445,12 +451,11 @@ function createTT(semester){
             } else {
                 s = s + `   <div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]">
                             <div class="period">
-                                <div>${timeTableData[semester-1][section][j-1][classIteratorForArrayData][1]}</div>
-                                <div>${timeTableData[semester-1][section][j-1][classIteratorForArrayData][0]}</div>                           
+                                <div>No Subject</div>
+                                <div>No Sir</div>                           
                                 <div>Room no.</div>
                             </div>
                         </div>`;
-                classIteratorForArrayData++;
             }
             
         }
@@ -474,6 +479,19 @@ function createTT(semester){
             e.style.cssText = "grid-template-columns: 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5%;";
         })
         document.querySelector(".times").style.cssText = "grid-template-columns: 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5%;";
+    }
+    for(let j = 1; j <= 5; j++){
+        let classIterator=1;
+        for(let i = 1; i <= timeTableData[semester-1][section][j-1].length; i++)
+        {
+            if(classIterator==lunchTime) {
+                classIterator++;
+            }
+            console.log(j+","+i+","+classIterator)
+            document.querySelector(`.week_${j} .class_${classIterator} .period div:nth-child(1)`).innerHTML = `${timeTableData[semester-1][section][j-1][i-1][1]}`;
+            document.querySelector(`.week_${j} .class_${classIterator} .period div:nth-child(2)`).innerHTML = `${timeTableData[semester-1][section][j-1][i-1][0]}`;
+            classIterator++;
+        }
     }
 }
 
@@ -655,3 +673,11 @@ window.onload = function(){
     };
   };
 
+//Sending generate request to server on "Auto fill all semester" btn click
+function generateTTRequest(){
+    console.log(`${url}io/schedule?generateNew=True`);
+    console.log("%cGenerate Request Send","color: blue");
+    fetch(`${url}io/schedule?generateNew=True`)
+    .then(Response=>Response.text())
+    .then(data=>console.log(JSON.parse(data)))
+}
