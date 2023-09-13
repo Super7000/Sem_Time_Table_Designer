@@ -186,15 +186,14 @@ let timeTableData = [
                             ]
                         ]
                     ];
-console.log(timeTableData[0][1][0][0][0]);
 
 let url = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1);
 console.log(url)
 
 
 //stroing data get from server
-let serverDataAboutSubjects = "";
-let serverDataAboutTeachers = "";
+let serverDataAboutSubjects = "empty";
+let serverDataAboutTeachers = "empty";
 
 
 //Printing Teacher Cards in Allocation Teacher Box 
@@ -251,7 +250,6 @@ let sirname; //An unique ID for Sirs of String
 let subname; //An unique ID for Subjects of String
 let clickedPeriodTime; //2D array of int Ex.: [1,2] means day 1 period 2
 let isLab;
-let generatedDataComplete = false;
 
 //Printing HTML code of Time Table for first year
 createTT(1);
@@ -493,15 +491,15 @@ function createTT(semester){
             //console.log(j+","+i+","+classIterator)
             //checking if array value is null then print only a empty box in time table 
             if(timeTableData[semester-1][section][j-1][i-1][1] == null){
-                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `&nbsp &nbsp &nbsp`;
-                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `&nbsp &nbsp &nbsp`;
-                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = `&nbsp &nbsp &nbsp`;
+                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `&nbsp`;
+                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `&nbsp`;
+                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = `&nbsp`;
             } else {
                 document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `${timeTableData[semester-1][section][j-1][i-1][1]}`;
                 document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${timeTableData[semester-1][section][j-1][i-1][0]}`;               
 
                 //fetching data of the subject for room code
-                if(generatedDataComplete == true && section == 0 && document.querySelector(".filters .options .opt.active").innerHTML=="Auto Fill All Semesters"){
+                if(document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML!="Subject"){
                     let status;
                     try{
                         fetch(`${url}io/subjects/${document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML}`)
@@ -524,7 +522,8 @@ function createTT(semester){
                                         document.querySelector(`.week_${weekSelector} .class_${periodSelector}`).dataset.pt;
                                     }
                                 } catch(err){
-                                    returnValue = true;                                  
+                                    returnValue = true;    
+                                    console.log("merging not possible")                              
                                 }
                                 if(returnValue==false){
                                     let spanStart = i+1;
@@ -538,7 +537,7 @@ function createTT(semester){
                                 try{
                                     document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = JSON.parse(data)["roomCode"];
                                 } catch(e){
-
+                                    console.log("err in roomcode printing beacause of lab")
                                 }
                             } else {
                                 
@@ -553,7 +552,6 @@ function createTT(semester){
             
         }
     }
-    generatedDataComplete = false;
 }
 
 
@@ -743,7 +741,6 @@ function generateTTRequest(){
     .then(data=>{
         console.log(JSON.parse(data));
         timeTableData[4][0] = JSON.parse(data)[2][0];
-        generatedDataComplete = true;
         createTT(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
     })
 }
