@@ -251,7 +251,7 @@ let sirname; //An unique ID for Sirs of String
 let subname; //An unique ID for Subjects of String
 let clickedPeriodTime; //2D array of int Ex.: [1,2] means day 1 period 2
 let isLab;
-
+let generatedDataComplete = false;
 
 //Printing HTML code of Time Table for first year
 createTT(1);
@@ -491,18 +491,19 @@ function createTT(semester){
                 continue;
             }
             //console.log(j+","+i+","+classIterator)
+            //checking if array value is null then print only a empty box in time table 
             if(timeTableData[semester-1][section][j-1][i-1][1] == null){
                 document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `&nbsp &nbsp &nbsp`;
                 document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `&nbsp &nbsp &nbsp`;
                 document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = `&nbsp &nbsp &nbsp`;
             } else {
                 document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `${timeTableData[semester-1][section][j-1][i-1][1]}`;
-                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${timeTableData[semester-1][section][j-1][i-1][0]}`;
-                
-                if(section == 0 && document.querySelector(".filters .options .opt.active").innerHTML=="Auto Fill All Semesters"){
+                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${timeTableData[semester-1][section][j-1][i-1][0]}`;               
+
+                //fetching data of the subject for room code
+                if(generatedDataComplete == true && section == 0 && document.querySelector(".filters .options .opt.active").innerHTML=="Auto Fill All Semesters"){
                     let status;
                     try{
-                        console.log(`${url}io/subjects/${document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML}`)
                         fetch(`${url}io/subjects/${document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML}`)
                         .then(Response=>{
                             status = Response.status;
@@ -512,7 +513,37 @@ function createTT(semester){
                             if(status!=200){
                                 return;
                             }
-                            document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = JSON.parse(data)["roomCode"];
+                            if(JSON.parse(data)["isPractical"]==true){                    
+                                
+                                let returnValue = false;
+                                try{
+                                    let periodSelector = i;
+                                    let weekSelector = j;
+                                    for(var k = 0; k < 2; k++){
+                                        periodSelector++;
+                                        document.querySelector(`.week_${weekSelector} .class_${periodSelector}`).dataset.pt;
+                                    }
+                                } catch(err){
+                                    returnValue = true;                                  
+                                }
+                                if(returnValue==false){
+                                    let spanStart = i+1;
+                                    document.querySelector(`.week_${j} .class_${i}`).style.cssText = `grid-column: ${spanStart} / span ${span_len};`;
+                                    var periodSelector = i;
+                                    for(var k=1;k<3;k++){
+                                        periodSelector+=1;
+                                        document.querySelector(`.week_${j} .class_${periodSelector}`).remove();
+                                    }
+                                }                         
+                                try{
+                                    document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = JSON.parse(data)["roomCode"];
+                                } catch(e){
+
+                                }
+                            } else {
+                                
+                                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = JSON.parse(data)["roomCode"];
+                            }
                         })
                     } catch(err) {
                         console.log("error in showing room code")
@@ -522,6 +553,7 @@ function createTT(semester){
             
         }
     }
+    generatedDataComplete = false;
 }
 
 
@@ -711,6 +743,7 @@ function generateTTRequest(){
     .then(data=>{
         console.log(JSON.parse(data));
         timeTableData[4][0] = JSON.parse(data)[2][0];
+        generatedDataComplete = true;
         createTT(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
     })
 }
