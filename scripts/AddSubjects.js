@@ -1,3 +1,4 @@
+import { getSubjectList } from "./ServerDataFetcher.js";
 import { terrorbox, clickListenerForCardActivator, addCardClickListener } from "./Util.js";
 //Printing HTML code of Card of each Subject
 // function showcards(){
@@ -19,26 +20,26 @@ function saveBtnClickListener() {
         let val = document.querySelectorAll(".con input")[0].value.trim().toUpperCase();
         //form validating
         if (val.length > 9) {
-            terrorbox("Length of the name must be less than 10", "", 5000);
+            terrorbox("Length of the name must be less than 10");
             return;
         }
         if (val == "") {
-            terrorbox("Please Enter a vaild name", "", 5000);
+            terrorbox("Please Enter a vaild name");
             return;
         }
         let semValue=document.querySelectorAll(".con input")[1].value.trim();
         if(semValue == ""){
-            terrorbox("Please Enter a Number in semester","",5000);
+            terrorbox("Please Enter a Number in semester");
             return;
         }
         try{
             semValue=parseInt(semValue);
         } catch (e){
-            terrorbox("Please Enter a number in semester", "", 5000);
+            terrorbox("Please Enter a number in semester");
             return;
         }
         if(semValue<1 || semValue>8){            
-            terrorbox("Value must be in 1 to 8 range in semester", "", 5000);
+            terrorbox("Value must be in 1 to 8 range in semester");
             return;
         }
         let lecCount=document.querySelectorAll(".con input")[2].value.trim();
@@ -48,16 +49,16 @@ function saveBtnClickListener() {
         try{
             lecCount=parseInt(lecCount);
         } catch (e){
-            terrorbox("Please Enter a number in lecture count per week", "", 5000);
+            terrorbox("Please Enter a number in lecture count per week");
             return;
         }
         if(lecCount<0 || lecCount>40){
-            terrorbox("Value must be in range 0 to 40 in lecture count per week", "", 5000);
+            terrorbox("Value must be in range 0 to 40 in lecture count per week");
             return;
         }
         let rCode=document.querySelectorAll(".con input")[3].value.trim().toUpperCase();
         if(rCode==""){
-            terrorbox("Please Enter a Classroom name", "", 5000);
+            terrorbox("Please Enter a Classroom name");
             return;
         }
 
@@ -84,7 +85,7 @@ function saveBtnClickListener() {
             })
             .then(data => {
                 if (statusValue != 200) {
-                    terrorbox("Something went wrong", "", 5000);
+                    terrorbox("Something went wrong");
                     return;
                 }
 
@@ -100,22 +101,13 @@ function saveBtnClickListener() {
 saveBtnClickListener();
 
 function loadCards() {
-    let statusValue;
-    fetch(url)
-        .then(Response => {
-            statusValue = Response.status;
-            return Response.text();
-        })
-        .then(data => {
-            if (statusValue != 200) {
-                return;
-            }
+    getSubjectList((data)=>{
             let s = `<div class="add card active">
                         <svg height="32px" id="Layer_1" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <path d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"/>
                         </svg>
                     </div>`;
-            for (let key in JSON.parse(data)) {
+            for (let key in data) {
                 s += `<div class="d_card card">${key}</div>`;
             }
             document.querySelector(".container .cards").innerHTML = s;
@@ -140,7 +132,7 @@ function deleteBtnFunc() {
             })
             .then(data => {
                 if (statusValue != 200) {
-                    terrorbox("Something went wrong", "", 5000);
+                    terrorbox("Something went wrong");
                     return;
                 }
 
@@ -171,7 +163,7 @@ function clickListenerForCards() {
                 })
                 .then(data => {
                     if (statusValue != 200) {
-                        terrorbox("Something went wrong", "", 5000);
+                        terrorbox("Something went wrong");
                         return;
                     }
 

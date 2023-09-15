@@ -1,5 +1,6 @@
 import { terrorbox } from "./Util.js";
 import { timeTableData } from "./TimeTableData.js";
+import { getSubject, getSubjectList, getTeacherList } from "./ServerDataFetcher.js";
 
 let url = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1);
 console.log(url)
@@ -12,46 +13,27 @@ let serverDataAboutTeachers = "empty";
 
 //Printing Teacher Cards in Allocation Teacher Box 
 function showcards(){
-    let urlForSirs = url + "io/teachers";
-    console.log(urlForSirs)
-    let teacherDataStatus;
-    fetch(urlForSirs)
-    .then(Response => {
-        teacherDataStatus = Response.status;
-        return Response.text();
-    })
-    .then(data => {
-        if(teacherDataStatus!=200){
-            return;
-        }
+    getTeacherList(teacherRequestFunction);
+    function teacherRequestFunction(data){
         serverDataAboutTeachers = data;
         let s = "";
-        for (let key in JSON.parse(data)) {
+        for (let key in data) {
             s += `<div class="d_card teacher card available" id="SIR${key}">${key}</div>`;
         }
         document.querySelectorAll(".cardsCon")[0].innerHTML = s;
         clickListenerforAvailableTeacherCards();
-    })
-    let urlForSubj = url + "io/subjects";
-    console.log(urlForSubj)
-    let subjectDataStatus;
-    fetch(urlForSubj)
-    .then(Response => {
-        subjectDataStatus = Response.status;
-        return Response.text();
-    })
-    .then(data => {
-        if(subjectDataStatus!=200){
-            return;
-        }
+    }
+    
+    getSubjectList(subjectRequestFunction);
+    function subjectRequestFunction(data){
         serverDataAboutSubjects = data;
         let s = "";
-        for (let key in JSON.parse(data)) {
+        for (let key in data) {
             s += `<div class="d_card subject card available" id="SUB${key}">${key}</div>`;
         }
         document.querySelectorAll(".cardsCon")[1].innerHTML = s;
         clickListenerforAvailableSubjectCards();
-    })
+    }
     //     s2 += `<div class="d_card card disabled" onclick="terrorbox('Sir is Busy','255, 203, 130',5000)">SIR${35+i}</div>`;
     
     // document.querySelectorAll(".cardsCon")[1].innerHTML = s2;
@@ -314,18 +296,10 @@ function createTT(semester){
 
                 //fetching data of the subject for room code
                 if(document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML!="Subject"){
-                    let status;
                     try{
-                        fetch(`${url}io/subjects/${document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML}`)
-                        .then(Response=>{
-                            status = Response.status;
-                            return Response.text();
-                        })
-                        .then(data=>{
-                            if(status!=200){
-                                return;
-                            }
-                            if(JSON.parse(data)["isPractical"]==true){                    
+                        getSubject(document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML,checkingIfLabThenMerge)
+                        function checkingIfLabThenMerge(data){
+                            if(data["isPractical"]==true){                    
                                 
                                 let returnValue = false;
                                 try{
@@ -349,15 +323,15 @@ function createTT(semester){
                                     }
                                 }                         
                                 try{
-                                    document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = JSON.parse(data)["roomCode"];
+                                    document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = data["roomCode"];
                                 } catch(e){
                                     console.log("err in roomcode printing beacause of lab")
                                 }
                             } else {
                                 
-                                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = JSON.parse(data)["roomCode"];
+                                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = data["roomCode"];
                             }
-                        })
+                        }
                     } catch(err) {
                         console.log("error in showing room code")
                     }
@@ -408,6 +382,26 @@ function clickListenerForClass(){
 }
 clickListenerForClass();
 
+//Sending generate request to server on "Auto fill all semester" btn click
+function generateTTRequest(){
+    console.log(`${url}io/schedule?generateNew=True`);
+    console.log("%cGenerate Request Send","color: blue");
+    fetch(`${url}io/schedule?generateNew=True`)
+    .then(Response=>Response.text())
+    .then(data=>{
+        console.log(JSON.parse(data));
+        timeTableData[4][0] = JSON.parse(data)[2][0];
+        createTT(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
+    })
+}
+
+
+
+
+//Fill Manually Scipts
+
+
+
 
 //Yes btn click listener of allocated teacher box popup
 document.querySelector(".mainSirsCon .btns .btnOpts .as").addEventListener("click",()=>{
@@ -422,9 +416,9 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = document.querySelector(".d_card.subject.active").innerHTML;
         
         //checking if practical then marge 3 classes
-        let subjectsData = JSON.parse(serverDataAboutSubjects);
+        let subjectsData = serverDataAboutSubjects[document.querySelector(".d_card.subject.active").innerHTML];
         let returnValue = false;
-        if(subjectsData[document.querySelector(".d_card.subject.active").innerHTML]["isPractical"]==true){
+        if(subjectsData["isPractical"]==true){
 
             //checking if margeing is possible
             try{
@@ -440,6 +434,8 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
                 document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = subjectName;
                 
             }
+
+            //mergeing classes code here
             if(returnValue==false){
                 isLab = true;
                 let span_len = 3;
@@ -545,16 +541,3 @@ window.onload = function(){
         }
     };
   };
-
-//Sending generate request to server on "Auto fill all semester" btn click
-function generateTTRequest(){
-    console.log(`${url}io/schedule?generateNew=True`);
-    console.log("%cGenerate Request Send","color: blue");
-    fetch(`${url}io/schedule?generateNew=True`)
-    .then(Response=>Response.text())
-    .then(data=>{
-        console.log(JSON.parse(data));
-        timeTableData[4][0] = JSON.parse(data)[2][0];
-        createTT(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
-    })
-}
