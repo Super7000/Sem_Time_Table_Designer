@@ -1,4 +1,4 @@
-import { getSubjectList } from "./ServerDataFetcher.js";
+import { getSubject, getSubjectList } from "./ServerDataFetcher.js";
 import { terrorbox, clickListenerForCardActivator, addCardClickListener } from "./Util.js";
 //Printing HTML code of Card of each Subject
 // function showcards(){
@@ -156,20 +156,9 @@ function clickListenerForCards() {
                 document.querySelector(".dsb").classList.add("edit");
             }
 
-            let statusValue;
-            fetch(url + "/" + e.innerHTML)
-                .then(Response => {
-                    statusValue = Response.status;
-                    return Response.text();
-                })
-                .then(data => {
-                    if (statusValue != 200) {
-                        terrorbox("Something went wrong");
-                        return;
-                    }
-
+            getSubject(e.innerHTML,(data)=>{
                     //if data is found in server then show it in details box
-                    let details = JSON.parse(data);
+                    let details = data;
                     document.querySelectorAll(".t_d .con input")[1].value = details["sem"];
                     document.querySelectorAll(".t_d .con input")[2].value = details["lectureCount"];
                     document.querySelectorAll(".t_d .con input")[3].value = details["roomCode"];

@@ -1,46 +1,9 @@
-import { getTeacherList } from "./ServerDataFetcher";
+import { getTeacherList } from "./ServerDataFetcher.js";
 
 let url = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1) + "io/teachers";
 console.log(url)
 
-//printing html code for teacher cards
-function showcards(){
-    let s = "";
-    for(let i = 15; i >= 1; i--){
-        let tts = [];
-        let sems = [];
-        for(j=0; j < 5; j++){
-            tts[j]=Math.floor(Math.random()*8)+1;
-        }
-        // for(j=0; j < Math.floor(Math.random()*8)+1; j++){
-        //     let v = Math.floor(Math.random()*8)+1;
-        //     function search(v){
-        //         for(k=0;k<sems.length;k++){
-        //             if(sems[k]==v){
-        //                 return 1;
-        //                 break;
-        //             } else {
-        //                 return 0;
-        //             }
-        //         }   
-        //     }
-        //     let b = search(v);
-        //     if(b==0){
-        //         sems[j]=v;
-        //     }
-        // }
-        s = s + `<div class="t_card" data-tts="[${tts}]" data-sems="[5,6,8]"> <!-- tts = total time spend -->
-                    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
-                    </svg>
-                    <p>SIR${i}</p>
-                </div>`;
-    }
-    document.querySelector(".teachers .r_cards").innerHTML = s;
-    document.querySelectorAll(".teachers .r_cards .t_card")[0].classList.add("active");
-}
-
-createTT();
+createTT(3);
 
 window.onload = ()=>{    
     function getTechersFromServer(){
@@ -48,7 +11,7 @@ window.onload = ()=>{
             let s = "";
             for(var i in data){
                 let tts = [];
-                for(j=0; j < 5; j++){
+                for(var j=0; j < 5; j++){
                     tts[j]=Math.floor(Math.random()*8)+1;
                 }
                 s += `<div class="t_card" data-tts="[${tts}]" data-sems="[5,6,8]"> <!-- tts = total time spend -->
@@ -130,16 +93,16 @@ function createTT(year){
     
     let s = `<div class="times">
                 <div class="day_time_l">Day/Time</div>`;
-    for(k=1;k<=8;k++){
+    for(var k=1;k<=8;k++){
         s += `<div class="class_label ${k}">${time[k-1]}</div>`;
     }
     s += `</div>`;
-    for(j=1; j<=5; j++){
+    for(var j=1; j<=5; j++){
         s = s + `<div class="week week_${j}">
                     <div class="s_for_grid week_names">${weeks[j-1]}</div>`;
         let pc=(Math.random());
         if(pc<0.5){pc=5}else{if(year!=1){pc=8}else{pc=7}};
-        for(i=1;i<=pc;i++){
+        for(var i=1;i<=pc;i++){
             s = s + `   <div class="s_for_grid class class_${i}">
                             <div class="period">
                                 <div>OOPS</div>

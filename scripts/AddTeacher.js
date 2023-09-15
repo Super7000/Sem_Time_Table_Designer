@@ -1,4 +1,4 @@
-import { getTeacherList } from "./ServerDataFetcher.js";
+import { getTeacher, getTeacherList } from "./ServerDataFetcher.js";
 import { terrorbox, clickListenerForCardActivator, addCardClickListener } from "./Util.js";
 //Printing HTML code of Card of each sir
 // function showcards() {
@@ -69,7 +69,7 @@ function loadCards() {
                             <path d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"/>
                         </svg>
                     </div>`;
-            for (let key in JSON.parse(data)) {
+            for (let key in data) {
                 s += `<div class="d_card card">${key}</div>`;
             }
             document.querySelector(".container .cards").innerHTML = s;
@@ -114,20 +114,9 @@ function clickListenerForCards() {
                 document.querySelector(".dsb.new").classList.remove("new");
                 document.querySelector(".dsb").classList.add("edit");
             }
-            let statusValue;
-            fetch(url + "/" + e.innerHTML)
-                .then(Response => {
-                    statusValue = Response.status;
-                    return Response.text()
-                })
-                .then(data => {
-                    if (statusValue != 200) {
-                        terrorbox("Something went wrong");
-                        return;
-                    }
-
+            getTeacher(e.innerHTML,(data)=>{
                     //if data is found in server then show it in details box
-                    let details = JSON.parse(data);
+                    let details = data;
                     let time = JSON.stringify(details["freeTime"]);
                     document.querySelectorAll(".t_d .con input")[1].value = details["subjects"];
                     document.querySelectorAll(".t_d .con input")[2].value = time.slice(1,time.length-1);
