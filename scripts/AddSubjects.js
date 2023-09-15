@@ -18,6 +18,7 @@ console.log(url)
 function saveBtnClickListener() {
     document.querySelector(".dsb").addEventListener("click", () => {
         let val = document.querySelectorAll(".con input")[0].value.trim().toUpperCase();
+        
         //form validating
         if (val.length > 9) {
             terrorbox("Length of the name must be less than 10");

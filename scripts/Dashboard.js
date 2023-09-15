@@ -1,3 +1,5 @@
+import { getTeacherList } from "./ServerDataFetcher";
+
 let url = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1) + "io/teachers";
 console.log(url)
 
@@ -42,19 +44,9 @@ createTT();
 
 window.onload = ()=>{    
     function getTechersFromServer(){
-        let s = "";
-        let status;
-        fetch(url)
-        .then(Response=> {
-            status = Response.status;
-            return Response.text();
-        })
-        .then(data=>{
-            if(status != 200){
-                return;
-            }
-            console.log(JSON.parse(data));
-            for(var i in JSON.parse(data)){
+        getTeacherList((data)=>{
+            let s = "";
+            for(var i in data){
                 let tts = [];
                 for(j=0; j < 5; j++){
                     tts[j]=Math.floor(Math.random()*8)+1;
