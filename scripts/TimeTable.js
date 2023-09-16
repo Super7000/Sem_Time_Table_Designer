@@ -390,7 +390,7 @@ function generateTTRequest(){
     .then(Response=>Response.text())
     .then(data=>{
         console.log(JSON.parse(data));
-        timeTableData[4][0] = JSON.parse(data)[2][0];
+        timeTableData[4][1] = JSON.parse(data)[2][0];
         createTT(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
         clickListenerForClass();
     })
