@@ -20,7 +20,7 @@ function showcards(){
         for (let key in data) {
             s += `<div class="d_card teacher card available" id="SIR${key}">${key}</div>`;
         }
-        document.querySelectorAll(".cardsCon")[0].innerHTML = s;
+        document.querySelectorAll(".cardsCon")[0].innerHTML += s;
         clickListenerforAvailableTeacherCards();
     }
     
@@ -31,7 +31,7 @@ function showcards(){
         for (let key in data) {
             s += `<div class="d_card subject card available" id="SUB${key}">${key}</div>`;
         }
-        document.querySelectorAll(".cardsCon")[1].innerHTML = s;
+        document.querySelectorAll(".cardsCon")[1].innerHTML += s;
         clickListenerforAvailableSubjectCards();
     }
     //     s2 += `<div class="d_card card disabled" onclick="terrorbox('Sir is Busy','255, 203, 130',5000)">SIR${35+i}</div>`;
@@ -397,9 +397,17 @@ function generateTTRequest(){
 }
 
 try{
+    let status;
     fetch(`${url}io/schedule`)
-    .then(Response=>Response.text())
+    .then(Response=>{
+        status = Response.status;
+        return Response.text()
+    })
     .then(data=>{
+        if(status!=200)
+        {
+            return
+        }
         console.log(JSON.parse(data));        
         timeTableData[4][1] = JSON.parse(data)[2][0];
         createTT(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
