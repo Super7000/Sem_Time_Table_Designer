@@ -16,6 +16,7 @@ export function getSubject(subName, func) {
             func(JSON.parse(data));
         });
 }
+
 export function getTeacher(sirName, func) {
     let status;
     fetch(`${url}io/teachers/${sirName}`)
@@ -31,6 +32,23 @@ export function getTeacher(sirName, func) {
             func(JSON.parse(data));
         });
 }
+
+export function getTeacherSchedule(sirName,func) {
+    let status;
+    fetch(`${url}io/schedule/teacher/${sirName}`)
+        .then((response) => {
+            status = response.status;
+            return response.text();
+        })
+        .then((data) => {
+            if(status!=200){
+                terrorbox(data);
+                return;
+            }
+            func(JSON.parse(data));
+        });
+}
+
 export function getSubjectList(func) {
     let status;
     fetch(`${url}io/subjects`)
@@ -46,6 +64,7 @@ export function getSubjectList(func) {
             func(JSON.parse(data));
         });
 }
+
 export function getTeacherList(func) {
     let status;
     fetch(`${url}io/teachers`)

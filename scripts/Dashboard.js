@@ -1,9 +1,9 @@
-import { getTeacherList } from "./ServerDataFetcher.js";
+import { getTeacher, getTeacherList, getTeacherSchedule } from "./ServerDataFetcher.js";
 
 let url = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1) + "io/teachers";
 console.log(url)
 
-createTT(3);
+createTT();
 
 window.onload = ()=>{    
     function getTechersFromServer(){
@@ -66,19 +66,28 @@ function clickListenerForTeacherCard(){
             document.querySelector(".semnc").innerHTML = sem_str;
     
             //subjects updater
+            getTeacher(t.querySelector("p").innerHTML,(data)=>{
+                let subjects = "";
+                for(var i = 0; i<data["subjects"].length; i++)
+                {
+                    subjects += `<div>${data["subjects"][i]}</div>`;
+                }
+                document.querySelector(".right .details .subjects .snc").innerHTML = subjects;
+            })
         })
     });
     
 }
 
 for (let i = 1; i < 6; i++) {
-    for (let j = 1; j < 9; j++) {
+    for (let j = 1; j <= 9; j++) {
         let a_v = false;
         if(Math.random()<=0.5){
             a_v = true;
         } else {
             a_v = false;
         }
+        if(j==5) a_v = true;
         if(document.querySelector(`.week_${i} .class_${j}`)!=null && a_v == true)
         {
             document.querySelector(`.week_${i} .class_${j}`).classList.add("alloc");
@@ -86,39 +95,33 @@ for (let i = 1; i < 6; i++) {
     }
 }
 
-function createTT(year){
+function createTT(){
     const weeks = ["Tue","Wed","Thu","Fri","Sat"];
-    const time = ["9:30AM","10:20AM","11:10AM","12:00PM","01:40PM","02:30PM","03:20PM","04:10PM"];
-    const time2 = ["9:30AM","10:20AM","11:10AM","12:00PM","01:40PM","02:30PM","03:20PM"];
-    
+    const time = ["9:30AM","10:20AM","11:10AM","12:00PM","12:50PM","01:40PM","02:30PM","03:20PM","04:10PM"];
+    const lunch = "LUNCH";
     let s = `<div class="times">
                 <div class="day_time_l">Day/Time</div>`;
-    for(var k=1;k<=8;k++){
+    for(var k=1;k<=time.length;k++){
         s += `<div class="class_label ${k}">${time[k-1]}</div>`;
     }
     s += `</div>`;
     for(var j=1; j<=5; j++){
         s = s + `<div class="week week_${j}">
                     <div class="s_for_grid week_names">${weeks[j-1]}</div>`;
-        let pc=(Math.random());
-        if(pc<0.5){pc=5}else{if(year!=1){pc=8}else{pc=7}};
-        for(var i=1;i<=pc;i++){
-            s = s + `   <div class="s_for_grid class class_${i}">
+        for(var i=1;i<=9;i++){
+            if(i==5){
+                s = s + `<div class="s_for_grid">
+                                <div>${lunch[j-1]}</div>  
+                        </div>`;
+            } else {
+                s = s + `<div class="s_for_grid class class_${i}">
                             <div class="period">
                                 <div>OOPS</div>
                                 <div>SEM</div>                           
                                 <div>LH-123</div>
                             </div>
                         </div>`;
-        }
-        if(pc==5){
-            s = s + `   <div class="s_for_grid class class_${i++}" style="grid-column: 7 / span 3;">
-                            <div class="period">
-                                <div>OOPS</div>
-                                <div>SEM</div>                           
-                                <div>LH-123</div>
-                            </div>
-                        </div>`;
+            }
         }
         s = s + `</div>`;
     }
@@ -233,4 +236,8 @@ let chart1 = new Chart(
         },
     });
 
-console.log(chart1);
+// console.log(chart1);
+
+getTeacherSchedule("SKB",(data)=>{
+    console.log(data);
+})
