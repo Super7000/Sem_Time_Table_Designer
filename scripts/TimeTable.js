@@ -392,6 +392,7 @@ function generateTTRequest(){
         console.log(JSON.parse(data));
         timeTableData[4][0] = JSON.parse(data)[2][0];
         createTT(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
+        clickListenerForClass();
     })
 }
 
