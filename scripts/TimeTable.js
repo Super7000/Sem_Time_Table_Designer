@@ -427,11 +427,16 @@ try{
 document.querySelector(".mainSirsCon .btns .btnOpts .as").addEventListener("click",()=>{
     if(document.querySelector(".mainSirsCon .btns .btnOpts .as.notactive")==null){
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = document.querySelector(".d_card.teacher.active").innerHTML;
-        let teachersData = JSON.parse(serverDataAboutTeachers);
     }
 })
 document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("click",()=>{
     if(document.querySelector(".mainSubsCon .btns .btnOpts .as.notactive")==null){
+        if(document.querySelector(".d_card.subject.active").innerHTML == "LIB" || document.querySelector(".d_card.subject.active").innerHTML == "NPTEL"){
+            document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = "&nbsp";
+            document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = document.querySelector(".d_card.subject.active").innerHTML;
+            document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = "&nbsp";
+            return
+        }
         let subjectName = document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML;
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = document.querySelector(".d_card.subject.active").innerHTML;
         
@@ -457,6 +462,7 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
 
             //mergeing classes code here
             if(returnValue==false){
+                document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = serverDataAboutSubjects[document.querySelector(".d_card.subject.active").innerHTML]["roomCode"];
                 isLab = true;
                 let span_len = 3;
                 let grid_start = JSON.parse(document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).dataset.pt)[1]+1;
@@ -468,6 +474,7 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
                 }
             }
         } else {
+            document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = serverDataAboutSubjects[document.querySelector(".d_card.subject.active").innerHTML]["roomCode"];
             removeLabClassAndPlaceTwoClass();
         }   
     }
