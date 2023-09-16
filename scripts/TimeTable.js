@@ -396,7 +396,18 @@ function generateTTRequest(){
     })
 }
 
-
+try{
+    fetch(`${url}io/schedule`)
+    .then(Response=>Response.text())
+    .then(data=>{
+        console.log(JSON.parse(data));        
+        timeTableData[4][1] = JSON.parse(data)[2][0];
+        createTT(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
+        clickListenerForClass();
+    })
+} catch(err) {
+    console.log("err in scedule fetching")
+}
 
 
 //Fill Manually Scipts
