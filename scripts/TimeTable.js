@@ -276,8 +276,10 @@ function createTT(semester) {
         document.querySelector(".times").style.cssText = "grid-template-columns: 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5%;";
     }
 
-    //Assigning values to periods
+    //fetching subjectlist for roomCode and isPractical Checking
     getSubjectList(updateTTData);
+
+    //Assigning values to periods function
     function updateTTData(data) {
         for (let j = 1; j <= 5; j++) {
             for (let i = 1; i <= timeTableData[semester - 1][section][j - 1].length; i++) {
@@ -289,13 +291,13 @@ function createTT(semester) {
                 if (timeTableData[semester - 1][section][j - 1][i - 1][1] == null) {
                     var outOfSyllabusSubject = "&nbsp";
                     i < lunchTime ? outOfSyllabusSubject = "LIB" : outOfSyllabusSubject = "NPTEL";
-                    document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `&nbsp`;
-                    document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${outOfSyllabusSubject}`;
-                    document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = `&nbsp`;
+                    document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `&nbsp`; //Subject Code Div
+                    document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${outOfSyllabusSubject}`; //Teacher Name Div
+                    document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = `&nbsp`; //Room Code Div
                 } else {
                     try {
-                        document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `${timeTableData[semester - 1][section][j - 1][i - 1][1]}`;
-                        document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${timeTableData[semester - 1][section][j - 1][i - 1][0]}`;
+                        document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `${timeTableData[semester - 1][section][j - 1][i - 1][1]}`; //Subject Code Div
+                        document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${timeTableData[semester - 1][section][j - 1][i - 1][0]}`; //Teacher Name Div
 
                         //fetching data of the subject for room code
                         if (document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML != "Subject") {
@@ -400,25 +402,7 @@ function generateTTRequest() {
         })
 }
 
-try {
-    let status;
-    fetch(`${url}io/schedule`)
-        .then(Response => {
-            status = Response.status;
-            return Response.text()
-        })
-        .then(data => {
-            if (status != 200) {
-                return
-            }
-            console.log(JSON.parse(data));
-            timeTableData[4][1] = JSON.parse(data)[2][0];
-            createTT(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
-            clickListenerForClass();
-        })
-} catch (err) {
-    console.log("err in scedule fetching")
-}
+
 
 
 //Fill Manually Scipts
@@ -570,4 +554,26 @@ window.onload = function () {
             document.querySelector(".allocTeacherBoxBG").classList.remove("active");
         }
     };
+
+    //trying to fetch Time table data If it already generated
+    try {
+        let status;
+        fetch(`${url}io/schedule`)
+            .then(Response => {
+                status = Response.status;
+                return Response.text()
+            })
+            .then(data => {
+                if (status != 200) {
+                    return
+                }
+                console.log(JSON.parse(data));
+                timeTableData[4][1] = JSON.parse(data)[2][0];
+                createTT(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
+                clickListenerForClass();
+            })
+    } catch (err) {
+        console.log("err in scedule fetching")
+    }
+
 };
