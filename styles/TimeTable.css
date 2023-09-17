@@ -381,3 +381,52 @@
     font-size: 18px;
     font-weight: bold;
 }
+
+
+/*-------------------------------------Loader-----------------------------------------------*/
+
+.loader_container{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(7px);
+    z-index: 20;
+    display: none;
+}
+.loader,.loader2{
+    border-radius: 50%;
+    border: 10px solid dodgerblue;
+    border-top: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    animation: rotate 1s linear infinite;
+}
+.loader{    
+    width: 200px;
+    height: 200px;
+}
+.loader2{
+    width: 100px;
+    height: 100px;
+    animation-direction: reverse;
+}
+@keyframes rotate{
+    0%{
+        transform: translate(-50%,-50%) rotate(0deg) ;
+    }
+    100%{
+        transform: translate(-50%,-50%) rotate(360deg) ;        
+    }
+}
+.loader_msg{
+    position: fixed;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}

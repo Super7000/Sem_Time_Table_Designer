@@ -384,6 +384,7 @@ clickListenerForClass();
 
 //Sending generate request to server on "Auto fill all semester" btn click
 function generateTTRequest(){
+    document.querySelector(".loader_container").style.cssText = "display: block;";
     console.log(`${url}io/schedule?generateNew=True`);
     console.log("%cGenerate Request Send","color: blue");
     fetch(`${url}io/schedule?generateNew=True`)
@@ -393,6 +394,7 @@ function generateTTRequest(){
         timeTableData[4][1] = JSON.parse(data)[2][0];
         createTT(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
         clickListenerForClass();
+        document.querySelector(".loader_container").style.cssText = "display: none;";
     })
 }
 
