@@ -287,8 +287,10 @@ function createTT(semester){
             //console.log(j+","+i+","+classIterator)
             //checking if array value is null then print only a empty box in time table 
             if(timeTableData[semester-1][section][j-1][i-1][1] == null){
+                var outOfSyllabusSubject = "&nbsp";
+                i<lunchTime ? outOfSyllabusSubject = "LIB" : outOfSyllabusSubject = "NPTEL";
                 document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `&nbsp`;
-                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `&nbsp`;
+                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${outOfSyllabusSubject}`;
                 document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = `&nbsp`;
             } else {
                 document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `${timeTableData[semester-1][section][j-1][i-1][1]}`;
@@ -433,12 +435,12 @@ document.querySelector(".mainSirsCon .btns .btnOpts .as").addEventListener("clic
 })
 document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("click",()=>{
     if(document.querySelector(".mainSubsCon .btns .btnOpts .as.notactive")==null){
-        if(document.querySelector(".d_card.subject.active").innerHTML == "LIB" || document.querySelector(".d_card.subject.active").innerHTML == "NPTEL"){
-            document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = "&nbsp";
-            document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = document.querySelector(".d_card.subject.active").innerHTML;
-            document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = "&nbsp";
-            return
-        }
+        // if(document.querySelector(".d_card.subject.active").innerHTML == "LIB" || document.querySelector(".d_card.subject.active").innerHTML == "NPTEL"){
+        //     document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = "&nbsp";
+        //     document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = document.querySelector(".d_card.subject.active").innerHTML;
+        //     document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = "&nbsp";
+        //     return
+        // }
         let subjectName = document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML;
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = document.querySelector(".d_card.subject.active").innerHTML;
         
@@ -464,7 +466,7 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
 
             //mergeing classes code here
             if(returnValue==false){
-                document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = serverDataAboutSubjects[document.querySelector(".d_card.subject.active").innerHTML]["roomCode"];
+                // document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = serverDataAboutSubjects[document.querySelector(".d_card.subject.active").innerHTML]["roomCode"];
                 isLab = true;
                 let span_len = 3;
                 let grid_start = JSON.parse(document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).dataset.pt)[1]+1;
@@ -476,7 +478,7 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
                 }
             }
         } else {
-            document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = serverDataAboutSubjects[document.querySelector(".d_card.subject.active").innerHTML]["roomCode"];
+            // document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = serverDataAboutSubjects[document.querySelector(".d_card.subject.active").innerHTML]["roomCode"];
             removeLabClassAndPlaceTwoClass();
         }   
     }
