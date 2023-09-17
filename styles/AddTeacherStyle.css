@@ -1,9 +1,10 @@
-.container{
+.container {
     display: grid;
     grid-template-columns: 65% 33.5%;
     gap: 20px;
 }
-.cards{
+
+.cards {
     width: 100%;
     max-height: 92vh;
     height: 100%;
@@ -17,10 +18,12 @@
     align-content: start;
     padding-top: 10px;
 }
-.cards::-webkit-scrollbar{
+
+.cards::-webkit-scrollbar {
     display: none;
 }
-.card{
+
+.card {
     background: #fff;
     height: 130px;
     border-radius: 10px;
@@ -31,13 +34,16 @@
     align-items: center;
     transition: 0.3s;
 }
-.card:hover,.card.active{
+
+.card:hover,
+.card.active {
     box-shadow: 0 0 0px 3px #fff,
         0 0 0px 6px dodgerblue,
         0 0 20px rgba(30, 144, 255, 1);
-        cursor: pointer;
+    cursor: pointer;
 }
-.t_d{
+
+.t_d {
     background: #fff;
     width: 100%;
     height: 100%;
@@ -48,21 +54,25 @@
     flex-direction: column;
     align-items: center;
 }
-.t_d .con{
+
+.t_d .con {
     width: 80%;
     position: relative;
     top: 20px;
     margin-bottom: 30px;
 }
-.t_d .heading{
+
+.t_d .heading {
     font-size: 30px;
     font-family: Calibri;
     font-weight: bold;
 }
-.t_d .con div{
+
+.t_d .con div {
     margin-bottom: 15px;
 }
-.t_d .con input{
+
+.t_d .con input {
     background: rgba(0, 0, 0, 0.10);
     border: none;
     border-radius: 5px;
@@ -73,7 +83,10 @@
     font-size: 16px;
     padding: 0 10px;
 }
-.t_d .dsb, .t_d .ddb, .cBtns .btn{
+
+.t_d .dsb,
+.t_d .ddb,
+.cBtns .btn {
     background: dodgerblue;
     border: 0;
     padding: 10px 20px;
@@ -83,11 +96,13 @@
     border-radius: 10px;
     cursor: pointer;
 }
-.t_d .ddb{
+
+.t_d .ddb {
     background: orange;
     display: none;
 }
-.t_d .btn_con{
+
+.t_d .btn_con {
     position: relative;
     top: 40px;
     display: grid;
@@ -97,11 +112,11 @@
 
 
 /* confirmation box */
-.cBox{
+.cBox {
     position: fixed;
     left: 50%;
     top: -10%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     background: #fff;
     z-index: 7;
     border-radius: 10px;
@@ -111,10 +126,12 @@
     gap: 20px;
     transition: 0.3s;
 }
-.cBox.active{
+
+.cBox.active {
     top: 50%;
 }
-.cBoxBG{
+
+.cBoxBG {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.2);
@@ -124,45 +141,49 @@
     z-index: 6;
     display: none;
 }
-.cBoxBG.active{
+
+.cBoxBG.active {
     display: block;
 }
-.cMsg{
+
+.cMsg {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.cBtns{    
+
+.cBtns {
     display: grid;
     grid-template-columns: auto auto;
     gap: 10px;
 }
-.cBtns .cBtn{
-    
+
+.cBtns .cBtn {
+
     background: orange;
 }
 
 
 @media (max-width: 1460px) {
-    .cards{
+    .cards {
         grid-template-columns: 100px 100px 100px 100px 100px;
     }
 }
 
 @media (max-width: 1250px) {
-    .cards{
+    .cards {
         grid-template-columns: 100px 100px 100px 100px;
     }
 }
 
 @media (max-width: 1030px) {
-    .cards{
+    .cards {
         grid-template-columns: 100px 100px 100px;
     }
 }
 
 @media (max-width: 775px) {
-    .cards{
+    .cards {
         grid-template-columns: 100px 100px;
     }
 }

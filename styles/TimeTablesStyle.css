@@ -1,5 +1,4 @@
-.subcon
-{
+.subcon {
     display: grid;
     grid-template-rows: 20% auto;
     gap: 10px;
@@ -8,14 +7,16 @@
     position: relative;
     top: -10px;
 }
-.top
-{
+
+.top {
     /* background: #ebebeb; */
     display: grid;
     grid-template-rows: auto auto;
 }
+
 .top .sem_cards_container,
-.top .options, .top .section{
+.top .options,
+.top .section {
     display: grid;
     grid-auto-flow: column;
     justify-content: center;
@@ -23,10 +24,12 @@
     position: relative;
     gap: 10px;
 }
-.top .sem_cards_container{
+
+.top .sem_cards_container {
     width: 95%;
     left: 2.5%;
 }
+
 /* .set_time_chart{
     height: 80%;
     border-radius: 20px;
@@ -49,7 +52,7 @@
     height: 85%;
     box-shadow: 0 0 20px rgba(30, 144, 255, 0.3);
 } */
-.container .top .cards{
+.container .top .cards {
     width: 100%;
     height: 55px;
     padding-right: 20px;
@@ -61,11 +64,12 @@
     -ms-overflow-style: none;
     scroll-behavior: smooth;
 }
-.container .top .cards::-webkit-scrollbar
-{
+
+.container .top .cards::-webkit-scrollbar {
     display: none;
 }
-.container .top .cards div{
+
+.container .top .cards div {
     position: relative;
     width: 150px;
     height: 40px;
@@ -80,13 +84,15 @@
     transition: 0.3s;
     cursor: pointer;
 }
-.container .top .cards div:hover{
-    
+
+.container .top .cards div:hover {
+
     box-shadow: 0 0 0px 3px #fff,
         0 0 0px 6px dodgerblue,
         0 0 20px rgba(30, 144, 255, 1);
 }
-.container .top .arrow{
+
+.container .top .arrow {
     width: 20px;
     height: 20px;
     background: #fff;
@@ -95,74 +101,86 @@
     padding: 7px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
-.container .top .l_t_arrow{
+
+.container .top .l_t_arrow {
     transform: rotate(180deg);
 }
-.container .top .r_t_arrow{
+
+.container .top .r_t_arrow {
     margin-left: 20px;
 }
-.top .filters
-{
+
+.top .filters {
     position: relative;
     left: 2.5%;
     width: 95%;
     display: grid;
     grid-template-columns: auto auto auto;
 }
-.top .options
-{
+
+.top .options {
     justify-content: left;
     gap: 20px;
     grid-column: 1 / span 2;
-} 
-.top .options div{
+}
+
+.top .options div {
     background: #fff;
     border-radius: 10px;
     padding: 8px 18px;
     box-shadow: 0 0 0px 2px #fff,
-                0 0 20px rgba(0, 0, 0, 0.1);
+        0 0 20px rgba(0, 0, 0, 0.1);
     transition: 0.2s;
     cursor: pointer;
 }
-.top .options div.active,.top .options div.active:hover{
+
+.top .options div.active,
+.top .options div.active:hover {
     padding: 8px 18px;
-    box-shadow: 0 0 0px 2px dodgerblue, 
-                0 0 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0px 2px dodgerblue,
+        0 0 20px rgba(0, 0, 0, 0.1);
 }
-.top .options div:hover{
+
+.top .options div:hover {
     padding: 8px 18px;
-    box-shadow: 0 0 0px 0px #fff, 
-                0 0 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0px 0px #fff,
+        0 0 20px rgba(0, 0, 0, 0.1);
 }
-.top .section
-{
+
+.top .section {
     grid-column: 3;
     justify-content: right;
     gap: 20px;
-} 
-.top .section div{
+}
+
+.top .section div {
     background: #fff;
     border-radius: 10px;
     padding: 8px 18px;
     box-shadow: 0 0 0px 2px #fff,
-                0 0 20px rgba(0, 0, 0, 0.1);
+        0 0 20px rgba(0, 0, 0, 0.1);
     transition: 0.2s;
     cursor: pointer;
 }
-.top .section div.active,.top .section div.active:hover{
-    box-shadow: 0 0 0px 2px dodgerblue, 
-                0 0 20px rgb(0, 0, 0, 0.1);
+
+.top .section div.active,
+.top .section div.active:hover {
+    box-shadow: 0 0 0px 2px dodgerblue,
+        0 0 20px rgb(0, 0, 0, 0.1);
 }
-.top .section div:hover{
+
+.top .section div:hover {
     padding: 8px 18px;
-    box-shadow: 0 0 0px 0px #fff, 
-                0 0 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0px 0px #fff,
+        0 0 20px rgba(0, 0, 0, 0.1);
 }
-.top .sem_cards_container .cards .active{
+
+.top .sem_cards_container .cards .active {
     box-shadow: 0 0 0px 3px #fff,
         0 0 0px 6px dodgerblue,
         0 0 20px rgba(30, 144, 255, 1);
 }
+
 /* 
 .set_time_chart .att_chart .week .class {
     width: 105px;

@@ -8,7 +8,7 @@ body {
     transition: 0.3s;
 }
 
-body.active{
+body.active {
     grid-template-columns: 14% auto;
 }
 
@@ -26,11 +26,11 @@ body.active{
     /* width: 25%; 
     height: 60px;*/
     background: rgb(255, 203, 130);
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     position: fixed;
     top: -20%;
     left: 50%;
-    transform: translate(-50%,0);
+    transform: translate(-50%, 0);
     z-index: 8;
     border-radius: 10px;
     display: grid;
@@ -42,7 +42,7 @@ body.active{
     transition: 0.3s;
 }
 
-.errorBox.active{
+.errorBox.active {
     top: 10px;
 }
 
@@ -51,18 +51,20 @@ body.active{
     left: 30px;
 } */
 
-.cross svg{
+.cross svg {
     transform: rotate(45deg);
     cursor: pointer;
     width: 25px;
     height: 25px;
 }
-.cross{
+
+.cross {
     padding: 5px;
     width: 25px;
 }
+
 .cross:hover {
-    background: rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.1);
     border-radius: 50%;
 }
 

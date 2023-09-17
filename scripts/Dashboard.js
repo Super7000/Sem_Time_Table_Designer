@@ -5,14 +5,14 @@ console.log(url)
 
 createTT();
 
-window.onload = ()=>{    
-    function getTechersFromServer(){
-        getTeacherList((data)=>{
+window.onload = () => {
+    function getTechersFromServer() {
+        getTeacherList((data) => {
             let s = "";
-            for(var i in data){
+            for (var i in data) {
                 let tts = [];
-                for(var j=0; j < 5; j++){
-                    tts[j]=Math.floor(Math.random()*8)+1;
+                for (var j = 0; j < 5; j++) {
+                    tts[j] = Math.floor(Math.random() * 8) + 1;
                 }
                 s += `<div class="t_card" data-tts="[${tts}]" data-sems="[5,6,8]"> <!-- tts = total time spend -->
                         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -42,76 +42,73 @@ document.querySelector(".r_r_arrow").addEventListener("click", () => {
     document.querySelector(".r_cards").scrollLeft += 130;
 });
 
-function clickListenerForTeacherCard(){
+function clickListenerForTeacherCard() {
     document.querySelectorAll(".t_card").forEach((t) => {
         t.addEventListener("click", () => {
             if (t != document.querySelector(".t_card.active")) {
                 document.querySelector(".t_card.active").classList.remove("active");
                 t.classList.add("active");
             }
-    
+
             //Updating Charts 
             chart1.data.datasets[0].data = JSON.parse(t.dataset.tts);
             chart1.update();
             document.querySelector(".set_time_chart p").innerHTML = "Time Table for " + document.querySelector(".t_card.active p").innerHTML + " Sir";
-            
-            
+
+
             //semesters printer
             let sems = JSON.parse(t.dataset.sems);
             let sem_str = "";
-            for(let a = 0; a < sems.length; a++)
-            {
+            for (let a = 0; a < sems.length; a++) {
                 sem_str += `<div>${sems[a]}</div>`;
             }
             document.querySelector(".semnc").innerHTML = sem_str;
-    
+
             //subjects updater
-            getTeacher(t.querySelector("p").innerHTML,(data)=>{
+            getTeacher(t.querySelector("p").innerHTML, (data) => {
                 let subjects = "";
-                for(var i = 0; i<data["subjects"].length; i++)
-                {
+                for (var i = 0; i < data["subjects"].length; i++) {
                     subjects += `<div>${data["subjects"][i]}</div>`;
                 }
                 document.querySelector(".right .details .subjects .snc").innerHTML = subjects;
             })
         })
     });
-    
+
 }
 
 for (let i = 1; i < 6; i++) {
     for (let j = 1; j <= 9; j++) {
         let a_v = false;
-        if(Math.random()<=0.5){
+        if (Math.random() <= 0.5) {
             a_v = true;
         } else {
             a_v = false;
         }
-        if(j==5) a_v = true;
-        if(document.querySelector(`.week_${i} .class_${j}`)!=null && a_v == true)
-        {
+        if (j == 5) a_v = true;
+        if (document.querySelector(`.week_${i} .class_${j}`) != null && a_v == true) {
             document.querySelector(`.week_${i} .class_${j}`).classList.add("alloc");
         }
     }
 }
 
-function createTT(){
-    const weeks = ["Tue","Wed","Thu","Fri","Sat"];
-    const time = ["9:30AM","10:20AM","11:10AM","12:00PM","12:50PM","01:40PM","02:30PM","03:20PM","04:10PM"];
+function createTT() {
+    const weeks = ["Tue", "Wed", "Thu", "Fri", "Sat"];
+    const time = ["9:30AM", "10:20AM", "11:10AM", "12:00PM", "12:50PM", "01:40PM", "02:30PM", "03:20PM", "04:10PM"];
     const lunch = "LUNCH";
     let s = `<div class="times">
                 <div class="day_time_l">Day/Time</div>`;
-    for(var k=1;k<=time.length;k++){
-        s += `<div class="class_label ${k}">${time[k-1]}</div>`;
+    for (var k = 1; k <= time.length; k++) {
+        s += `<div class="class_label ${k}">${time[k - 1]}</div>`;
     }
     s += `</div>`;
-    for(var j=1; j<=5; j++){
+    for (var j = 1; j <= 5; j++) {
         s = s + `<div class="week week_${j}">
-                    <div class="s_for_grid week_names">${weeks[j-1]}</div>`;
-        for(var i=1;i<=9;i++){
-            if(i==5){
+                    <div class="s_for_grid week_names">${weeks[j - 1]}</div>`;
+        for (var i = 1; i <= 9; i++) {
+            if (i == 5) {
                 s = s + `<div class="s_for_grid">
-                                <div>${lunch[j-1]}</div>  
+                                <div>${lunch[j - 1]}</div>  
                         </div>`;
             } else {
                 s = s + `<div class="s_for_grid class class_${i}">
@@ -221,23 +218,23 @@ let data = {
 // left side chart 
 let chart1 = new Chart(
     document.querySelectorAll('#main_chart')[0], {
-        type: 'bar',
-        data: data,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    min: 0,
-                    max: 8
-                }
+    type: 'bar',
+    data: data,
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                min: 0,
+                max: 8
             }
-        },
-    });
+        }
+    },
+});
 
 // console.log(chart1);
 
-getTeacherSchedule("SKB",(data)=>{
+getTeacherSchedule("SKB", (data) => {
     console.log(data);
 })

@@ -168,6 +168,7 @@
     position: relative;
     left: 20px;
 }
+
 .att_chart {
     display: grid;
     grid-template-rows: auto auto auto auto auto auto;
@@ -182,19 +183,23 @@
     padding-left: 0px;
     box-shadow: 0 0 15px rgba(30, 144, 255, 0.3);
 }
-.set_time_chart .times, .set_time_chart .week {
+
+.set_time_chart .times,
+.set_time_chart .week {
     /* background:dodgerblue; */
     display: grid;
     grid-template-columns: 8% 10% 10% 10% 10% 8% 10% 10% 10% 10%;
     justify-content: space-around;
     justify-items: center;
 }
-.set_time_chart .times div{
+
+.set_time_chart .times div {
     /* background: darkorchid; */
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .set_time_chart .week .s_for_grid {
     width: 100%;
     height: 90%;
@@ -203,13 +208,16 @@
     align-items: center;
     /* background: violet; */
 }
-.set_time_chart .week .class{
+
+.set_time_chart .week .class {
     opacity: 0;
 }
-.set_time_chart .week .class.alloc{
+
+.set_time_chart .week .class.alloc {
     opacity: 1;
     cursor: pointer;
 }
+
 .period {
     width: 100%;
     padding: 10px 0;
@@ -222,46 +230,47 @@
     justify-content: center;
     align-items: center;
 }
+
 .period div {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.set_time_chart .att_chart .week:nth-child(4) .class.alloc .period{
+.set_time_chart .att_chart .week:nth-child(4) .class.alloc .period {
     background: #14A5FF;
     box-shadow:
-                5px 5px 10px rgba(20, 165, 255, 0.5);
+        5px 5px 10px rgba(20, 165, 255, 0.5);
 }
 
-.set_time_chart .att_chart .week .class.alloc .period{
+.set_time_chart .att_chart .week .class.alloc .period {
     background: #1479FF;
     box-shadow:
-                5px 5px 10px rgba(20, 121, 255, 0.5);
+        5px 5px 10px rgba(20, 121, 255, 0.5);
 }
 
-.set_time_chart .att_chart .week:nth-child(3) .class.alloc .period{
+.set_time_chart .att_chart .week:nth-child(3) .class.alloc .period {
     background: #14D2FF;
     box-shadow:
-                5px 5px 10px rgba(20, 210, 255, 0.5);
+        5px 5px 10px rgba(20, 210, 255, 0.5);
 }
 
-.set_time_chart .att_chart .week:nth-child(5) .class.alloc .period{
+.set_time_chart .att_chart .week:nth-child(5) .class.alloc .period {
     background: #37DBE6;
-    box-shadow: 
-                5px 5px 10px rgba(55, 219, 230, 0.5);
+    box-shadow:
+        5px 5px 10px rgba(55, 219, 230, 0.5);
 }
 
 /* Pop up for Manually fill up time table to show avilable and Unavailable sirs */
 
-.allocTeacherBox{
+.allocTeacherBox {
     width: 70%;
     height: 80%;
     background: #fff;
     position: fixed;
     top: -50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     z-index: 7;
     border-radius: 10px;
     padding: 20px;
@@ -271,28 +280,32 @@
     gap: 20px;
     grid-template-columns: 50% 50%;
 }
-.allocTeacherBox.active{
+
+.allocTeacherBox.active {
     top: 50%;
 }
-.allocTeacherBoxBG{
+
+.allocTeacherBoxBG {
     width: 100%;
     height: 100%;
     position: fixed;
     z-index: 6;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.2);
     display: none;
 }
-.allocTeacherBoxBG.active{
+
+.allocTeacherBoxBG.active {
     display: block;
 }
 
-.allocTeacherBox .mainSirsCon, .allocTeacherBox .mainSubsCon{
+.allocTeacherBox .mainSirsCon,
+.allocTeacherBox .mainSubsCon {
     display: grid;
     gap: 10px;
     grid-template-rows: auto 40px;
 }
 
-.cardsCon{
+.cardsCon {
     overflow-y: scroll;
     position: relative;
     top: 10px;
@@ -308,17 +321,21 @@
     scroll-behavior: smooth;
     align-content: start;
 }
-.cardsCon::-webkit-scrollbar{
+
+.cardsCon::-webkit-scrollbar {
     width: 10px;
 }
-.cardsCon::-webkit-scrollbar-thumb{
-    background: rgba(0,0,0,0.2);
+
+.cardsCon::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 5px;
 }
-.cardsCon::-webkit-scrollbar-thumb:hover{
-    background: rgba(0,0,0,0.3);
+
+.cardsCon::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
 }
-.card{
+
+.card {
     background: #fff;
     height: 110px;
     border-radius: 10px;
@@ -330,29 +347,37 @@
     transition: 0.3s;
     cursor: pointer;
 }
-.card.disabled{
-    background: rgba(255,255,255,0.2);
+
+.card.disabled {
+    background: rgba(255, 255, 255, 0.2);
 }
-.card.disabled:hover{
+
+.card.disabled:hover {
     box-shadow: 0 0 0px 2px rgba(0, 0, 0, 0.1),
         0 0 20px rgba(30, 144, 255, 0.2);
 }
-.card:hover,.card.active{
+
+.card:hover,
+.card.active {
     box-shadow: 0 0 0px 3px #fff,
         0 0 0px 6px dodgerblue,
         0 0 20px rgba(30, 144, 255, 1);
 }
-.allocTeacherBox .btns{
+
+.allocTeacherBox .btns {
     display: grid;
     grid-template-columns: auto auto;
     justify-content: space-between;
     align-items: center;
 }
-.allocTeacherBox .heading, .allocTeacherBox .btns .txt{
+
+.allocTeacherBox .heading,
+.allocTeacherBox .btns .txt {
     position: relative;
     left: 20px;
 }
-.allocTeacherBox .btns .btnOpts button{
+
+.allocTeacherBox .btns .btnOpts button {
     background: dodgerblue;
     border: 0;
     padding: 8px 15px;
@@ -362,14 +387,17 @@
     border-radius: 10px;
     cursor: pointer;
 }
-.allocTeacherBox .btns .btnOpts button:nth-child(1){
+
+.allocTeacherBox .btns .btnOpts button:nth-child(1) {
     background: orange;
 }
-.allocTeacherBox .btns .btnOpts button.notactive{
-    background: rgba(0,0,0,0.3);
+
+.allocTeacherBox .btns .btnOpts button.notactive {
+    background: rgba(0, 0, 0, 0.3);
     cursor: unset;
 }
-.btnOpts{
+
+.btnOpts {
     position: relative;
     right: 10px;
     display: grid;
@@ -377,7 +405,8 @@
     gap: 10px;
     justify-content: end;
 }
-.allocTeacherBox .heading{
+
+.allocTeacherBox .heading {
     font-size: 18px;
     font-weight: bold;
 }
@@ -385,18 +414,20 @@
 
 /*-------------------------------------Loader-----------------------------------------------*/
 
-.loader_container{
+.loader_container {
     width: 100%;
     height: 100%;
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(255,255,255,0.7);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(7px);
     z-index: 20;
     display: none;
 }
-.loader,.loader2{
+
+.loader,
+.loader2 {
     border-radius: 50%;
     border: 10px solid dodgerblue;
     border-top: 10px solid transparent;
@@ -404,29 +435,34 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     animation: rotate 1s linear infinite;
 }
-.loader{    
+
+.loader {
     width: 200px;
     height: 200px;
 }
-.loader2{
+
+.loader2 {
     width: 100px;
     height: 100px;
     animation-direction: reverse;
 }
-@keyframes rotate{
-    0%{
-        transform: translate(-50%,-50%) rotate(0deg) ;
+
+@keyframes rotate {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
     }
-    100%{
-        transform: translate(-50%,-50%) rotate(360deg) ;        
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
     }
 }
-.loader_msg{
+
+.loader_msg {
     position: fixed;
     top: 70%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }

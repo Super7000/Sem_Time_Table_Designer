@@ -9,7 +9,7 @@ export function getSubject(subName, func) {
             return response.text();
         })
         .then((data) => {
-            if(status!=200){
+            if (status != 200) {
                 terrorbox(data);
                 return;
             }
@@ -25,7 +25,7 @@ export function getTeacher(sirName, func) {
             return response.text();
         })
         .then((data) => {
-            if(status!=200){
+            if (status != 200) {
                 terrorbox(data);
                 return;
             }
@@ -33,7 +33,7 @@ export function getTeacher(sirName, func) {
         });
 }
 
-export function getTeacherSchedule(sirName,func) {
+export function getTeacherSchedule(sirName, func) {
     let status;
     fetch(`${url}io/schedule/teacher/${sirName}`)
         .then((response) => {
@@ -41,7 +41,7 @@ export function getTeacherSchedule(sirName,func) {
             return response.text();
         })
         .then((data) => {
-            if(status!=200){
+            if (status != 200) {
                 terrorbox(data);
                 return;
             }
@@ -57,7 +57,7 @@ export function getSubjectList(func) {
             return response.text();
         })
         .then((data) => {
-            if(status!=200){
+            if (status != 200) {
                 terrorbox(data);
                 return;
             }
@@ -73,7 +73,7 @@ export function getTeacherList(func) {
             return response.text();
         })
         .then((data) => {
-            if(status!=200){
+            if (status != 200) {
                 terrorbox(data);
                 return;
             }

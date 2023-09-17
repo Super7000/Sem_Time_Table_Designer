@@ -149,9 +149,9 @@ l-195 0 0 261 0 261 -29 29 c-35 34 -93 39 -127 11z"/>
 </svg>
 <p>Export</p>
 </div>`;
-try{    
+try {
     document.querySelector(`.menubar .link[href="${filename}"]`).classList.add("active");
-} catch (e){
+} catch (e) {
     document.querySelector(`.menubar .link[href="Dashboard.html"]`).classList.add("active");
 }
 
@@ -178,7 +178,7 @@ function to_m_mb_res() {
 }
 to_m_mb_res();
 window.addEventListener("resize", to_m_mb_res)
-// Add click event listener funtion 
+// Add click event listener funtion
 // function clickListener(s,a){
 //     document.querySelectorAll(s).forEach((o)=>{
 //         o.addEventListener("click",()=>{

@@ -279,26 +279,31 @@
     top: -15px;
     left: 4%;
 }
+
 .set_time_chart .att_chart {
     padding-bottom: 10px;
     padding-left: 10px;
     width: 100%;
     left: 0;
 }
+
 .set_time_chart p {
     font-size: 18px;
     position: relative;
     left: 10px;
 }
+
 .set_time_chart .att_chart {
     height: 100%;
     font-size: 12px;
 }
+
 .period {
     padding: 0;
     height: 90%;
     font-size: 10px;
 }
-.set_time_chart .week .s_for_grid{
+
+.set_time_chart .week .s_for_grid {
     height: 100%;
 }

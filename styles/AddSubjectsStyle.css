@@ -1,17 +1,20 @@
-.s_d .s_type input{
+.s_d .s_type input {
     appearance: none;
     background: #fff;
     width: 65px;
     height: 30px;
     border-radius: 15px;
     transition: 0.5s;
-    box-shadow: inset 0px 0px 35px rgba(0,0,0,0.3);
+    box-shadow: inset 0px 0px 35px rgba(0, 0, 0, 0.3);
     border: none;
-}.s_d .s_type input:checked{
+}
+
+.s_d .s_type input:checked {
     background: dodgerblue;
     box-shadow: none;
 }
-.s_d .s_type input::after{
+
+.s_d .s_type input::after {
     content: '';
     width: 20px;
     height: 20px;
@@ -22,12 +25,15 @@
     left: 11px;
     transition: 0.3s;
 }
-.s_d .s_type input:checked:after{
+
+.s_d .s_type input:checked:after {
     left: 43px;
 }
-.t_d .con{
+
+.t_d .con {
     margin-bottom: 25px;
 }
-.t_d .con div{
+
+.t_d .con div {
     margin-bottom: 10px;
 }
