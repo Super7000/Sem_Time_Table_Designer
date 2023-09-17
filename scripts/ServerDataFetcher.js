@@ -1,6 +1,6 @@
 import { terrorbox } from "./Util.js";
 
-let url = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1);
+let url = window.location.origin+"/";
 export function getSubject(subName, func) {
     let status;
     fetch(`${url}io/subjects/${subName}`)

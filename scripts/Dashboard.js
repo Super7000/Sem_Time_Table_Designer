@@ -1,6 +1,6 @@
 import { getTeacher, getTeacherList, getTeacherSchedule } from "./ServerDataFetcher.js";
 
-let url = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1) + "io/teachers";
+let url = window.location.origin+"/" + "io/teachers";
 console.log(url)
 
 createTT();

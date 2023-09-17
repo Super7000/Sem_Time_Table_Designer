@@ -2,7 +2,7 @@ import { terrorbox } from "./Util.js";
 import { timeTableData } from "./TimeTableData.js";
 import { getSubject, getSubjectList, getTeacherList } from "./ServerDataFetcher.js";
 
-let url = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1);
+let url = window.location.origin+"/";
 console.log(url)
 
 
@@ -426,6 +426,7 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
         // }
         let subjectName = document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML;
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = document.querySelector(".d_card.subject.active").innerHTML;
+        document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = serverDataAboutSubjects[document.querySelector(".d_card.subject.active").innerHTML]["roomCode"];
 
         //checking if practical then marge 3 classes
         let subjectsData = serverDataAboutSubjects[document.querySelector(".d_card.subject.active").innerHTML];

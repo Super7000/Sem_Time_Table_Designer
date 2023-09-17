@@ -12,7 +12,7 @@ import { terrorbox, clickListenerForCardActivator, addCardClickListener } from "
 // showcards();
 
 
-let url = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1) + "io/subjects";
+let url = window.location.origin+"/" + "io/subjects";
 console.log(url)
 
 function saveBtnClickListener() {
