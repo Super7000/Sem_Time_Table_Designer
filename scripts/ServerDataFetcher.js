@@ -41,11 +41,10 @@ export function getTeacherSchedule(sirName, func) {
             return response.text();
         })
         .then((data) => {
-            if (status != 200) {
-                terrorbox(data);
+            if (status != 200) { 
                 return;
             }
-            func(JSON.parse(data));
+            func(JSON.parse(data),status);
         });
 }
 

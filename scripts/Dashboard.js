@@ -1,11 +1,13 @@
-import { getTeacher, getTeacherList, getTeacherSchedule } from "./ServerDataFetcher.js";
+import { getSubject, getSubjectList, getTeacher, getTeacherList, getTeacherSchedule } from "./ServerDataFetcher.js";
 
-let url = window.location.origin+"/" + "io/teachers";
+let url = window.location.origin + "/" + "io/teachers";
 console.log(url)
 
-createTT();
-
+let subjectList;
 window.onload = () => {
+    getSubjectList((data) => {
+        subjectList = data;
+    })
     function getTechersFromServer() {
         getTeacherList((data) => {
             let s = "";
@@ -72,30 +74,23 @@ function clickListenerForTeacherCard() {
                 }
                 document.querySelector(".right .details .subjects .snc").innerHTML = subjects;
             })
+
+            //updating teacher's time table
+            getTeacherSchedule(t.querySelector("p").innerHTML, (data, status) => {
+                if (status == 200) {
+                    createTT(data);
+                }
+            })
         })
     });
 
 }
 
-for (let i = 1; i < 6; i++) {
-    for (let j = 1; j <= 9; j++) {
-        let a_v = false;
-        if (Math.random() <= 0.5) {
-            a_v = true;
-        } else {
-            a_v = false;
-        }
-        if (j == 5) a_v = true;
-        if (document.querySelector(`.week_${i} .class_${j}`) != null && a_v == true) {
-            document.querySelector(`.week_${i} .class_${j}`).classList.add("alloc");
-        }
-    }
-}
-
-function createTT() {
+function createTT(data) {
     const weeks = ["Tue", "Wed", "Thu", "Fri", "Sat"];
     const time = ["9:30AM", "10:20AM", "11:10AM", "12:00PM", "12:50PM", "01:40PM", "02:30PM", "03:20PM", "04:10PM"];
     const lunch = "LUNCH";
+    let section = ["A", "B", "C"];
     let s = `<div class="times">
                 <div class="day_time_l">Day/Time</div>`;
     for (var k = 1; k <= time.length; k++) {
@@ -111,18 +106,40 @@ function createTT() {
                                 <div>${lunch[j - 1]}</div>  
                         </div>`;
             } else {
-                s = s + `<div class="s_for_grid class class_${i}">
-                            <div class="period">
-                                <div>OOPS</div>
-                                <div>SEM</div>                           
-                                <div>LH-123</div>
-                            </div>
-                        </div>`;
+                if (data[j - 1][i - 1] == null) {
+                    s = s + `<div class="s_for_grid class class_${i}">
+                                <div class="period">
+                                    <div>&nbsp</div>
+                                    <div>&nbsp</div>                           
+                                    <div>&nbsp</div>
+                                </div>
+                            </div>`;
+                } else {
+                    if (subjectList[data[j - 1][i - 1][2]]["isPractical"] == true) {
+                        s = s + `<div class="s_for_grid class class_${i} alloc" style="grid-column: ${i+1}/span 3">
+                                    <div class="period">
+                                        <div>${data[j - 1][i - 1][2]}</div>
+                                        <div>Sem ${data[j - 1][i - 1][0]}-${section[data[j - 1][i - 1][1]]}</div>                           
+                                        <div>${subjectList[data[j - 1][i - 1][2]]["roomCode"]}</div>
+                                    </div>
+                                </div>`;
+                                i+=2;
+                    } else {
+                        s = s + `<div class="s_for_grid class class_${i} alloc">
+                                    <div class="period">
+                                        <div>${data[j - 1][i - 1][2]}</div>
+                                        <div>Sem ${data[j - 1][i - 1][0]}-${section[data[j - 1][i - 1][1]]}</div>                           
+                                        <div>${subjectList[data[j - 1][i - 1][2]]["roomCode"]}</div>
+                                    </div>
+                                </div>`;
+                    }
+                }
             }
         }
         s = s + `</div>`;
     }
     document.querySelector(".set_time_chart .att_chart").innerHTML = s;
+    document.querySelector(".set_time_chart .att_chart").style.cssText = "justify-content: stretch; align-content: stretch;"
 }
 // var b = new teach([545]);
 // function fun(a)
@@ -235,6 +252,6 @@ let chart1 = new Chart(
 
 // console.log(chart1);
 
-getTeacherSchedule("SKB", (data) => {
+getTeacherSchedule("SC", (data) => {
     console.log(data);
 })

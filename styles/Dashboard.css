@@ -285,6 +285,14 @@
     padding-left: 10px;
     width: 100%;
     left: 0;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+.att_chart .preDefineErrMsg
+{
+    color: rgba(0, 0, 0, 0.6);
+    text-align: center;
 }
 
 .set_time_chart p {

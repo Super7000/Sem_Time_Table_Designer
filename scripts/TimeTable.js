@@ -295,7 +295,6 @@ function createTT(semester) {
                     document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${outOfSyllabusSubject}`; //Teacher Name Div
                     document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = `&nbsp`; //Room Code Div
                 } else {
-                    try {
                         document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `${timeTableData[semester - 1][section][j - 1][i - 1][1]}`; //Subject Code Div
                         document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${timeTableData[semester - 1][section][j - 1][i - 1][0]}`; //Teacher Name Div
 
@@ -324,11 +323,8 @@ function createTT(semester) {
                                             periodSelector += 1;
                                             document.querySelector(`.week_${j} .class_${periodSelector}`).remove();
                                         }
-                                    }
-                                    try {
                                         document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = data[timeTableData[semester - 1][section][j - 1][i - 1][1]]["roomCode"];
-                                    } catch (e) {
-                                        console.log("err in roomcode printing beacause of lab")
+                                        i+=2;
                                     }
                                 } else {
 
@@ -338,9 +334,6 @@ function createTT(semester) {
                                 console.log("error in showing room code")
                             }
                         }
-                    } catch (err) {
-                        console.log("%cnormal Error because of the loop", "color: orange");
-                    }
                 }
 
             }
