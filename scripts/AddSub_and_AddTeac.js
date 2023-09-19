@@ -8,6 +8,7 @@ function tconfirmationbox(cmsg) {
 
 //Toggle Confirmation on click of delete btn and clicking outside of the confirmation box
 window.onload = function () {
+    closeSaveStateBoxFunc();
     document.onclick = function (e) {
         if (e.target.classList == "ddb") {
             tconfirmationbox(`Are you really want to delete ${document.querySelector(".d_card.active").innerHTML}?`);

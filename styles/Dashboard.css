@@ -70,7 +70,15 @@
 }
 
 .container .left .scedule_container::-webkit-scrollbar {
-    display: none;
+    width: 7px;
+}
+.container .left .scedule_container::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.container .left .scedule_container::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .container .left .scedule_container div {

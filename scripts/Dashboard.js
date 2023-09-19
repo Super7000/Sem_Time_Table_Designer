@@ -1,10 +1,12 @@
-import { getSubject, getSubjectList, getTeacher, getTeacherList, getTeacherSchedule } from "./ServerDataFetcher.js";
+import { getCurrentSaveState, getSaveStateList, getSubject, getSubjectList, getTeacher, getTeacherList, getTeacherSchedule, loadSaveState } from "./ServerDataFetcher.js";
+import { closeSaveStateBoxFunc } from "./Common.js";
 
 let url = window.location.origin + "/" + "io/teachers";
 console.log(url)
 
 let subjectList;
 window.onload = () => {
+    closeSaveStateBoxFunc();
     getSubjectList((data) => {
         subjectList = data;
     })
@@ -78,7 +80,7 @@ function clickListenerForTeacherCard() {
             //updating teacher's time table
             getTeacherSchedule(t.querySelector("p").innerHTML, (data, status) => {
                 if (status == 200) {
-                    createTT(data);
+                    createTimeTable(data);
                 }
             })
         })
@@ -86,7 +88,7 @@ function clickListenerForTeacherCard() {
 
 }
 
-function createTT(data) {
+function createTimeTable(data) {
     const weeks = ["Tue", "Wed", "Thu", "Fri", "Sat"];
     const time = ["9:30AM", "10:20AM", "11:10AM", "12:00PM", "12:50PM", "01:40PM", "02:30PM", "03:20PM", "04:10PM"];
     const lunch = "LUNCH";
@@ -116,14 +118,14 @@ function createTT(data) {
                             </div>`;
                 } else {
                     if (subjectList[data[j - 1][i - 1][2]]["isPractical"] == true) {
-                        s = s + `<div class="s_for_grid class class_${i} alloc" style="grid-column: ${i+1}/span 3">
+                        s = s + `<div class="s_for_grid class class_${i} alloc" style="grid-column: ${i + 1}/span 3">
                                     <div class="period">
                                         <div>${data[j - 1][i - 1][2]}</div>
                                         <div>Sem ${data[j - 1][i - 1][0]}-${section[data[j - 1][i - 1][1]]}</div>                           
                                         <div>${subjectList[data[j - 1][i - 1][2]]["roomCode"]}</div>
                                     </div>
                                 </div>`;
-                                i+=2;
+                        i += 2;
                     } else {
                         s = s + `<div class="s_for_grid class class_${i} alloc">
                                     <div class="period">
@@ -252,6 +254,34 @@ let chart1 = new Chart(
 
 // console.log(chart1);
 
-getTeacherSchedule("SC", (data) => {
-    console.log(data);
-})
+
+getSaveStateList(showSavedStates)
+
+function showSavedStates(data) {
+    getCurrentSaveState((currentStateName)=>{        
+        let s = "";
+        for(var i = 0; i < data.length; i++){
+            if(data[i]==currentStateName){
+                s += `<div class="active">${data[i]}</div>`;
+            } else {
+                s += `<div>${data[i]}</div>`;
+            }
+        }
+        document.querySelector(".scedules .scedule_container").innerHTML = s;
+        clickListenerForSaveStateActivating();
+    })
+}
+
+function clickListenerForSaveStateActivating() {
+    document.querySelectorAll(".scedules .scedule_container div").forEach((e) => {
+        e.addEventListener("click", () => {
+            if (document.querySelector(".scedules .scedule_container div.active") != e) {
+                document.querySelector(".scedules .scedule_container div.active").classList.remove("active");
+                e.classList.add("active");
+                loadSaveState(document.querySelector(".scedules .scedule_container div.active").innerHTML, (data) => {
+                    console.log(data)
+                })
+            }
+        })
+    })
+}

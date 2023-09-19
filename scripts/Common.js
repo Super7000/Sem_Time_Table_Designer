@@ -1,4 +1,7 @@
-//Printing menubar code because of long svg codes, it will code navigation is easy for all html file
+import { getCurrentSaveState, getSaveStateList, saveCurrentState } from "./ServerDataFetcher.js";
+import { terrorbox } from "./Util.js";
+
+//Printing menubar code because of long svg codes, it will make code navigation is easy for all html file
 let filename = window.location.pathname.slice(1, window.location.pathname.length);
 document.querySelector(".menubar").innerHTML = `<svg viewBox="0 0 96 96" class="m_t_arrow" xmlns="http://www.w3.org/2000/svg">
 <path d="M69.8437,43.3876,33.8422,13.3863a6.0035,6.0035,0,0,0-7.6878,9.223l30.47,25.39-30.47,25.39a6.0035,6.0035,0,0,0,7.6878,9.2231L69.8437,52.6106a6.0091,6.0091,0,0,0,0-9.223Z"/>
@@ -132,22 +135,21 @@ l-195 0 0 261 0 261 -29 29 c-35 34 -93 39 -127 11z"/>
 
 <p>Time <br>Tables</p>
 </a>
-<div class="link">
-<input type="file">
+<div class="link newSave">
 <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
 <g>
     <path d="M90,54a5.9966,5.9966,0,0,0-6,6V78H12V60A6,6,0,0,0,0,60V84a5.9966,5.9966,0,0,0,6,6H90a5.9966,5.9966,0,0,0,6-6V60A5.9966,5.9966,0,0,0,90,54Z"/><path d="M43.7578,64.2422a5.9979,5.9979,0,0,0,8.4844,0l18-18a5.9994,5.9994,0,0,0-8.4844-8.4844L54,45.5156V12a6,6,0,0,0-12,0V45.5156l-7.7578-7.7578a5.9994,5.9994,0,0,0-8.4844,8.4844Z"/>
 </g>
 </svg>
-<p>Import</p>
+<p>New Save</p>
 </div>
-<div class="link export">
+<div class="link save">
 <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
 <g>
     <path d="M90,54a5.9966,5.9966,0,0,0-6,6V78H12V60A6,6,0,0,0,0,60V84a5.9966,5.9966,0,0,0,6,6H90a5.9966,5.9966,0,0,0,6-6V60A5.9966,5.9966,0,0,0,90,54Z"/><path d="M43.7578,64.2422a5.9979,5.9979,0,0,0,8.4844,0l18-18a5.9994,5.9994,0,0,0-8.4844-8.4844L54,45.5156V12a6,6,0,0,0-12,0V45.5156l-7.7578-7.7578a5.9994,5.9994,0,0,0-8.4844,8.4844Z"/>
 </g>
 </svg>
-<p>Export</p>
+<p>Save</p>
 </div>`;
 try {
     document.querySelector(`.menubar .link[href="${filename}"]`).classList.add("active");
@@ -163,6 +165,7 @@ function tmenubar() {
     });
 }
 tmenubar();
+
 let active = true;
 function to_m_mb_res() {
     let w = window.outerWidth;
@@ -177,7 +180,58 @@ function to_m_mb_res() {
     }
 }
 to_m_mb_res();
+
 window.addEventListener("resize", to_m_mb_res)
+
+function clickListenerNewForSaveBtn(){
+    document.querySelector(".link.newSave").addEventListener("click",()=>{  
+        document.querySelector(".saveStateBox").classList.add("active");
+        document.querySelector(".saveStateBoxBG").classList.add("active");
+    })
+}
+clickListenerNewForSaveBtn();
+
+export function closeSaveStateBoxFunc(){
+    document.onclick = function (e) {
+        if (e.target.classList == "closeSaveStateBox" || e.target.classList[0] == "saveStateBoxBG") {
+            document.querySelector(".saveStateBox.active").classList.remove("active");
+            document.querySelector(".saveStateBoxBG.active").classList.remove("active");
+        }
+    };
+}
+let filenames = [];
+getSaveStateList((data)=>{
+    console.log(data);
+    filenames = data;
+})
+function clickListenerForNewSaveStateInputBtn(){
+    document.querySelector(".saveStateInputBtn").addEventListener("click",()=>{
+        let filename = document.querySelector(`.saveStateBox input[type="text"]`).value.trim();
+        if(filename==""){
+            terrorbox("Please enter a vaild file name");
+            return;
+        }
+        for(var i = 0; i < filenames.length; i++){
+            if(filename.toUpperCase()==filenames[i]){
+                terrorbox("file already exists with this name");
+                return;
+            }
+        }
+        saveCurrentState(filename);
+        document.querySelector(".saveStateBox.active").classList.remove("active");
+        document.querySelector(".saveStateBoxBG.active").classList.remove("active");
+    })
+}
+clickListenerForNewSaveStateInputBtn();
+
+function clickListenerForSaveBtn(){
+    document.querySelector(".link.save").addEventListener("click",()=>{
+        getCurrentSaveState((data)=>{
+            saveCurrentState(data);
+        })
+    })
+}
+clickListenerForSaveBtn();
 // Add click event listener funtion
 // function clickListener(s,a){
 //     document.querySelectorAll(s).forEach((o)=>{

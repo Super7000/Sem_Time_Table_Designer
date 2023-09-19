@@ -1,6 +1,6 @@
 import { terrorbox } from "./Util.js";
 import { timeTableData } from "./TimeTableData.js";
-import { getSubject, getSubjectList, getTeacherList } from "./ServerDataFetcher.js";
+import { getSchedule, getSubject, getSubjectList, getTeacherList, getTimeTableStructure, getSaveStateList } from "./ServerDataFetcher.js";
 
 let url = window.location.origin+"/";
 console.log(url)
@@ -48,7 +48,7 @@ let clickedPeriodTime; //array of int with the length of 2 Ex.: [1,2] means day 
 let isLab;
 
 //Printing HTML code of Time Table for first year
-createTT(1);
+createTimeTable(1);
 
 
 function clickListenerforAvailableTeacherCards() {
@@ -160,7 +160,7 @@ document.querySelectorAll(".section .sec").forEach((c) => {
             document.querySelector(".set_time_chart p").innerHTML = s;
 
             //updating time table
-            createTT(document.querySelector(".sem_cards_container .cards .active").innerHTML[4])
+            createTimeTable(document.querySelector(".sem_cards_container .cards .active").innerHTML[4])
 
             clickListenerForClass();
         }
@@ -194,7 +194,7 @@ document.querySelectorAll(".sem_cards_container .cards div").forEach((c) => {
 
             //updating Time Table
             let semNo = c.innerHTML;
-            createTT(semNo[4]);
+            createTimeTable(semNo[4]);
 
             //Making click listener for class
             clickListenerForClass();
@@ -203,7 +203,7 @@ document.querySelectorAll(".sem_cards_container .cards div").forEach((c) => {
 })
 
 //Printing HTML code for Time Table when value of year is equal to 1 then it prints 7 periods per day outherwise 8 period per day
-function createTT(semester) {
+function createTimeTable(semester) {
     const weeks = ["Tue", "Wed", "Thu", "Fri", "Sat"];
     let time = ["9:30AM", "10:20AM", "11:10AM", "12:00PM", "12:50PM", "01:40PM", "02:30PM", "03:20PM", "04:10PM"];
     const time2 = ["9:30AM", "10:20AM", "11:10AM", "12:00PM", "1:40PM", "02:30PM", "03:20PM", "04:10PM"];
@@ -389,7 +389,7 @@ function generateTTRequest() {
         .then(data => {
             console.log(JSON.parse(data));
             timeTableData[4][1] = JSON.parse(data)[2][0];
-            createTT(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
+            createTimeTable(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
             clickListenerForClass();
             document.querySelector(".loader_container").style.cssText = "display: none;";
         })
@@ -418,6 +418,7 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
         //     return
         // }
         let subjectName = document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML;
+        let roomNo = document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML;
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = document.querySelector(".d_card.subject.active").innerHTML;
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = serverDataAboutSubjects[document.querySelector(".d_card.subject.active").innerHTML]["roomCode"];
 
@@ -438,6 +439,11 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
                 terrorbox("you can't set a lab subject at this time");
                 returnValue = true;
                 document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = subjectName;
+                try {
+                    document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = serverDataAboutSubjects[subjectName]["roomCode"];
+                } catch (error) {
+                    document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = roomNo;
+                }
 
             }
 
@@ -542,6 +548,7 @@ document.querySelector(".mainSubsCon .btns .btnOpts .rs").addEventListener("clic
 
 //Hiding Allocation Teacher Box Popup when clicking outside of the box and btns
 window.onload = function () {
+    closeSaveStateBoxFunc();
     document.onclick = function (e) {
         if (e.target.classList[0] == "allocTeacherBoxBG" || e.target.classList == "as" || e.target.classList == "dnas" || e.target.classList == "rs") {
             document.querySelector(".allocTeacherBox").classList.remove("active");
@@ -551,23 +558,13 @@ window.onload = function () {
 
     //trying to fetch Time table data If it already generated
     try {
-        let status;
-        fetch(`${url}io/schedule`)
-            .then(Response => {
-                status = Response.status;
-                return Response.text()
-            })
-            .then(data => {
-                if (status != 200) {
-                    return
-                }
-                console.log(JSON.parse(data));
-                timeTableData[4][1] = JSON.parse(data)[2][0];
-                createTT(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
+        getSchedule((data)=>{
+                console.log(data);
+                timeTableData[4][1] = data[2][0];
+                createTimeTable(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
                 clickListenerForClass();
-            })
+        })
     } catch (err) {
         console.log("err in scedule fetching")
     }
-
 };

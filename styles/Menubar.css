@@ -58,22 +58,13 @@
     align-items: center;
     justify-content: center;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .menubar .link:hover svg {
     background: #1479FF;
     color: #fff;
     box-shadow: 5px 10px 15px rgba(30, 144, 255, 0.5);
-}
-
-.menubar .link.export:hover svg {
-    background: #1479FF;
-    color: #fff;
-    box-shadow: -5px -10px 15px rgba(30, 144, 255, 0.5);
-}
-
-.menubar .link.export svg {
-    transform: rotate(180deg);
 }
 
 
@@ -133,11 +124,4 @@
     color: #1479FF;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-.menubar input {
-    position: absolute;
-    height: 80px;
-    width: 13.7%;
-    opacity: 0;
 }
