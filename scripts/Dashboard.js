@@ -280,6 +280,7 @@ function clickListenerForSaveStateActivating() {
                 e.classList.add("active");
                 loadSaveState(document.querySelector(".scedules .scedule_container div.active").innerHTML, (data) => {
                     console.log(data)
+                    window.location.reload()
                 })
             }
         })
