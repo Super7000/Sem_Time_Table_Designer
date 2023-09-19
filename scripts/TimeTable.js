@@ -1,6 +1,7 @@
 import { terrorbox } from "./Util.js";
 import { timeTableData } from "./TimeTableData.js";
 import { getSchedule, getSubject, getSubjectList, getTeacherList, getTimeTableStructure, getSaveStateList } from "./ServerDataFetcher.js";
+import { closeSaveStateBoxFunc } from "./Common.js";
 
 let url = window.location.origin+"/";
 console.log(url)
@@ -547,12 +548,14 @@ document.querySelector(".mainSubsCon .btns .btnOpts .rs").addEventListener("clic
 })
 
 //Hiding Allocation Teacher Box Popup when clicking outside of the box and btns
-window.onload = function () {
-    closeSaveStateBoxFunc();
+window.onload = ()=>{
     document.onclick = function (e) {
         if (e.target.classList[0] == "allocTeacherBoxBG" || e.target.classList == "as" || e.target.classList == "dnas" || e.target.classList == "rs") {
             document.querySelector(".allocTeacherBox").classList.remove("active");
             document.querySelector(".allocTeacherBoxBG").classList.remove("active");
+        } else if (e.target.classList == "closeSaveStateBox" || e.target.classList[0] == "saveStateBoxBG") {
+            document.querySelector(".saveStateBox.active").classList.remove("active");
+            document.querySelector(".saveStateBoxBG.active").classList.remove("active");
         }
     };
 
