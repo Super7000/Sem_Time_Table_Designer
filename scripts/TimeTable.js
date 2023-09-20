@@ -176,7 +176,7 @@ document.querySelectorAll(".options .opt").forEach((o) => {
             o.classList.add("active");
         }
         if (o.innerHTML == "Auto Fill All Semesters") {
-            generateTTRequest();
+            generateTimeTableRequest();
         }
     })
 })
@@ -350,8 +350,8 @@ function clickListenerForClass() {
                 document.querySelector(".allocTeacherBox").classList.add("active");
                 document.querySelector(".allocTeacherBoxBG").classList.add("active");
 
-                subname = e.querySelectorAll(".period div")[0].innerHTML;
-                sirname = e.querySelectorAll(".period div")[1].innerHTML;
+                if(e.querySelectorAll(".period div")[0].innerHTML!="No Subject")subname = e.querySelectorAll(".period div")[0].innerHTML;
+                if(e.querySelectorAll(".period div")[1].innerHTML!="No Sir")sirname = e.querySelectorAll(".period div")[1].innerHTML;
                 makeingClickTeacherCardClassActive(sirname);
                 makeingClickSubjectCardClassActive(subname);
 
@@ -381,13 +381,22 @@ function clickListenerForClass() {
 clickListenerForClass();
 
 //Sending generate request to server on "Auto fill all semester" btn click
-function generateTTRequest() {
+function generateTimeTableRequest() {
     document.querySelector(".loader_container").style.cssText = "display: block;";
     console.log(`${url}io/schedule?generateNew=True`);
     console.log("%cGenerate Request Send", "color: blue");
+    let status;
     fetch(`${url}io/schedule?generateNew=True`)
-        .then(Response => Response.text())
+        .then(Response => {
+            status = Response.status;
+            return Response.text();
+        })
         .then(data => {
+            if(status!=200){
+                terrorbox("Faild to generate Time Table");
+                document.querySelector(".loader_container").style.cssText = "display: none;";
+                return
+            }
             console.log(JSON.parse(data));
             timeTableData[4][1] = JSON.parse(data)[2][0];
             createTimeTable(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
