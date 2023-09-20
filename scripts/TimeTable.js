@@ -374,6 +374,7 @@ function clickListenerForClass() {
 
 
                 clickedPeriodTime = JSON.parse(e.dataset.pt);
+                isLab = serverDataAboutSubjects[e.querySelectorAll(".period div")[0].innerHTML]["isPractical"]
             }
         })
     })
@@ -393,7 +394,7 @@ function generateTimeTableRequest() {
         })
         .then(data => {
             if(status!=200){
-                terrorbox("Faild to generate Time Table");
+                terrorbox("Failed to generate beacause:<br>"+data);
                 document.querySelector(".loader_container").style.cssText = "display: none;";
                 return
             }
@@ -446,15 +447,21 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
                     document.querySelector(`.week_${weekSelector} .class_${periodSelector}`).dataset.pt;
                 }
             } catch (err) {
-                terrorbox("you can't set a lab subject at this time");
                 returnValue = true;
-                document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = subjectName;
-                try {
-                    document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = serverDataAboutSubjects[subjectName]["roomCode"];
-                } catch (error) {
-                    document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = roomNo;
-                }
+                if(document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}.lab`)!=null){
 
+                    terrorbox("you can't set a lab subject at this time");
+                    document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = subjectName;
+                    try {
+                        document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = serverDataAboutSubjects[subjectName]["roomCode"];
+                    } catch (error) {
+                        document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = roomNo;
+                    }
+    
+                } else {
+                    document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = document.querySelector(".d_card.subject.active").innerHTML;
+                    document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = subjectsData["roomCode"];
+                }
             }
 
             //mergeing classes code here
@@ -463,7 +470,7 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
                 isLab = true;
                 let span_len = 3;
                 let grid_start = JSON.parse(document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).dataset.pt)[1] + 1;
-                document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).style.cssText = `grid-column: ${grid_start} / span ${span_len};`;
+                document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}`).style.cssText = `grid-column: span ${span_len};`;
                 var periodSelector = clickedPeriodTime[1];
                 for (var i = 1; i < 3; i++) {
                     periodSelector += 1;
