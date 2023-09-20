@@ -201,7 +201,6 @@ export function closeSaveStateBoxFunc(){
 }
 let filenames = [];
 getSaveStateList((data)=>{
-    console.log(data);
     filenames = data;
 })
 function clickListenerForNewSaveStateInputBtn(){
@@ -232,6 +231,10 @@ function clickListenerForSaveBtn(){
     })
 }
 clickListenerForSaveBtn();
+
+getCurrentSaveState((data)=>{
+    document.querySelector(".currentStateNameContainer").innerHTML = "Current State: "+data;
+})
 // Add click event listener funtion
 // function clickListener(s,a){
 //     document.querySelectorAll(s).forEach((o)=>{

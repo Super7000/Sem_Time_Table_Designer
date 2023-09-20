@@ -114,6 +114,9 @@ export function saveCurrentState(name) {
             return Response.text();
         })
         .then((data) => {
+            if(status != 200){
+                console.log("Error in saving current state",data)
+            }
             terrorbox(`Current State is Saved in ${name.toUpperCase()}`,"201, 255, 172")
         })
 }
@@ -126,8 +129,8 @@ export function getCurrentSaveState(func) {
             return response.text();
         })
         .then((data) => {
-            if (status != 200) {
-                return;
+            if(status != 200){
+                console.log("Error in geting current state name",data)
             }
             func(data);
         });
@@ -141,8 +144,8 @@ export function getSaveStateList(func) {
             return response.text();
         })
         .then((data) => {
-            if (status != 200) {
-                return;
+            if(status != 200){
+                console.log("Error in geting save sates list",data)
             }
             func(JSON.parse(data));
         });
@@ -156,8 +159,8 @@ export function loadSaveState(name,func) {
             return response.text();
         })
         .then((data) => {
-            if (status != 200) {
-                return;
+            if(status != 200){
+                console.log("Error in loading "+name+ "state",data)
             }
             func(data);
         });

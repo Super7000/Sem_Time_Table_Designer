@@ -141,3 +141,15 @@ body.active {
     position: relative;
     left: 55%;
 }
+
+
+
+
+.currentStateNameContainer,.currentStateName{
+    position: absolute;
+    top: 5px;
+    left: 50px;
+    font-size: 16px;
+    color: #000;
+    margin: 0;
+}

@@ -10,30 +10,31 @@ window.onload = () => {
     getSubjectList((data) => {
         subjectList = data;
     })
-    function getTechersFromServer() {
-        getTeacherList((data) => {
-            let s = "";
-            for (var i in data) {
-                let tts = [];
-                for (var j = 0; j < 5; j++) {
-                    tts[j] = Math.floor(Math.random() * 8) + 1;
-                }
-                s += `<div class="t_card" data-tts="[${tts}]" data-sems="[5,6,8]"> <!-- tts = total time spend -->
-                        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
-                        </svg>
-                        <p>${i}</p>
-                    </div>`;
-            }
-            document.querySelector(".teachers .r_cards").innerHTML = s;
-            document.querySelectorAll(".teachers .r_cards .t_card")[0].classList.add("active");
-            clickListenerForTeacherCard();
-            document.querySelector(".r_cards .t_card.active").click();
-        })
-    }
+
     getTechersFromServer();
 }
-
+function getTechersFromServer() {
+    getTeacherList((data) => {
+        let s = "";
+        for (var i in data) {
+            let tts = [];
+            for (var j = 0; j < 5; j++) {
+                tts[j] = Math.floor(Math.random() * 8) + 1;
+            }
+            s += `<div class="t_card" data-tts="[${tts}]" data-sems="[5,6,8]"> <!-- tts = total time spend -->
+                    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-href="${window.location.origin}/AddTeacher.html?name=SIR${i}">
+                        <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
+                    </svg>
+                    <p>${i}</p>
+                </div>`;
+        }
+        document.querySelector(".teachers .r_cards").innerHTML = s;
+        document.querySelectorAll(".teachers .r_cards .t_card")[0].classList.add("active");
+        clickListenerForTeacherCard();
+        clickListenerForTeacherCardEditBtn();
+        document.querySelector(".r_cards .t_card.active").click();
+    })
+}
 
 document.querySelector(".r_cards").addEventListener("wheel", (evt) => {
     evt.preventDefault();
@@ -258,10 +259,10 @@ let chart1 = new Chart(
 getSaveStateList(showSavedStates)
 
 function showSavedStates(data) {
-    getCurrentSaveState((currentStateName)=>{        
+    getCurrentSaveState((currentStateName) => {
         let s = "";
-        for(var i = 0; i < data.length; i++){
-            if(data[i]==currentStateName){
+        for (var i = 0; i < data.length; i++) {
+            if (data[i] == currentStateName) {
                 s += `<div class="active">${data[i]}</div>`;
             } else {
                 s += `<div>${data[i]}</div>`;
@@ -280,9 +281,20 @@ function clickListenerForSaveStateActivating() {
                 e.classList.add("active");
                 loadSaveState(document.querySelector(".scedules .scedule_container div.active").innerHTML, (data) => {
                     console.log(data)
-                    window.location.reload()
+                    getTechersFromServer();
+                })
+                getCurrentSaveState((data)=>{
+                    document.querySelector(".currentStateNameContainer").innerHTML = "Current State: "+data;
                 })
             }
+        })
+    })
+}
+
+function clickListenerForTeacherCardEditBtn() {
+    document.querySelectorAll(".t_card svg").forEach((e) => {
+        e.addEventListener("click", () => {
+            window.location.href = e.dataset.href;
         })
     })
 }
