@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="styles/Menubar.css">        
+        <link rel="stylesheet" href="styles/CommonClasses.css">
+        <link rel="stylesheet" href="styles/TimeTableScheduleStructure.css">
+    </head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.2/chart.umd.js" integrity="sha512-KIq/d78rZMlPa/mMe2W/QkRgg+l0/GAAu4mGBacU0OQyPV/7EPoGQChDb269GigVoPQit5CqbNRFbgTjXHHrQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <body class="active">
+        <div class="errorBox">
+            <div class="errorMsg">Error Message</div>
+            <div class="close_err_btn cross">
+                <svg height="32px" id="Layer_1" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <path d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"/>
+                </svg>
+            </div>
+        </div>
+        <div class="saveStateBox">
+            <p>Enter The File Name</p>
+            <input type="text" value="Untitled" placeholder="Please enter a file name">
+            <div class="saveStateBtnContainer">
+                <input type="button" class="saveStateInputBtn" value="Save">
+                <input type="button" class="closeSaveStateBox" value="Cancel">
+            </div>
+        </div>
+        <div class="saveStateBoxBG"></div>
+            <div class="menubar active">
+            </div>
+            <div class="container">
+                <p class="currentStateNameContainer">Current State: Untitled</p>
+                <div class="mainInputContainer">
+                    <div class="inputContainer">
+                        <div class="semCountContainer">
+                            <p>Enter Number of Semester</p>
+                            <input type="number" class="semCount">
+                        </div>
+                        <div class="sectionCountPerSemContainer">
+                            <p>Enter Number of Sections Per Semester</p>
+                            <input type="number" class="sectionCountPerSem">
+                        </div>
+                        <div class="periodCountContainer">
+                            <p>Enter Number of Periods per Day</p>
+                            <input type="number" class="periodCount">
+                        </div>
+                        <div class="breaksPerSemContainer">
+                            <p>Enter Lunch time or Break Time per Semester</p>
+                            <input type="number" class="breaksPerSem">
+                        </div>
+                    </div>
+                    <div class="btnContainer">
+                        <button class="updateScheduleStructureBtn">Update</button>
+                    </div>
+                </div>
+                <div class="footer">
+                    <div>Created by <a href="https://github.com/Super7000">Subrata Chowdhury</a> & <a href="https://github.com/srideep-banerjee">Srideep Banerjee</a> | All @Copyrights reserved</div>
+                    
+                </div>
+            </div>
+        
+    </body>
+    <script type="module" src="./scripts/Common.js"></script>
+</html>

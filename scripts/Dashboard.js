@@ -1,5 +1,5 @@
 import { getCurrentSaveState, getSaveStateList, getSubject, getSubjectList, getTeacher, getTeacherList, getTeacherSchedule, loadSaveState } from "./ServerDataFetcher.js";
-import { closeSaveStateBoxFunc } from "./Common.js";
+import { changeColor, closeSaveStateBoxFunc } from "./Common.js";
 
 let url = window.location.origin + "/" + "io/teachers";
 console.log(url)
@@ -22,7 +22,7 @@ function getTechersFromServer() {
                 tts[j] = Math.floor(Math.random() * 8) + 1;
             }
             s += `<div class="t_card" data-tts="[${tts}]" data-sems="[5,6,8]"> <!-- tts = total time spend -->
-                    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-href="${window.location.origin}/AddTeacher.html?name=SIR${i}">
+                    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-href="${window.location.origin}/AddTeacher.html?name=SIR${i}#SIR${i}">
                         <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
                     </svg>
                     <p>${i}</p>

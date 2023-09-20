@@ -3,7 +3,7 @@ import { timeTableData } from "./TimeTableData.js";
 import { getSchedule, getSubject, getSubjectList, getTeacherList, getTimeTableStructure, getSaveStateList } from "./ServerDataFetcher.js";
 import { closeSaveStateBoxFunc } from "./Common.js";
 
-let url = window.location.origin+"/";
+let url = window.location.origin + "/";
 console.log(url)
 
 
@@ -272,9 +272,9 @@ function createTimeTable(semester) {
     //Updating CSS of week class according to year parameter value
     if (semester == 1 || semester == 2) {
         document.querySelectorAll(".week").forEach((e) => {
-            e.style.cssText = "grid-template-columns: 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5%;";
+            e.style.cssText = "grid-template-columns: repeat(9,10.5%);";
         })
-        document.querySelector(".times").style.cssText = "grid-template-columns: 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5% 10.5%;";
+        document.querySelector(".times").style.cssText = "grid-template-columns: repeat(9,10.5%);";
     }
 
     //fetching subjectlist for roomCode and isPractical Checking
@@ -296,45 +296,44 @@ function createTimeTable(semester) {
                     document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${outOfSyllabusSubject}`; //Teacher Name Div
                     document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = `&nbsp`; //Room Code Div
                 } else {
-                        document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `${timeTableData[semester - 1][section][j - 1][i - 1][1]}`; //Subject Code Div
-                        document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${timeTableData[semester - 1][section][j - 1][i - 1][0]}`; //Teacher Name Div
+                    document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `${timeTableData[semester - 1][section][j - 1][i - 1][1]}`; //Subject Code Div
+                    document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${timeTableData[semester - 1][section][j - 1][i - 1][0]}`; //Teacher Name Div
 
-                        //fetching data of the subject for room code
-                        if (document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML != "Subject") {
-                            try {
-                                if (data[timeTableData[semester - 1][section][j - 1][i - 1][1]]["isPractical"] == true) {
+                    //fetching data of the subject for room code
+                    if (document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML != "Subject") {
+                        try {
+                            if (data[timeTableData[semester - 1][section][j - 1][i - 1][1]]["isPractical"] == true) {
 
-                                    let returnValue = false;
-                                    try {
-                                        let periodSelector = i;
-                                        let weekSelector = j;
-                                        for (var k = 0; k < 2; k++) {
-                                            periodSelector++;
-                                            document.querySelector(`.week_${weekSelector} .class_${periodSelector}`).dataset.pt;
-                                        }
-                                    } catch (err) {
-                                        returnValue = true;
-                                        console.log("merging not possible")
+                                let returnValue = false;
+                                try {
+                                    let periodSelector = i;
+                                    let weekSelector = j;
+                                    for (var k = 0; k < 2; k++) {
+                                        periodSelector++;
+                                        document.querySelector(`.week_${weekSelector} .class_${periodSelector}`).dataset.pt;
                                     }
-                                    if (returnValue == false) {
-                                        let spanStart = i + 1;
-                                        document.querySelector(`.week_${j} .class_${i}`).style.cssText = `grid-column: ${spanStart} / span ${span_len};`;
-                                        var periodSelector = i;
-                                        for (var k = 1; k < 3; k++) {
-                                            periodSelector += 1;
-                                            document.querySelector(`.week_${j} .class_${periodSelector}`).remove();
-                                        }
-                                        document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = data[timeTableData[semester - 1][section][j - 1][i - 1][1]]["roomCode"];
-                                        i+=2;
-                                    }
-                                } else {
-
-                                    document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = data[timeTableData[semester - 1][section][j - 1][i - 1][1]]["roomCode"];
+                                } catch (err) {
+                                    returnValue = true;
+                                    console.log("merging not possible")
                                 }
-                            } catch (err) {
-                                console.log("error in showing room code")
+                                if (returnValue == false) {
+                                    document.querySelector(`.week_${j} .class_${i}`).style.cssText = `grid-column: auto / span ${span_len};`;
+                                    var periodSelector = i;
+                                    for (var k = 1; k < 3; k++) {
+                                        periodSelector += 1;
+                                        document.querySelector(`.week_${j} .class_${periodSelector}`).remove();
+                                    }
+                                    document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = data[timeTableData[semester - 1][section][j - 1][i - 1][1]]["roomCode"];
+                                    i += 2;
+                                }
+                            } else {
+
+                                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = data[timeTableData[semester - 1][section][j - 1][i - 1][1]]["roomCode"];
                             }
+                        } catch (err) {
+                            console.log("error in showing room code")
                         }
+                    }
                 }
 
             }
@@ -350,31 +349,35 @@ function clickListenerForClass() {
                 document.querySelector(".allocTeacherBox").classList.add("active");
                 document.querySelector(".allocTeacherBoxBG").classList.add("active");
 
-                if(e.querySelectorAll(".period div")[0].innerHTML!="No Subject")subname = e.querySelectorAll(".period div")[0].innerHTML;
-                if(e.querySelectorAll(".period div")[1].innerHTML!="No Sir")sirname = e.querySelectorAll(".period div")[1].innerHTML;
+                if (e.querySelectorAll(".period div")[0].innerHTML != "No Subject") subname = e.querySelectorAll(".period div")[0].innerHTML;
+                if (e.querySelectorAll(".period div")[1].innerHTML != "No Sir") sirname = e.querySelectorAll(".period div")[1].innerHTML;
                 makeingClickTeacherCardClassActive(sirname);
                 makeingClickSubjectCardClassActive(subname);
 
 
                 //Making Automatically Scrolled to Allocated teacher in Allocation Teacher Box Popup
-                if (window.location.hash != null) {
-                    window.location.href = window.location.href.split("#")[0] + "#SIR" + sirname;
-                } else {
-                    window.location.href += "#" + sirname;
+                async function scrolledToTeacher() {
+                    if (window.location.hash != null) {
+                        window.location.href = window.location.href.split("#")[0] + "#SIR" + sirname;
+                    } else {
+                        window.location.href += "#" + sirname;
+                    }
                 }
 
                 //Making Automatically Scrolled to Allocated subject in Allocation Teacher Box Popup
-                setTimeout(() => {
-                    if (window.location.hash != null) {
-                        window.location.href = window.location.href.split("#")[0] + "#SUB" + subname;
-                    } else {
-                        window.location.href += "#" + subname;
-                    }
-                }, 300);
+                scrolledToTeacher().then(
+                    function scrolledToSubject() {
+                        if (window.location.hash != null) {
+                            window.location.href = window.location.href.split("#")[0] + "#SUB" + subname;
+                        } else {
+                            window.location.href += "#" + subname;
+                        }
+                    })
 
 
                 clickedPeriodTime = JSON.parse(e.dataset.pt);
-                isLab = serverDataAboutSubjects[e.querySelectorAll(".period div")[0].innerHTML]["isPractical"]
+                if (e.querySelectorAll(".period div")[0].innerHTML != "Subject")
+                    isLab = serverDataAboutSubjects[e.querySelectorAll(".period div")[0].innerHTML]["isPractical"]
             }
         })
     })
@@ -393,8 +396,8 @@ function generateTimeTableRequest() {
             return Response.text();
         })
         .then(data => {
-            if(status!=200){
-                terrorbox("Failed to generate beacause:<br>"+data);
+            if (status != 200) {
+                terrorbox("Failed to generate beacause:<br>" + data);
                 document.querySelector(".loader_container").style.cssText = "display: none;";
                 return
             }
@@ -448,7 +451,7 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
                 }
             } catch (err) {
                 returnValue = true;
-                if(document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]}.lab`)!=null){
+                if (isLab != true) {
 
                     terrorbox("you can't set a lab subject at this time");
                     document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = subjectName;
@@ -457,7 +460,7 @@ document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("clic
                     } catch (error) {
                         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = roomNo;
                     }
-    
+
                 } else {
                     document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = document.querySelector(".d_card.subject.active").innerHTML;
                     document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(3)`).innerHTML = subjectsData["roomCode"];
@@ -564,7 +567,7 @@ document.querySelector(".mainSubsCon .btns .btnOpts .rs").addEventListener("clic
 })
 
 //Hiding Allocation Teacher Box Popup when clicking outside of the box and btns
-window.onload = ()=>{
+window.onload = () => {
     document.onclick = function (e) {
         if (e.target.classList[0] == "allocTeacherBoxBG" || e.target.classList == "as" || e.target.classList == "dnas" || e.target.classList == "rs") {
             document.querySelector(".allocTeacherBox").classList.remove("active");
@@ -577,11 +580,11 @@ window.onload = ()=>{
 
     //trying to fetch Time table data If it already generated
     try {
-        getSchedule((data)=>{
-                console.log(data);
-                timeTableData[4][1] = data[2][0];
-                createTimeTable(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
-                clickListenerForClass();
+        getSchedule((data) => {
+            console.log(data);
+            timeTableData[4][1] = data[2][0];
+            createTimeTable(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
+            clickListenerForClass();
         })
     } catch (err) {
         console.log("err in scedule fetching")

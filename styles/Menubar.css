@@ -1,5 +1,5 @@
 .menubar {
-    background: #fff;
+    background: var(--background);
     box-shadow: 0 0 25px rgba(30, 144, 255, 0.3);
     float: left;
     min-height: 100vh;
@@ -26,13 +26,14 @@
 .menubar.active .link p {
     margin-left: 15px;
     font-size: 15px;
+    color: var(--textColor);
 }
 
 .menubar .m_t_arrow {
     position: absolute;
     width: 20px;
     height: 20px;
-    background: #fff;
+    background: var(--background);
     border-radius: 0 10px 10px 0;
     padding: 7px;
     left: 10%;

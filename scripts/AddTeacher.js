@@ -70,12 +70,23 @@ function loadCards() {
                         </svg>
                     </div>`;
         for (let key in data) {
-            s += `<div class="d_card card">${key}</div>`;
+            s += `<div class="d_card card" id="SIR${key}">${key}</div>`;
         }
         document.querySelector(".container .cards").innerHTML = s;
         clickListenerForCardActivator();
         clickListenerForCards();
         addCardClickListener();
+        let paramString = window.location.href.split('?')[1];
+        let queryString = new URLSearchParams(paramString);
+        let urlData;
+        for (let pair of queryString.entries()) {
+           urlData = [pair[0],pair[1].split("#")[0]];
+           break;
+        }
+        console.log(urlData)
+        if(urlData[0]=="name"){
+            document.getElementById(urlData[1]).click();
+        }
     })
 }
 window.onload = loadCards();

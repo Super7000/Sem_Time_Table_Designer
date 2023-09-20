@@ -1,0 +1,7 @@
+.mainInputContainer{
+    background: var(--background);
+    width: 95%;
+    height: 95%;
+    position: relative;
+    left: 2.5%;
+}

@@ -1,3 +1,8 @@
+html{
+    --background: #fff;
+    --textColor: #000;
+    --containerColor: rgba(235, 235, 235, 0.8);
+}
 body {
     margin: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -16,7 +21,7 @@ body.active {
     min-height: calc(100vh-20px);
     position: relative;
     padding: 20px;
-    background: rgba(235, 235, 235, 0.8);
+    background: var(--containerColor);
 }
 
 
@@ -72,8 +77,12 @@ body.active {
     position: fixed;
     bottom: 5px;
     font-size: 12px;
+    color: var(--textColor);
 }
-
+.footer a:visited {
+    text-decoration: none;
+    color: rgb(97, 176, 255);
+}
 
 
 
@@ -150,6 +159,6 @@ body.active {
     top: 5px;
     left: 50px;
     font-size: 16px;
-    color: #000;
+    color: var(--textColor);
     margin: 0;
 }

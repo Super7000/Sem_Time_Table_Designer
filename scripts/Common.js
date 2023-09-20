@@ -39,7 +39,7 @@ m2860 589 l0 -1115 -49 0 c-68 0 -205 -25 -302 -56 -337 -106 -619 -350 -774
 0 150 -150 0 -150 0 0 -150z"/>
 </g>
 </svg>
-<p>Add <br>Subjects</p>
+<p>Edit <br>Subjects</p>
 </a>
 <a class="link" href="AddTeacher.html">
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +63,7 @@ fill="#000000" stroke="none">
 81z"/>
 </g>
 </svg>
-<p>Add <br>Teachers</p>
+<p>Edit <br>Teachers</p>
 </a>
 <a class="link" href="Dashboard.html">
 <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -226,6 +226,10 @@ clickListenerForNewSaveStateInputBtn();
 function clickListenerForSaveBtn(){
     document.querySelector(".link.save").addEventListener("click",()=>{
         getCurrentSaveState((data)=>{
+            if(data=="null"){
+                document.querySelector(".link.newSave").click();
+                return
+            }
             saveCurrentState(data);
         })
     })
@@ -264,3 +268,8 @@ getCurrentSaveState((data)=>{
 //     }, timeout);
 // }
 // terrorbox(`201, 255, 172`, `5000`);
+export function changeColor(){
+    document.documentElement.style.setProperty("--background","#3b3b3b")
+    document.documentElement.style.setProperty("--textColor","#fff")
+    document.documentElement.style.setProperty("--containerColor","rgba(107, 107, 107, 1)")
+}
