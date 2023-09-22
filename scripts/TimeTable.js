@@ -84,7 +84,6 @@ function clickListenerforAvailableTeacherCards() {
         })
     })
 }
-clickListenerforAvailableTeacherCards();
 
 function clickListenerforAvailableSubjectCards() {
     document.querySelectorAll(".d_card.subject").forEach((e) => {
@@ -210,7 +209,7 @@ function createTimeTable(semester) {
     const time2 = ["9:30AM", "10:20AM", "11:10AM", "12:00PM", "1:40PM", "02:30PM", "03:20PM", "04:10PM"];
     let tl = 9;
     let span_len = 3;
-    let lunchTime = 5;
+    let lunchTime = [5];
     const lunchString = "LUNCH";
     let section = document.querySelector(".filters .section .sec.active").innerHTML;
     if (section == "A") {
@@ -224,10 +223,10 @@ function createTimeTable(semester) {
     }
     //checking value of year parameter and changing period counts according to it 
     if (semester == 1 || semester == 2) {
-        time = time2;
-        tl = 8;
-        span_len = 2;
-        lunchTime = 4;
+        // time = time2;
+        // tl = 8;
+        // span_len = 2;
+        lunchTime = [4,5];
     }
 
     let s = `<div class="times">
@@ -240,7 +239,7 @@ function createTimeTable(semester) {
         s = s + `<div class="week week_${j}">
                     <div class="s_for_grid week_names">${weeks[j - 1]}</div>`;
         for (var i = 1; i <= tl; i++) {
-            if (i == lunchTime) {
+            if (lunchTime.indexOf(i)!=-1) {
                 s = s + `<div class="s_for_grid">
                             ${lunchString[j - 1]}
                         </div>`;
@@ -270,12 +269,12 @@ function createTimeTable(semester) {
     document.querySelector(".set_time_chart .att_chart").innerHTML = s;
 
     //Updating CSS of week class according to year parameter value
-    if (semester == 1 || semester == 2) {
-        document.querySelectorAll(".week").forEach((e) => {
-            e.style.cssText = "grid-template-columns: repeat(9,10.5%);";
-        })
-        document.querySelector(".times").style.cssText = "grid-template-columns: repeat(9,10.5%);";
-    }
+    // if (semester == 1 || semester == 2) {
+    //     document.querySelectorAll(".week").forEach((e) => {
+    //         e.style.cssText = "grid-template-columns: repeat(9,10.5%);";
+    //     })
+    //     document.querySelector(".times").style.cssText = "grid-template-columns: repeat(9,10.5%);";
+    // }
 
     //fetching subjectlist for roomCode and isPractical Checking
     getSubjectList(updateTTData);
@@ -284,14 +283,14 @@ function createTimeTable(semester) {
     function updateTTData(data) {
         for (let j = 1; j <= 5; j++) {
             for (let i = 1; i <= timeTableData[semester - 1][section][j - 1].length; i++) {
-                if (i == lunchTime) {
+                if (lunchTime.indexOf(i)!=-1) {
                     continue;
                 }
                 //console.log(j+","+i+","+classIterator)
                 //checking if array value is null then print only a empty box in time table 
                 if (timeTableData[semester - 1][section][j - 1][i - 1][1] == null) {
                     var outOfSyllabusSubject = "&nbsp";
-                    i < lunchTime ? outOfSyllabusSubject = "LIB" : outOfSyllabusSubject = "NPTEL";
+                    i < lunchTime[0] ? outOfSyllabusSubject = "LIB" : outOfSyllabusSubject = "NPTEL";
                     document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `&nbsp`; //Subject Code Div
                     document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${outOfSyllabusSubject}`; //Teacher Name Div
                     document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = `&nbsp`; //Room Code Div
@@ -590,3 +589,11 @@ window.onload = () => {
         console.log("err in scedule fetching")
     }
 };
+
+
+
+
+
+function main(){
+
+}

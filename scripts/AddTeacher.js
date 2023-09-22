@@ -76,16 +76,19 @@ function loadCards() {
         clickListenerForCardActivator();
         clickListenerForCards();
         addCardClickListener();
-        let paramString = window.location.href.split('?')[1];
-        let queryString = new URLSearchParams(paramString);
-        let urlData;
-        for (let pair of queryString.entries()) {
-           urlData = [pair[0],pair[1].split("#")[0]];
-           break;
-        }
-        console.log(urlData)
-        if(urlData[0]=="name"){
-            document.getElementById(urlData[1]).click();
+        try{
+            let paramString = window.location.href.split('?')[1];
+            let queryString = new URLSearchParams(paramString);
+            let urlData;
+            for (let pair of queryString.entries()) {
+               urlData = [pair[0],pair[1].split("#")[0]];
+               break;
+            }
+            if(urlData[0]=="name"){
+                document.getElementById(urlData[1]).click();
+            }
+        } catch(err){
+            console.log("%cNo Query Found","color: green");
         }
     })
 }
