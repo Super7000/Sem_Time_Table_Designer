@@ -64,20 +64,20 @@ function clickListenerforAvailableTeacherCards() {
 
             //Making Allocation Teacher Box Popup's btns active according to teacher card is clicked by user
             if (e.innerHTML == sirname) {
-                if (document.querySelector(".mainSirsCon .btns .btnOpts .as.notactive") == null) {
-                    document.querySelector(".mainSirsCon .btns .btnOpts .as").classList.add("notactive");
-                    document.querySelector(".mainSirsCon .btns .btnOpts .dnas").classList.add("notactive");
-                    if (document.querySelector(".mainSirsCon .btns .btnOpts .rs.notactive") != null) {
-                        document.querySelector(".mainSirsCon .btns .btnOpts .rs").classList.remove("notactive");
+                if (document.querySelector(".mainSirsCon .btns .btnOpts .assignSir.active") != null) {
+                    document.querySelector(".mainSirsCon .btns .btnOpts .assignSir.active").classList.remove("active");
+                    document.querySelector(".mainSirsCon .btns .btnOpts .dnas.active").classList.remove("active");
+                    if (document.querySelector(".mainSirsCon .btns .btnOpts .removeSir.active") == null) {
+                        document.querySelector(".mainSirsCon .btns .btnOpts .removeSir").classList.add("active");
                     }
 
                 }
             } else {
-                if (document.querySelector(".mainSirsCon .btns .btnOpts .as.notactive") != null) {
-                    document.querySelector(".mainSirsCon .btns .btnOpts .as").classList.remove("notactive");
-                    document.querySelector(".mainSirsCon .btns .btnOpts .dnas").classList.remove("notactive");
-                    if (document.querySelector(".mainSirsCon .btns .btnOpts .rs.notactive") == null) {
-                        document.querySelector(".mainSirsCon .btns .btnOpts .rs").classList.add("notactive");
+                if (document.querySelector(".mainSirsCon .btns .btnOpts .assignSir.active") == null) {
+                    document.querySelector(".mainSirsCon .btns .btnOpts .assignSir").classList.add("active");
+                    document.querySelector(".mainSirsCon .btns .btnOpts .dnas").classList.add("active");
+                    if (document.querySelector(".mainSirsCon .btns .btnOpts .removeSir.active") != null) {
+                        document.querySelector(".mainSirsCon .btns .btnOpts .removeSir").classList.remove("active");
                     }
                 }
             }
@@ -97,20 +97,20 @@ function clickListenerforAvailableSubjectCards() {
 
             //Making Allocation Teacher Box Popup's btns active according to subject card is clicked by user
             if (e.innerHTML == subname) {
-                if (document.querySelector(".mainSubsCon .btns .btnOpts .as.notactive") == null) {
-                    document.querySelector(".mainSubsCon .btns .btnOpts .as").classList.add("notactive");
-                    document.querySelector(".mainSubsCon .btns .btnOpts .dnas").classList.add("notactive");
-                    if (document.querySelector(".mainSubsCon .btns .btnOpts .rs.notactive") != null) {
-                        document.querySelector(".mainSubsCon .btns .btnOpts .rs").classList.remove("notactive");
+                if (document.querySelector(".mainSubsCon .btns .btnOpts .assignSubject.active") != null) {
+                    document.querySelector(".mainSubsCon .btns .btnOpts .assignSubject.active").classList.remove("active");
+                    document.querySelector(".mainSubsCon .btns .btnOpts .dnas.active").classList.remove("active");
+                    if (document.querySelector(".mainSubsCon .btns .btnOpts .removeSubject.active") == null) {
+                        document.querySelector(".mainSubsCon .btns .btnOpts .removeSubject").classList.add("active");
                     }
 
                 }
             } else {
-                if (document.querySelector(".mainSubsCon .btns .btnOpts .as.notactive") != null) {
-                    document.querySelector(".mainSubsCon .btns .btnOpts .as").classList.remove("notactive");
-                    document.querySelector(".mainSubsCon .btns .btnOpts .dnas").classList.remove("notactive");
-                    if (document.querySelector(".mainSubsCon .btns .btnOpts .rs.notactive") == null) {
-                        document.querySelector(".mainSubsCon .btns .btnOpts .rs").classList.add("notactive");
+                if (document.querySelector(".mainSubsCon .btns .btnOpts .assignSubject.active") == null) {
+                    document.querySelector(".mainSubsCon .btns .btnOpts .assignSubject").classList.add("active");
+                    document.querySelector(".mainSubsCon .btns .btnOpts .dnas").classList.add("active");
+                    if (document.querySelector(".mainSubsCon .btns .btnOpts .removeSubject.active") != null) {
+                        document.querySelector(".mainSubsCon .btns .btnOpts .removeSubject").classList.remove("active");
                     }
                 }
             }
@@ -123,6 +123,9 @@ function makeingClickTeacherCardClassActive(sirname) {
     document.querySelectorAll(".d_card.teacher").forEach((e) => {
         if (e.innerHTML == sirname) {
             e.click();
+            if (document.querySelector(".mainSirsCon .btns .btnOpts .removeSir.active") == null) {
+                document.querySelector(".mainSirsCon .btns .btnOpts .removeSir").classList.add("active");
+            }
         }
     });
 }
@@ -130,6 +133,9 @@ function makeingClickSubjectCardClassActive(subname) {
     document.querySelectorAll(".d_card.subject").forEach((e) => {
         if (e.innerHTML == subname) {
             e.click();
+            if (document.querySelector(".mainSubsCon .btns .btnOpts .removeSubject.active") == null) {
+                document.querySelector(".mainSubsCon .btns .btnOpts .removeSubject").classList.add("active");
+            }
         }
     });
 }
@@ -348,7 +354,7 @@ function clickListenerForClass() {
                 document.querySelector(".allocTeacherBox").classList.add("active");
                 document.querySelector(".allocTeacherBoxBG").classList.add("active");
 
-                if (e.querySelectorAll(".period div")[0].innerHTML != "No Subject") subname = e.querySelectorAll(".period div")[0].innerHTML;
+                if (e.querySelectorAll(".period div")[0].innerHTML != "No Subject" || e.querySelectorAll(".period div")[0].innerHTML != "&nbsp") subname = e.querySelectorAll(".period div")[0].innerHTML;
                 if (e.querySelectorAll(".period div")[1].innerHTML != "No Sir") sirname = e.querySelectorAll(".period div")[1].innerHTML;
                 makeingClickTeacherCardClassActive(sirname);
                 makeingClickSubjectCardClassActive(subname);
@@ -375,8 +381,16 @@ function clickListenerForClass() {
 
 
                 clickedPeriodTime = JSON.parse(e.dataset.pt);
-                if (e.querySelectorAll(".period div")[0].innerHTML != "Subject")
-                    isLab = serverDataAboutSubjects[e.querySelectorAll(".period div")[0].innerHTML]["isPractical"]
+                try{
+                    if (e.querySelectorAll(".period div")[0].innerHTML == "Subject" || e.querySelectorAll(".period div")[0].innerHTML == "&nbsp")
+                    {
+                        // isLab = serverDataAboutSubjects[e.querySelectorAll(".period div")[0].innerHTML]["isPractical"]
+                    } else {
+                        isLab = serverDataAboutSubjects[e.querySelectorAll(".period div")[0].innerHTML]["isPractical"]
+                    }
+                } catch (err){
+                    console.log(e.querySelectorAll(".period div")[0].innerHTML != "Subject" || e.querySelectorAll(".period div")[0].innerHTML != "&nbsp")
+                }
             }
         })
     })
@@ -417,13 +431,13 @@ function generateTimeTableRequest() {
 
 
 //Yes btn click listener of allocated teacher box popup
-document.querySelector(".mainSirsCon .btns .btnOpts .as").addEventListener("click", () => {
-    if (document.querySelector(".mainSirsCon .btns .btnOpts .as.notactive") == null) {
+document.querySelector(".mainSirsCon .btns .btnOpts .assignSir").addEventListener("click", () => {
+    if (document.querySelector(".mainSirsCon .btns .btnOpts .assignSir.active") != null) {
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = document.querySelector(".d_card.teacher.active").innerHTML;
     }
 })
-document.querySelector(".mainSubsCon .btns .btnOpts .as").addEventListener("click", () => {
-    if (document.querySelector(".mainSubsCon .btns .btnOpts .as.notactive") == null) {
+document.querySelector(".mainSubsCon .btns .btnOpts .assignSubject").addEventListener("click", () => {
+    if (document.querySelector(".mainSubsCon .btns .btnOpts .assignSubject.active") != null) {
         // if(document.querySelector(".d_card.subject.active").innerHTML == "LIB" || document.querySelector(".d_card.subject.active").innerHTML == "NPTEL"){
         //     document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = "&nbsp";
         //     document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = document.querySelector(".d_card.subject.active").innerHTML;
@@ -537,12 +551,12 @@ function removeLabClassAndPlaceTwoClass() {
 }
 
 //Remove btn click listener of allocated teacher box popup
-document.querySelector(".mainSirsCon .btns .btnOpts .rs").addEventListener("click", () => {
-    if (document.querySelector(".mainSirsCon .btns .btnOpts .rs.notactive") == null) {
+document.querySelector(".mainSirsCon .btns .btnOpts .removeSir").addEventListener("click", () => {
+    if (document.querySelector(".mainSirsCon .btns .btnOpts .removeSir.active") != null) {
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = "No Sir";
         try {
             document.querySelector(".d_card.teacher.active").classList.remove("active");
-            document.querySelector(".mainSirsCon .btns .btnOpts .rs").classList.add("notactive");
+            document.querySelector(".mainSirsCon .btns .btnOpts .removeSir.active").classList.remove("active");
             document.querySelector(".allocTeacherBoxBG").click();
         } catch (error) {
             console.log("%cerror in remove teacher", "color: red")
@@ -550,12 +564,12 @@ document.querySelector(".mainSirsCon .btns .btnOpts .rs").addEventListener("clic
         sirname = "No Sir";
     }
 })
-document.querySelector(".mainSubsCon .btns .btnOpts .rs").addEventListener("click", () => {
-    if (document.querySelector(".mainSubsCon .btns .btnOpts .rs.notactive") == null) {
+document.querySelector(".mainSubsCon .btns .btnOpts .removeSubject").addEventListener("click", () => {
+    if (document.querySelector(".mainSubsCon .btns .btnOpts .removeSubject.active") != null) {
         document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(1)`).innerHTML = "No Subject";
         try {
             document.querySelector(".d_card.subject.active").classList.remove("active");
-            document.querySelector(".mainSubsCon .btns .btnOpts .rs").classList.add("notactive");
+            document.querySelector(".mainSubsCon .btns .btnOpts .removeSubject.active").classList.remove("active");
             document.querySelector(".allocTeacherBoxBG").click();
             removeLabClassAndPlaceTwoClass();
         } catch (error) {
@@ -568,7 +582,7 @@ document.querySelector(".mainSubsCon .btns .btnOpts .rs").addEventListener("clic
 //Hiding Allocation Teacher Box Popup when clicking outside of the box and btns
 window.onload = () => {
     document.onclick = function (e) {
-        if (e.target.classList[0] == "allocTeacherBoxBG" || e.target.classList == "as" || e.target.classList == "dnas" || e.target.classList == "rs") {
+        if (e.target.classList[0] == "allocTeacherBoxBG" || e.target.classList[0] == "assignSir" || e.target.classList[0] == "assignSubject" || e.target.classList[0] == "dnas") {
             document.querySelector(".allocTeacherBox").classList.remove("active");
             document.querySelector(".allocTeacherBoxBG").classList.remove("active");
         } else if (e.target.classList == "closeSaveStateBox" || e.target.classList[0] == "saveStateBoxBG") {
@@ -595,5 +609,7 @@ window.onload = () => {
 
 
 function main(){
+
+
 
 }
