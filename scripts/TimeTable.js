@@ -296,7 +296,7 @@ function createTimeTable(semester) {
                 //checking if array value is null then print only a empty box in time table 
                 if (timeTableData[semester - 1][section][j - 1][i - 1][1] == null) {
                     var outOfSyllabusSubject = "&nbsp";
-                    i < lunchTime[0] ? outOfSyllabusSubject = "LIB" : outOfSyllabusSubject = "NPTEL";
+                    i < lunchTime[0] ? outOfSyllabusSubject = "LIB" : outOfSyllabusSubject = "EduSkill";
                     document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `&nbsp`; //Subject Code Div
                     document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${outOfSyllabusSubject}`; //Teacher Name Div
                     document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = `&nbsp`; //Room Code Div
@@ -525,10 +525,7 @@ function removeLabClassAndPlaceTwoClass() {
             period.appendChild(sirdiv);
             period.appendChild(roomdiv);
             newNode.appendChild(period);
-            newNode.classList.add(`s_for_grid`)
-            newNode.classList.add(`class`)
-            newNode.classList.add(`class_${periodNumber}`)
-            newNode.classList.add(`alloc`);
+            newNode.classList.add(`s_for_grid`,`class`,`class_${periodNumber}`,`alloc`);
             newNode.setAttribute("data-pt", `[${weekNumber},${periodNumber}]`)
             // let newElement = `<div class="s_for_grid class class_${i} alloc" data-pt="[${j},${i}]">
             //                     <div class="period">
