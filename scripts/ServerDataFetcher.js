@@ -248,7 +248,7 @@ export function saveSubject(m, func = () => { }) {
 
 export function deleteTeacher(teacherName, func = () => { }) {
     let statusValue;
-    fetch(url + "/" + teacherName, {
+    fetch(url + "io/teachers/" + teacherName, {
         method: "DELETE"
     })
         .then(Response => {
@@ -265,8 +265,9 @@ export function deleteTeacher(teacherName, func = () => { }) {
 }
 
 export function deleteSubject(subjectName, func = () => { }) {
-    let statusValue;
-    fetch(url + "/" + subjectName, {
+    let statusValue;    console.log(url + "/io/teachers/" + subjectName)
+
+    fetch(url + "io/subjects/" + subjectName, {
         method: "DELETE"
     })
         .then(Response => {
