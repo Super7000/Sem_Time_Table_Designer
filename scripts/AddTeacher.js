@@ -1,4 +1,4 @@
-import { getTeacher, getTeacherList } from "./ServerDataFetcher.js";
+import { deleteTeacher, getTeacher, getTeacherList, saveTeacher } from "./ServerDataFetcher.js";
 import { terrorbox, clickListenerForCardActivator, addCardClickListener } from "./Util.js";
 //Printing HTML code of Card of each sir
 // function showcards() {
@@ -11,7 +11,7 @@ import { terrorbox, clickListenerForCardActivator, addCardClickListener } from "
 // }
 // showcards();
 
-let url = window.location.origin+"/" + "io/teachers";
+let url = window.location.origin + "/" + "io/teachers";
 console.log(url)
 
 function saveBtnClickListener() {
@@ -35,26 +35,11 @@ function saveBtnClickListener() {
         let m = new Map();
         m[val] = teacherData;
         console.log(JSON.stringify(m));
-        let statusValue;
-        fetch(url, {
-            method: "PUT",
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(m)
+        saveTeacher(m, () => {
+            //if data is updated in server then refresh cards in UI
+            loadCards();
+            document.querySelector(".add.card").click();
         })
-            .then(Response => {
-                statusValue = Response.status;
-                return Response.text()
-            })
-            .then(data => {
-                if (statusValue != 200) {
-                    terrorbox("Something went wrong");
-                    return;
-                }
-
-                //if data is updated in server then refresh cards in UI
-                loadCards();
-                document.querySelector(".add.card").click();
-            })
 
 
 
@@ -76,19 +61,19 @@ function loadCards() {
         clickListenerForCardActivator();
         clickListenerForCards();
         addCardClickListener();
-        try{
+        try {
             let paramString = window.location.href.split('?')[1];
             let queryString = new URLSearchParams(paramString);
             let urlData;
             for (let pair of queryString.entries()) {
-               urlData = [pair[0],pair[1].split("#")[0]];
-               break;
+                urlData = [pair[0], pair[1].split("#")[0]];
+                break;
             }
-            if(urlData[0]=="name"){
+            if (urlData[0] == "name") {
                 document.getElementById(urlData[1]).click();
             }
-        } catch(err){
-            console.log("%cNo Query Found","color: green");
+        } catch (err) {
+            console.log("%cNo Query Found", "color: green");
         }
     })
 }
@@ -96,24 +81,12 @@ window.onload = loadCards();
 
 function deleteBtnFunc() {
     document.querySelector(".cBtns .cBtn").addEventListener("click", () => {
-        let statusValue;
-        fetch(url + "/" + document.querySelector(".d_card.active").innerHTML, {
-            method: "DELETE"
-        })
-            .then(Response => {
-                statusValue = Response.status;
-                return Response.text()
-            })
-            .then(data => {
-                if (statusValue != 200) {
-                    terrorbox("Something went wrong");
-                    return;
-                }
 
-                //if data is deleted in server then refresh cards in UI
-                loadCards();
-                document.querySelector(".add.card").click();
-            })
+        deleteTeacher(document.querySelector(".d_card.active").innerHTML, () => {
+            //if data is deleted in server then refresh cards in UI
+            loadCards();
+            document.querySelector(".add.card").click();
+        })
     })
 }
 deleteBtnFunc();

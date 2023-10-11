@@ -114,10 +114,10 @@ export function saveCurrentState(name) {
             return Response.text();
         })
         .then((data) => {
-            if(status != 200){
-                console.log("Error in saving current state",data)
+            if (status != 200) {
+                console.log("Error in saving current state", data)
             }
-            terrorbox(`Current State is Saved in ${name.toUpperCase()}`,"201, 255, 172")
+            terrorbox(`Current State is Saved in ${name.toUpperCase()}`, "201, 255, 172")
         })
 }
 
@@ -129,8 +129,8 @@ export function getCurrentSaveState(func) {
             return response.text();
         })
         .then((data) => {
-            if(status != 200){
-                console.log("Error in geting current state name",data)
+            if (status != 200) {
+                console.log("Error in geting current state name", data)
             }
             func(data);
         });
@@ -144,14 +144,14 @@ export function getSaveStateList(func) {
             return response.text();
         })
         .then((data) => {
-            if(status != 200){
-                console.log("Error in geting save sates list",data)
+            if (status != 200) {
+                console.log("Error in geting save sates list", data)
             }
             func(JSON.parse(data));
         });
 }
 
-export function loadSaveState(name,func) {
+export function loadSaveState(name, func) {
     let status;
     fetch(`${url}io/saves/load?name=${name}`)
         .then((response) => {
@@ -159,8 +159,8 @@ export function loadSaveState(name,func) {
             return response.text();
         })
         .then((data) => {
-            if(status != 200){
-                console.log("Error in loading "+name+ "state",data)
+            if (status != 200) {
+                console.log("Error in loading " + name + "state", data)
             }
             func(data);
         });
@@ -174,14 +174,15 @@ export function loadSaveState(name,func) {
 
 
 export function saveTimeTableStructure(data) {
+    console.log(JSON.stringify(data))
     let status;
     fetch(`${url}io/schedule/structure`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-      })
+    })
         .then((response) => {
             status = response.status;
             return response.text();
@@ -192,4 +193,91 @@ export function saveTimeTableStructure(data) {
             }
             terrorbox(data)
         });
+}
+
+export function saveTeacher(m, func = () => { }) {
+    let statusValue;
+    fetch(url + "io/teachers", {
+        method: "PUT",
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(m)
+    })
+        .then(Response => {
+            statusValue = Response.status;
+            return Response.text()
+        })
+        .then(data => {
+            if (statusValue != 200) {
+                terrorbox("Something went wrong");
+                return;
+            }
+            func();
+        })
+}
+
+export function saveSubject(m, func = () => { }) {
+    let statusValue;
+    fetch(url + "io/subjects", {
+        method: "PUT",
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(m)
+    })
+        .then(Response => {
+            statusValue = Response.status;
+            return Response.text();
+        })
+        .then(data => {
+            if (statusValue != 200) {
+                terrorbox("Something went wrong");
+                return;
+            }
+            func();
+        })
+}
+
+
+
+
+
+
+//=======================DELETE Requests====================
+
+
+
+
+
+export function deleteTeacher(teacherName, func = () => { }) {
+    let statusValue;
+    fetch(url + "/" + teacherName, {
+        method: "DELETE"
+    })
+        .then(Response => {
+            statusValue = Response.status;
+            return Response.text()
+        })
+        .then(data => {
+            if (statusValue != 200) {
+                terrorbox("Something went wrong");
+                return;
+            }
+            func();
+        })
+}
+
+export function deleteSubject(subjectName, func = () => { }) {
+    let statusValue;
+    fetch(url + "/" + subjectName, {
+        method: "DELETE"
+    })
+        .then(Response => {
+            statusValue = Response.status;
+            return Response.text()
+        })
+        .then(data => {
+            if (statusValue != 200) {
+                terrorbox("Something went wrong");
+                return;
+            }
+            func();
+        })
 }

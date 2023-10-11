@@ -1,4 +1,4 @@
-import { getSubject, getSubjectList } from "./ServerDataFetcher.js";
+import { deleteSubject, getSubject, getSubjectList, saveSubject } from "./ServerDataFetcher.js";
 import { terrorbox, clickListenerForCardActivator, addCardClickListener } from "./Util.js";
 //Printing HTML code of Card of each Subject
 // function showcards(){
@@ -12,7 +12,7 @@ import { terrorbox, clickListenerForCardActivator, addCardClickListener } from "
 // showcards();
 
 
-let url = window.location.origin+"/" + "io/subjects";
+let url = window.location.origin + "/" + "io/subjects";
 console.log(url)
 
 function saveBtnClickListener() {
@@ -74,26 +74,11 @@ function saveBtnClickListener() {
         m[val] = subjectData;
         console.log(JSON.stringify(m));
 
-        let statusValue;
-        fetch(url, {
-            method: "PUT",
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(m)
+        saveSubject(m, () => {
+            //if data is updated in server then refresh cards in UI
+            loadCards();
+            document.querySelector(".add.card").click();
         })
-            .then(Response => {
-                statusValue = Response.status;
-                return Response.text();
-            })
-            .then(data => {
-                if (statusValue != 200) {
-                    terrorbox("Something went wrong");
-                    return;
-                }
-
-                //if data is updated in server then refresh cards in UI
-                loadCards();
-                document.querySelector(".add.card").click();
-            })
 
 
 
@@ -123,24 +108,11 @@ function deleteBtnFunc() {
     document.querySelector(".cBtns .cBtn").addEventListener("click", () => {
         console.log(url + "/" + document.querySelector(".d_card.active").innerHTML);
 
-        let statusValue;
-        fetch(url + "/" + document.querySelector(".d_card.active").innerHTML, {
-            method: "DELETE"
+        deleteSubject(document.querySelector(".d_card.active").innerHTML, () => {
+            //if data is deleted in server then refresh cards in UI
+            loadCards();
+            document.querySelector(".add.card").click();
         })
-            .then(Response => {
-                statusValue = Response.status;
-                return Response.text()
-            })
-            .then(data => {
-                if (statusValue != 200) {
-                    terrorbox("Something went wrong");
-                    return;
-                }
-
-                //if data is deleted in server then refresh cards in UI
-                loadCards();
-                document.querySelector(".add.card").click();
-            })
     })
 }
 deleteBtnFunc();
