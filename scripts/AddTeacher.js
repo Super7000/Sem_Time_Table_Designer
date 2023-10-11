@@ -27,6 +27,26 @@ function saveBtnClickListener() {
             return;
         }
 
+        // verifying available time
+        let freeTimeInput = "[" + document.querySelectorAll(".con input")[2].value.trim() + "]"
+        let valid = true;
+        try {
+            let jsonInput = JSON.parse(freeTimeInput)
+            console.log(jsonInput)
+            if (jsonInput instanceof Array) {
+                for(let slot of jsonInput) {
+                    if(slot instanceof Array && slot.length == 2) {
+                        if(isNaN(slot[0]) || isNaN(slot[1])) {
+                            valid = false
+                        }
+                    } else valid = false;
+                }
+            } else valid = false;
+        } catch (err) {
+            valid = false;
+        }
+        //if available is valid, valid would be true
+
         //Sending data to server
         let teacherData = {
             freeTime: JSON.parse(`[${document.querySelectorAll(".con input")[2].value.trim()}]`),
