@@ -165,3 +165,31 @@ export function loadSaveState(name,func) {
             func(data);
         });
 }
+
+
+
+
+//=================================PUT Requests====================================
+
+
+
+export function saveTimeTableStructure(data) {
+    let status;
+    fetch(`${url}io/schedule/structure`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => {
+            status = response.status;
+            return response.text();
+        })
+        .then((data) => {
+            if (status != 200) {
+                return;
+            }
+            terrorbox(data)
+        });
+}

@@ -1,16 +1,15 @@
 .mainInputContainer{
-    background: var(--background);
+    /* background: var(--background); */
     width: 90%;
     height: 90%;
     position: relative;
-    top: 10px;
+    top: 20px;
     left: 2.5%;
     padding: 15px 20px;
     display: grid;
     grid-template-rows: auto 50px;
 }
 .mainInputContainer .inputContainer{
-    background-color: aqua;
     display: grid;
     grid-template-areas: 'a b'
                             'c c'
@@ -29,12 +28,37 @@
 .mainInputContainer .inputContainers:nth-child(4){
     grid-area: d;
 }
-
+/* 
 .mainInputContainer .btnContainer{
     background-color: rgb(23, 51, 51);
-}
+} */
 .mainInputContainer .inputContainers{
-    background-color: red;
+    background: var(--background);
     padding: 15px;
     border-radius: 10px;
+    box-shadow: 0 0 10px rgba(30, 144, 255, 0.3);
+}
+.mainInputContainer .inputContainers input{
+    font-size: 18px;
+    border: none;
+    border-bottom: 2px solid dodgerblue;
+    border-radius: 5px;
+    outline: none;
+    padding: 5px 10px;
+    width: 95%;
+    margin: 5px;
+    background: rgba(0, 0, 0, 0.1);
+}
+.updateScheduleStructureBtn{
+    background: dodgerblue;
+    border: 0;
+    padding: 8px 15px;
+    font-size: 18px;
+    font-family: verdana;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    float: right;
+    top: 10px;
 }

@@ -135,6 +135,12 @@ l-195 0 0 261 0 261 -29 29 c-35 34 -93 39 -127 11z"/>
 
 <p>Time <br>Tables</p>
 </a>
+<a class="link" href="TimeTableScheduleStructure.html">
+<svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z"/>
+</svg>
+<p>Time Table <br>Structure</p>
+</a>
 <div class="link newSave">
 <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
 <g>
@@ -217,6 +223,7 @@ function clickListenerForNewSaveStateInputBtn(){
             }
         }
         saveCurrentState(filename);
+        window.location.reload();
         document.querySelector(".saveStateBox.active").classList.remove("active");
         document.querySelector(".saveStateBoxBG.active").classList.remove("active");
     })
