@@ -27,29 +27,45 @@ function saveBtnClickListener() {
             return;
         }
 
+        
+        //verifying subject
+        let subjectInput = document.querySelectorAll(".con input")[1].value.trim().toUpperCase();
+        if(subjectInput=="" && subjectInput == null){
+            terrorbox("Please enter subject name");
+            return;
+        }
+        if (subjectInput.length > 9) {
+            terrorbox("Length of the subject must be less than 10");
+            return;
+        }
+
         // verifying available time
-        let freeTimeInput = "[" + document.querySelectorAll(".con input")[2].value.trim() + "]"
-        let valid = true;
+        let freeTimeInput = "[" + document.querySelectorAll(".con input")[2].value.trim() + "]";
         try {
             let jsonInput = JSON.parse(freeTimeInput)
             console.log(jsonInput)
-            if (jsonInput instanceof Array) {
-                for(let slot of jsonInput) {
-                    if(slot instanceof Array && slot.length == 2) {
-                        if(isNaN(slot[0]) || isNaN(slot[1])) {
-                            valid = false
-                        }
-                    } else valid = false;
+            if (!jsonInput instanceof Array) {
+                terrorbox("Please enter a vaild time");
+                return;
+            }
+            for (let slot of jsonInput) {
+                if (!slot instanceof Array && slot.length == 2) {
+                    terrorbox("Value must contain integers and legth must be 2");
+                    return;
                 }
-            } else valid = false;
+                if (isNaN(slot[0]) || isNaN(slot[1])) {
+                    terrorbox("Value can't be empty");
+                    return;
+                }
+            }
         } catch (err) {
-            valid = false;
+            console.log("Error in verifying time")
         }
-        //if available is valid, valid would be true
+
 
         //Sending data to server
         let teacherData = {
-            freeTime: JSON.parse(`[${document.querySelectorAll(".con input")[2].value.trim()}]`),
+            freeTime: JSON.parse(freeTimeInput),
             subjects: JSON.parse(JSON.stringify(document.querySelectorAll(".con input")[1].value.trim().toUpperCase().split(",")))
         }
         let m = new Map();
