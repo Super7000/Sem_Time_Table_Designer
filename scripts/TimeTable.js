@@ -595,8 +595,11 @@ window.onload = () => {
     }
 };
 function storeScheduleData(data){
-    timeTableData[4][1] = data[2][0];
-    timeTableData[4][2] = data[2][1];
+    for (let sem = 0; sem < data.length; sem++) {
+        for (let sec = 0; sec <data[sem].length; sec++) {
+            timeTableData[sem * 2][sec] = data[sem][sec];
+        }
+    }
     createTimeTable(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
     clickListenerForClass();
 }
