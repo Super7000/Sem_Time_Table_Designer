@@ -42,15 +42,21 @@ function saveBtnClickListener() {
         // verifying available time
         let freeTimeInput = "[" + document.querySelectorAll(".con input")[2].value.trim() + "]";
         try {
-            let jsonInput = JSON.parse(freeTimeInput)
+            let jsonInput;
+            try{
+                jsonInput = JSON.parse(freeTimeInput);
+            } catch(err){
+                terrorbox("please enter a vaild time");
+                return;
+            }
             console.log(jsonInput)
             if (!jsonInput instanceof Array) {
                 terrorbox("Please enter a vaild time");
                 return;
             }
             for (let slot of jsonInput) {
-                if (!slot instanceof Array && slot.length == 2) {
-                    terrorbox("Value must contain integers and legth must be 2");
+                if (!slot instanceof Array && !slot.length == 2) {
+                    terrorbox("Value must contain integers and length must be 2");
                     return;
                 }
                 if (isNaN(slot[0]) || isNaN(slot[1])) {
