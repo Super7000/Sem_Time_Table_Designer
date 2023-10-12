@@ -1,11 +1,9 @@
 import { terrorbox } from "./Util.js";
-import { timeTableData } from "./TimeTableData.js";
 import { getSchedule, getSubject, getSubjectList, getTeacherList, getTimeTableStructure, getSaveStateList } from "./ServerDataFetcher.js";
 import { closeSaveStateBoxFunc } from "./Common.js";
 
 let url = window.location.origin + "/";
 console.log(url)
-
 
 //stroing data get from server
 let serverDataAboutSubjects = "empty";
@@ -415,9 +413,7 @@ function generateTimeTableRequest() {
                 return
             }
             console.log(JSON.parse(data));
-            timeTableData[4][1] = JSON.parse(data)[2][0];
-            createTimeTable(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
-            clickListenerForClass();
+            storeScheduleData(JSON.parse(data))
             document.querySelector(".loader_container").style.cssText = "display: none;";
         })
 }
@@ -592,15 +588,18 @@ window.onload = () => {
     try {
         getSchedule((data) => {
             console.log(data);
-            timeTableData[4][1] = data[2][0];
-            createTimeTable(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
-            clickListenerForClass();
+            storeScheduleData(data);
         })
     } catch (err) {
         console.log("err in scedule fetching")
     }
 };
-
+function storeScheduleData(data){
+    timeTableData[4][1] = data[2][0];
+    timeTableData[4][2] = data[2][1];
+    createTimeTable(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
+    clickListenerForClass();
+}
 
 
 

@@ -1,5 +1,5 @@
 //Time table data || format: [semester][section][day][period]{"teacherName","subjectCode"}
-export let timeTableData = [
+let timeTableData = [
     [
         [
             [["Sirsem1secA", "Subject"], ["Sir", "Subject"], ["Sir", "Subject"], ["Sir", "Subject"], ["Sir", "Subject"], ["Sir", "Subject"], ["Sir", "Subject"]],
