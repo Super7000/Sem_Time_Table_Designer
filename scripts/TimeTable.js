@@ -53,15 +53,16 @@ createTimeTable(1);
 function clickListenerforAvailableTeacherCards() {
     document.querySelectorAll(".d_card.teacher").forEach((e) => {
         e.addEventListener("click", () => {
-            try {
-                document.querySelector(".d_card.teacher.active").classList.remove("active");
-            } catch (error) {
-                console.log("%cnormal error in activating Teacher card", "color: green");
-            }
-            e.classList.add("active");
+            e.classList.toggle("active");
 
             //Making Allocation Teacher Box Popup's btns active according to teacher card is clicked by user
-            if (e.innerHTML == sirname) {
+            let sirnames="";
+            let len = document.querySelectorAll(".d_card.teacher.active").length;
+            for(var i = 0; i < len-1; i++){
+                sirnames += document.querySelectorAll(".d_card.teacher.active")[i].innerHTML+"+";
+            }
+            sirnames += document.querySelectorAll(".d_card.teacher.active")[len-1].innerHTML;
+            if (sirnames == sirname) {
                 if (document.querySelector(".mainSirsCon .btns .btnOpts .assignSir.active") != null) {
                     document.querySelector(".mainSirsCon .btns .btnOpts .assignSir.active").classList.remove("active");
                     document.querySelector(".mainSirsCon .btns .btnOpts .dnas.active").classList.remove("active");
@@ -119,12 +120,16 @@ clickListenerforAvailableSubjectCards();
 
 function makeingClickTeacherCardClassActive(sirname) {
     document.querySelectorAll(".d_card.teacher").forEach((e) => {
-        if (e.innerHTML == sirname) {
-            e.click();
-            if (document.querySelector(".mainSirsCon .btns .btnOpts .removeSir.active") == null) {
-                document.querySelector(".mainSirsCon .btns .btnOpts .removeSir").classList.add("active");
+        let sirnames = sirname.split("+");
+        sirnames.forEach((s)=>{
+            if(s==e.innerHTML){
+                e.click();
+                if (document.querySelector(".mainSirsCon .btns .btnOpts .removeSir.active") == null) {
+                    document.querySelector(".mainSirsCon .btns .btnOpts .removeSir").classList.add("active");
+                }   
             }
-        }
+        })
+        
     });
 }
 function makeingClickSubjectCardClassActive(subname) {
@@ -281,10 +286,10 @@ function createTimeTable(semester) {
     // }
 
     //fetching subjectlist for roomCode and isPractical Checking
-    getSubjectList(updateTTData);
+    getSubjectList(updateTimeTableData);
 
     //Assigning values to periods function
-    function updateTTData(data) {
+    function updateTimeTableData(data) {
         for (let j = 1; j <= 5; j++) {
             for (let i = 1; i <= timeTableData[semester - 1][section][j - 1].length; i++) {
                 if (lunchTime.indexOf(i)!=-1) {
@@ -353,7 +358,9 @@ function clickListenerForClass() {
                 document.querySelector(".allocTeacherBoxBG").classList.add("active");
 
                 if (e.querySelectorAll(".period div")[0].innerHTML != "No Subject" || e.querySelectorAll(".period div")[0].innerHTML != "&nbsp") subname = e.querySelectorAll(".period div")[0].innerHTML;
-                if (e.querySelectorAll(".period div")[1].innerHTML != "No Sir") sirname = e.querySelectorAll(".period div")[1].innerHTML;
+                if (e.querySelectorAll(".period div")[1].innerHTML != "No Sir"){
+                    sirname = e.querySelectorAll(".period div")[1].innerHTML;
+                } 
                 makeingClickTeacherCardClassActive(sirname);
                 makeingClickSubjectCardClassActive(subname);
 
@@ -429,7 +436,13 @@ function generateTimeTableRequest() {
 //Yes btn click listener of allocated teacher box popup
 document.querySelector(".mainSirsCon .btns .btnOpts .assignSir").addEventListener("click", () => {
     if (document.querySelector(".mainSirsCon .btns .btnOpts .assignSir.active") != null) {
-        document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = document.querySelector(".d_card.teacher.active").innerHTML;
+        let sirs="";
+        let len = document.querySelectorAll(".d_card.teacher.active").length;
+        for(var i = 0; i < len-1; i++){
+            sirs += document.querySelectorAll(".d_card.teacher.active")[i].innerHTML+"+";
+        }
+        sirs += document.querySelectorAll(".d_card.teacher.active")[len-1].innerHTML;
+        document.querySelector(`.week_${clickedPeriodTime[0]} .class_${clickedPeriodTime[1]} .period div:nth-child(2)`).innerHTML = sirs;
     }
 })
 document.querySelector(".mainSubsCon .btns .btnOpts .assignSubject").addEventListener("click", () => {
@@ -578,6 +591,13 @@ window.onload = () => {
         if (e.target.classList[0] == "allocTeacherBoxBG" || e.target.classList[0] == "assignSir" || e.target.classList[0] == "assignSubject" || e.target.classList[0] == "dnas") {
             document.querySelector(".allocTeacherBox").classList.remove("active");
             document.querySelector(".allocTeacherBoxBG").classList.remove("active");
+            try {
+                document.querySelectorAll(".d_card.teacher.active").forEach((e)=>{
+                    e.classList.remove("active");
+                })
+            } catch (error) {
+                console.log("%cnormal error in removing activating Teacher card", "color: green");
+            }
         } else if (e.target.classList == "closeSaveStateBox" || e.target.classList[0] == "saveStateBoxBG") {
             document.querySelector(".saveStateBox.active").classList.remove("active");
             document.querySelector(".saveStateBoxBG.active").classList.remove("active");

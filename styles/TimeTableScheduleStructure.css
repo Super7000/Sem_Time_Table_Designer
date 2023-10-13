@@ -14,7 +14,7 @@
     grid-template-areas: 'a b'
                             'c c'
                             'd d';
-    gap: 10px;
+    gap: 20px;
 }
 .mainInputContainer .inputContainers:nth-child(1){
     grid-area: a;
