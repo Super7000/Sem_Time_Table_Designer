@@ -1,4 +1,4 @@
-import { deleteTeacher, getTeacher, getTeacherList, saveTeacher } from "./ServerDataFetcher.js";
+import { deleteTeacher, getTeacher, getTeacherList, saveTeacher, getSubjectListShallow } from "./ServerDataFetcher.js";
 import { terrorbox, clickListenerForCardActivator, addCardClickListener } from "./Util.js";
 //Printing HTML code of Card of each sir
 // function showcards() {
@@ -14,10 +14,20 @@ import { terrorbox, clickListenerForCardActivator, addCardClickListener } from "
 let url = window.location.origin + "/" + "io/teachers";
 console.log(url)
 
+//fetching subject list for subject verification
+let subjectList = null;
+getSubjectListShallow((data)=>{
+    subjectList = new Set(data);
+
+}, ()=>{
+    subjectList = "unavailable";
+});
+
 function saveBtnClickListener() {
     document.querySelector(".dsb").addEventListener("click", () => {
         let val = document.querySelectorAll(".con input")[0].value.trim().toUpperCase();
-        //form validating
+
+        //verifying teacher name
         if (val.length > 9) {
             terrorbox("Length of the name must be less than 10");
             return;
@@ -27,29 +37,35 @@ function saveBtnClickListener() {
             return;
         }
 
-        
         //verifying subject
         let subjectInput = document.querySelectorAll(".con input")[1].value.trim().toUpperCase();
-        if(subjectInput=="" && subjectInput == null){
-            terrorbox("Please enter subject name");
+        if (subjectInput == "" && subjectInput == null) {
+            terrorbox("Please enter at least one subject name");
             return;
         }
-        if (subjectInput.length > 9) {
-            terrorbox("Length of the subject must be less than 10");
-            return;
+
+        let subjectArray = subjectInput.split(",");
+
+        //Waiting for getSubjectList to succeed or fail
+        while (subjectList === null);
+
+        for (let subjectStr of subjectArray) {
+            if (subjectList !== "unavailable" && !subjectList.has(subjectStr)) {
+                terrorbox("Couldn't find subject - " + subjectStr);
+                return;
+            }
         }
 
         // verifying available time
         let freeTimeInput = "[" + document.querySelectorAll(".con input")[2].value.trim() + "]";
         try {
             let jsonInput;
-            try{
+            try {
                 jsonInput = JSON.parse(freeTimeInput);
-            } catch(err){
+            } catch (err) {
                 terrorbox("please enter a vaild time");
                 return;
             }
-            console.log(jsonInput)
             if (!jsonInput instanceof Array) {
                 terrorbox("Please enter a vaild time");
                 return;
@@ -60,7 +76,7 @@ function saveBtnClickListener() {
                     return;
                 }
                 if (isNaN(slot[0]) || isNaN(slot[1])) {
-                    terrorbox("Value can't be empty");
+                    terrorbox("Value can't be non-numeric or empty");
                     return;
                 }
             }
@@ -72,7 +88,7 @@ function saveBtnClickListener() {
         //Sending data to server
         let teacherData = {
             freeTime: JSON.parse(freeTimeInput),
-            subjects: JSON.parse(JSON.stringify(document.querySelectorAll(".con input")[1].value.trim().toUpperCase().split(",")))
+            subjects: JSON.parse(JSON.stringify(subjectArray))
         }
         let m = new Map();
         m[val] = teacherData;

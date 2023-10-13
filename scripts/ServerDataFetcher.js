@@ -61,6 +61,22 @@ export function getSubjectList(func) {
         });
 }
 
+export function getSubjectListShallow(func, funcErr = ()=>{}) {
+    let status;
+    fetch(`${url}io/subjects/codes`)
+        .then((response) => {
+            status = response.status;
+            return response.text();
+        })
+        .then((data) => {
+            if (status != 200) {
+                funcErr(status, data)
+                return;
+            }
+            func(JSON.parse(data));
+        });
+}
+
 export function getTeacherList(func) {
     let status;
     fetch(`${url}io/teachers`)
