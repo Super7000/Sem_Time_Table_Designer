@@ -17,11 +17,7 @@ function getTechersFromServer() {
     getTeacherList((data) => {
         let s = "";
         for (var i in data) {
-            let tts = [];
-            for (var j = 0; j < 5; j++) {
-                tts[j] = Math.floor(Math.random() * 8) + 1;
-            }
-            s += `<div class="t_card" data-tts="[${tts}]" data-sems="[5,6,8]"> <!-- tts = total time spend -->
+            s += `<div class="t_card"> <!-- tts = total time spend -->
                     <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-href="${window.location.origin}/AddTeacher.html?name=SIR${i}#SIR${i}">
                         <path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/>
                     </svg>
@@ -55,19 +51,26 @@ function clickListenerForTeacherCard() {
                 t.classList.add("active");
             }
 
-            //Updating Charts 
-            chart1.data.datasets[0].data = JSON.parse(t.dataset.tts);
-            chart1.update();
+            //Updating Chart Heading
             document.querySelector(".set_time_chart p").innerHTML = "Time Table for " + document.querySelector(".t_card.active p").innerHTML + " Sir";
 
 
             //semesters printer
-            let sems = JSON.parse(t.dataset.sems);
-            let sem_str = "";
-            for (let a = 0; a < sems.length; a++) {
-                sem_str += `<div>${sems[a]}</div>`;
-            }
-            document.querySelector(".semnc").innerHTML = sem_str;
+            let sems = [];
+            getTeacher(t.querySelector("p").innerHTML,(data)=>{
+                data["subjects"].forEach((e)=>{
+                    getSubject(e,(subjectData)=>{
+                        sems.push(subjectData["sem"]);
+                        let sem_str = "";
+                        for (let a = 0; a < sems.length; a++) {
+                            sem_str += `<div>${sems[a]}</div>`;
+                        }
+                        document.querySelector(".semnc").innerHTML = sem_str;
+                    })
+                })
+            })
+            // let sems = JSON.parse(t.dataset.sems);
+            
 
             //subjects updater
             getTeacher(t.querySelector("p").innerHTML, (data) => {
@@ -89,7 +92,8 @@ function clickListenerForTeacherCard() {
 
 }
 
-function createTimeTable(data) {
+function createTimeTable(data,numberOfPeriodsPerDay=9) {
+    let totalTimeSpend = [];
     const weeks = ["Tue", "Wed", "Thu", "Fri", "Sat"];
     const time = ["9:30AM", "10:20AM", "11:10AM", "12:00PM", "12:50PM", "01:40PM", "02:30PM", "03:20PM", "04:10PM"];
     const lunch = "LUNCH";
@@ -103,7 +107,8 @@ function createTimeTable(data) {
     for (var j = 1; j <= 5; j++) {
         s = s + `<div class="week week_${j}">
                     <div class="s_for_grid week_names">${weeks[j - 1]}</div>`;
-        for (var i = 1; i <= 9; i++) {
+        let totalTimeSpendPerDay = 0;
+        for (var i = 1; i <= numberOfPeriodsPerDay; i++) {
             if (i == 5) {
                 s = s + `<div class="s_for_grid">
                                 <div>${lunch[j - 1]}</div>  
@@ -127,6 +132,7 @@ function createTimeTable(data) {
                                     </div>
                                 </div>`;
                         i += 2;
+                        totalTimeSpendPerDay += 3;
                     } else {
                         s = s + `<div class="s_for_grid class class_${i} alloc">
                                     <div class="period">
@@ -135,12 +141,16 @@ function createTimeTable(data) {
                                         <div>${subjectList[data[j - 1][i - 1][2]]["roomCode"]}</div>
                                     </div>
                                 </div>`;
+                        totalTimeSpendPerDay += 1;
                     }
                 }
             }
         }
+        totalTimeSpend.push(totalTimeSpendPerDay);
         s = s + `</div>`;
     }
+    chart1.data.datasets[0].data = totalTimeSpend;
+    chart1.update();
     document.querySelector(".set_time_chart .att_chart").innerHTML = s;
     document.querySelector(".set_time_chart .att_chart").style.cssText = "justify-content: stretch; align-content: stretch;"
 }
@@ -214,7 +224,7 @@ let data = {
     labels: labels,
     datasets: [{
         label: "",
-        data: [6, 4, 2, 6, 8],
+        data: [0, 0, 0, 0, 0],
         backgroundColor: [
             '#1479FF',
             'rgba(255, 159, 64, 1)',

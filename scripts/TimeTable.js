@@ -597,7 +597,7 @@ window.onload = () => {
 function storeScheduleData(data){
     for (let sem = 0; sem < data.length; sem++) {
         for (let sec = 0; sec <data[sem].length; sec++) {
-            timeTableData[sem * 2][sec] = data[sem][sec];
+            timeTableData[sem * 2][sec+1] = data[sem][sec];
         }
     }
     createTimeTable(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
