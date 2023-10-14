@@ -1,5 +1,6 @@
 import { deleteSubject, getSubject, getSubjectListShallow, saveSubject } from "./ServerDataFetcher.js";
 import { terrorbox, clickListenerForCardActivator, addCardClickListener } from "./Util.js";
+import { tconfirmationbox } from "./AddSub_and_AddTeac.js";
 //Printing HTML code of Card of each Subject
 // function showcards(){
 //     let s = "";
@@ -63,7 +64,7 @@ function saveBtnClickListener() {
             return;
         }
 
-        //Sending data to server
+        //configuring data to send it on server
         let subjectData = {
             sem: semValue,
             lectureCount: lecCount,
@@ -72,16 +73,33 @@ function saveBtnClickListener() {
         }
         let m = new Map();
         m[val] = subjectData;
-        console.log(JSON.stringify(m));
+        
+        let found = false;
+        //if same name is found then show re-write confirmation pop up
+        document.querySelectorAll(".cards .d_card").forEach((e) => {
+            if(e.innerHTML==val){
+                found = true;
+                tconfirmationbox(`Are you want to rewrite ${val}`,()=>{
+                        //sending data to server
+                        console.log(JSON.stringify(m));
+                        saveSubject(m, () => {
+                            //if data is updated in server then refresh cards in UI
+                            loadCards();
+                            document.querySelector(".add.card").click();
+                        }
+                )},()=>{e.click()})
+            }
 
-        saveSubject(m, () => {
-            //if data is updated in server then refresh cards in UI
-            loadCards();
-            document.querySelector(".add.card").click();
         })
-
-
-
+        //if not found then send the data to server
+        if(found==false){
+            console.log(JSON.stringify(m));
+            saveSubject(m, () => {
+                //if data is updated in server then refresh cards in UI
+                loadCards();
+                document.querySelector(".add.card").click();
+            })
+        }
     })
 }
 saveBtnClickListener();
@@ -102,20 +120,17 @@ function loadCards() {
         addCardClickListener();
     })
 }
-window.onload = loadCards();
+loadCards();
 
-function deleteBtnFunc() {
-    document.querySelector(".cBtns .cBtn").addEventListener("click", () => {
-        console.log(url + "/" + document.querySelector(".d_card.active").innerHTML);
-
-        deleteSubject(document.querySelector(".d_card.active").innerHTML, () => {
+document.querySelector(".ddb").addEventListener("click",()=>{
+    tconfirmationbox(`Are you really want to delete ${document.querySelector(".d_card.active").innerHTML}?`,()=>{
+        deleteTeacher(document.querySelector(".d_card.active").innerHTML, () => {
             //if data is deleted in server then refresh cards in UI
             loadCards();
             document.querySelector(".add.card").click();
         })
-    })
-}
-deleteBtnFunc();
+    });
+})
 
 
 function clickListenerForCards() {
