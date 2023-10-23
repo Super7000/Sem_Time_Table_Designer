@@ -1,5 +1,4 @@
 import { clickListenerForCardActivator, addCardClickListener } from "./Util.js";
-import { closeSaveStateBoxFunc } from "./Common.js";
 
 // toggle confirmation box function
 export function tconfirmationbox(cmsg="",yesBtnFunc=()=>{},noBtnFunc=()=>{}) {
@@ -21,9 +20,6 @@ window.onload = function () {
     document.onclick = function (e) {
         if (e.target.classList[0] == "cBoxBG") {
             tconfirmationbox();
-        } else if (e.target.classList == "closeSaveStateBox" || e.target.classList[0] == "saveStateBoxBG") {
-            document.querySelector(".saveStateBox.active").classList.remove("active");
-            document.querySelector(".saveStateBoxBG.active").classList.remove("active");
         }
     };
 };

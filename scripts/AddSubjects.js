@@ -124,7 +124,7 @@ loadCards();
 
 document.querySelector(".ddb").addEventListener("click",()=>{
     tconfirmationbox(`Are you really want to delete ${document.querySelector(".d_card.active").innerHTML}?`,()=>{
-        deleteTeacher(document.querySelector(".d_card.active").innerHTML, () => {
+        deleteSubject(document.querySelector(".d_card.active").innerHTML, () => {
             //if data is deleted in server then refresh cards in UI
             loadCards();
             document.querySelector(".add.card").click();

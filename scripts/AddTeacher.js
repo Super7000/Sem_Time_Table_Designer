@@ -1,6 +1,7 @@
 import { deleteTeacher, getTeacher, getTeacherList, saveTeacher, getSubjectListShallow } from "./ServerDataFetcher.js";
 import { terrorbox, clickListenerForCardActivator, addCardClickListener } from "./Util.js";
 import { tconfirmationbox } from "./AddSub_and_AddTeac.js";
+
 //Printing HTML code of Card of each sir
 // function showcards() {
 //     let s = "";

@@ -1,6 +1,6 @@
-export function terrorbox(errMSg, color = "255, 203, 130", timeout = 5000) {
+export function terrorbox(errMsg, color = "255, 203, 130", timeout = 5000) {
     document.querySelector(".errorBox").classList.add("active");
-    document.querySelector(".errorBox .errorMsg").innerHTML = errMSg;
+    document.querySelector(".errorBox .errorMsg").innerHTML = errMsg;
     document.querySelector(".errorBox").style.cssText = `background: rgb(${color});`;
     document.querySelector(".close_err_btn.cross").addEventListener("click", () => {
         document.querySelector(".errorBox").classList.remove("active");
@@ -35,6 +35,11 @@ export function addCardClickListener() {
 
         }
         document.querySelector(".btn_con .ddb").style.display = "none";
+        try{            
+            document.querySelector(".btn_con .openThisStateBtn").style.display = "none";
+        } catch(err) {
+
+        }
         document.querySelectorAll(".t_d .con input")[0].focus();
         if (document.querySelector(".dsb.edit") != null) {
             document.querySelector(".dsb.edit").classList.remove("edit");

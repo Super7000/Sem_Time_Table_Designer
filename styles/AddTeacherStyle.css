@@ -87,6 +87,7 @@
 
 .t_d .dsb,
 .t_d .ddb,
+.t_d .openThisStateBtn,
 .cBtns .btn {
     background: dodgerblue;
     border: 0;
@@ -110,6 +111,10 @@
     grid-auto-flow: column;
     gap: 20px;
 }
+.t_d .openThisStateBtn{
+    display: none;
+}
+
 
 
 /* confirmation box */

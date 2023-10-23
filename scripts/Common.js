@@ -141,22 +141,30 @@ l-195 0 0 261 0 261 -29 29 c-35 34 -93 39 -127 11z"/>
 </svg>
 <p>Time Table <br>Structure</p>
 </a>
-<div class="link newSave">
-<svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
-<g>
-    <path d="M90,54a5.9966,5.9966,0,0,0-6,6V78H12V60A6,6,0,0,0,0,60V84a5.9966,5.9966,0,0,0,6,6H90a5.9966,5.9966,0,0,0,6-6V60A5.9966,5.9966,0,0,0,90,54Z"/><path d="M43.7578,64.2422a5.9979,5.9979,0,0,0,8.4844,0l18-18a5.9994,5.9994,0,0,0-8.4844-8.4844L54,45.5156V12a6,6,0,0,0-12,0V45.5156l-7.7578-7.7578a5.9994,5.9994,0,0,0-8.4844,8.4844Z"/>
+<a class="link" href="Files.html">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000"
+preserveAspectRatio="xMidYMid meet">
+<g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M2066 5109 c-359 -52 -680 -287 -837 -614 -119 -246 -146 -508 -80
+-767 98 -382 404 -691 784 -793 393 -105 799 4 1082 290 477 482 417 1265
+-128 1676 -225 169 -539 249 -821 208z"/>
+<path d="M1410 2439 c-375 -50 -722 -312 -870 -657 -59 -138 -81 -238 -87
+-395 -7 -168 4 -233 59 -347 57 -119 177 -239 298 -299 146 -71 136 -71 951
+-71 l725 0 -17 67 c-99 379 185 777 584 818 l67 7 0 43 c0 65 35 188 77 268
+51 98 172 219 270 270 89 47 100 69 52 109 -45 38 -175 104 -262 134 -172 59
+-135 57 -992 60 -434 1 -819 -2 -855 -7z"/>
+<path d="M3694 1762 c-50 -24 -107 -89 -122 -141 -8 -24 -12 -124 -12 -275 l0
+-236 -245 0 c-267 0 -292 -4 -348 -58 -117 -111 -82 -305 65 -366 30 -13 84
+-16 283 -16 l245 0 0 -231 c0 -277 5 -305 70 -370 110 -110 279 -83 353 54 21
+40 22 56 25 294 l4 253 244 0 c183 0 253 3 277 13 177 75 185 328 12 408 -35
+16 -68 19 -287 19 l-248 0 0 233 c0 242 -5 282 -43 338 -58 86 -182 123 -273
+81z"/>
 </g>
 </svg>
-<p>New Save</p>
-</div>
-<div class="link save">
-<svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
-<g>
-    <path d="M90,54a5.9966,5.9966,0,0,0-6,6V78H12V60A6,6,0,0,0,0,60V84a5.9966,5.9966,0,0,0,6,6H90a5.9966,5.9966,0,0,0,6-6V60A5.9966,5.9966,0,0,0,90,54Z"/><path d="M43.7578,64.2422a5.9979,5.9979,0,0,0,8.4844,0l18-18a5.9994,5.9994,0,0,0-8.4844-8.4844L54,45.5156V12a6,6,0,0,0-12,0V45.5156l-7.7578-7.7578a5.9994,5.9994,0,0,0-8.4844,8.4844Z"/>
-</g>
-</svg>
-<p>Save</p>
-</div>`;
+<p>Files</p>
+</a>`;
 try {
     document.querySelector(`.menubar .link[href="${filename}"]`).classList.add("active");
 } catch (e) {
@@ -189,63 +197,50 @@ to_m_mb_res();
 
 window.addEventListener("resize", to_m_mb_res)
 
-function clickListenerNewForSaveBtn(){
-    document.querySelector(".link.newSave").addEventListener("click",()=>{  
-        document.querySelector(".saveStateBox").classList.add("active");
-        document.querySelector(".saveStateBoxBG").classList.add("active");
+// let filenames = [];
+// getSaveStateList((data)=>{
+//     filenames = data;
+// })
+// function clickListenerForNewSaveStateInputBtn(){
+//     document.querySelector(".saveStateInputBtn").addEventListener("click",()=>{
+//         let filename = document.querySelector(`.saveStateBox input[type="text"]`).value.trim();
+//         if(filename==""){
+//             terrorbox("Please enter a vaild file name");
+//             return;
+//         }
+//         for(var i = 0; i < filenames.length; i++){
+//             if(filename.toUpperCase()==filenames[i]){
+//                 terrorbox("file already exists with this name");
+//                 return;
+//             }
+//         }
+//         saveCurrentState(filename);
+//         window.location.reload();
+//         document.querySelector(".saveStateBox.active").classList.remove("active");
+//         document.querySelector(".saveStateBoxBG.active").classList.remove("active");
+//     })
+// }
+// clickListenerForNewSaveStateInputBtn();
+
+// function clickListenerForSaveBtn(){
+//     document.querySelector(".link.save").addEventListener("click",()=>{
+//         getCurrentSaveState((data)=>{
+//             if(data=="null"){
+//                 document.querySelector(".link.newSave").click();
+//                 return
+//             }
+//             saveCurrentState(data);
+//         })
+//     })
+// }
+// clickListenerForSaveBtn();
+
+function showCurrentStateName(){
+    getCurrentSaveState((data)=>{
+        document.querySelector(".currentStateNameContainer").innerHTML = "Current State: "+data;
     })
 }
-clickListenerNewForSaveBtn();
-
-export function closeSaveStateBoxFunc(){
-    document.onclick = function (e) {
-        if (e.target.classList == "closeSaveStateBox" || e.target.classList[0] == "saveStateBoxBG") {
-            document.querySelector(".saveStateBox.active").classList.remove("active");
-            document.querySelector(".saveStateBoxBG.active").classList.remove("active");
-        }
-    };
-}
-let filenames = [];
-getSaveStateList((data)=>{
-    filenames = data;
-})
-function clickListenerForNewSaveStateInputBtn(){
-    document.querySelector(".saveStateInputBtn").addEventListener("click",()=>{
-        let filename = document.querySelector(`.saveStateBox input[type="text"]`).value.trim();
-        if(filename==""){
-            terrorbox("Please enter a vaild file name");
-            return;
-        }
-        for(var i = 0; i < filenames.length; i++){
-            if(filename.toUpperCase()==filenames[i]){
-                terrorbox("file already exists with this name");
-                return;
-            }
-        }
-        saveCurrentState(filename);
-        window.location.reload();
-        document.querySelector(".saveStateBox.active").classList.remove("active");
-        document.querySelector(".saveStateBoxBG.active").classList.remove("active");
-    })
-}
-clickListenerForNewSaveStateInputBtn();
-
-function clickListenerForSaveBtn(){
-    document.querySelector(".link.save").addEventListener("click",()=>{
-        getCurrentSaveState((data)=>{
-            if(data=="null"){
-                document.querySelector(".link.newSave").click();
-                return
-            }
-            saveCurrentState(data);
-        })
-    })
-}
-clickListenerForSaveBtn();
-
-getCurrentSaveState((data)=>{
-    document.querySelector(".currentStateNameContainer").innerHTML = "Current State: "+data;
-})
+showCurrentStateName();
 // Add click event listener funtion
 // function clickListener(s,a){
 //     document.querySelectorAll(s).forEach((o)=>{

@@ -1,19 +1,17 @@
 import { getCurrentSaveState, getSaveStateList, getSubject, getSubjectList, getTeacher, getTeacherList, getTeacherSchedule, loadSaveState } from "./ServerDataFetcher.js";
-import { changeColor, closeSaveStateBoxFunc } from "./Common.js";
 
 let url = window.location.origin + "/" + "io/teachers";
 console.log(url)
 
 let subjectList;
 window.onload = () => {
-    closeSaveStateBoxFunc();
     getSubjectList((data) => {
         subjectList = data;
     })
 
-    getTechersFromServer();
+    showTeacherCards();
 }
-function getTechersFromServer() {
+function showTeacherCards() {
     getTeacherList((data) => {
         let s = "";
         for (var i in data) {
@@ -291,7 +289,7 @@ function clickListenerForSaveStateActivating() {
                 e.classList.add("active");
                 loadSaveState(document.querySelector(".scedules .scedule_container div.active").innerHTML, (data) => {
                     console.log(data)
-                    getTechersFromServer();
+                    showTeacherCards();
                 })
                 getCurrentSaveState((data)=>{
                     document.querySelector(".currentStateNameContainer").innerHTML = "Current State: "+data;

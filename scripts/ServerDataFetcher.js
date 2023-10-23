@@ -167,7 +167,7 @@ export function getSaveStateList(func) {
         });
 }
 
-export function loadSaveState(name, func) {
+export function loadSaveState(name, func=()=>{}) {
     let status;
     fetch(`${url}io/saves/load?name=${name}`)
         .then((response) => {
@@ -284,6 +284,25 @@ export function deleteSubject(subjectName, func = () => { }) {
     let statusValue;    console.log(url + "/io/teachers/" + subjectName)
 
     fetch(url + "io/subjects/" + subjectName, {
+        method: "DELETE"
+    })
+        .then(Response => {
+            statusValue = Response.status;
+            return Response.text()
+        })
+        .then(data => {
+            if (statusValue != 200) {
+                terrorbox("Something went wrong");
+                return;
+            }
+            func();
+        })
+}
+
+export function deleteState(stateName, func = () => { }) {
+    let statusValue;    console.log(url + "/io/saves/delete?=" + stateName)
+
+    fetch(url + "/io/saves/delete?=" + stateName, {
         method: "DELETE"
     })
         .then(Response => {

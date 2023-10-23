@@ -1,6 +1,5 @@
 import { terrorbox } from "./Util.js";
 import { getSchedule, getSubject, getSubjectList, getTeacherList, getTimeTableStructure, getSaveStateList } from "./ServerDataFetcher.js";
-import { closeSaveStateBoxFunc } from "./Common.js";
 
 let url = window.location.origin + "/";
 console.log(url)
