@@ -1,5 +1,6 @@
 import { terrorbox, clickListenerForCardActivator, addCardClickListener } from "./Util.js";
 import { saveCurrentState, getSaveStateList, loadSaveState, deleteState, getCurrentSaveState } from "./ServerDataFetcher.js"
+import { tconfirmationbox } from "./AddSub_and_AddTeac.js";
 
 function showSaveSateCards(){
     getSaveStateList((data)=>{
@@ -35,17 +36,29 @@ function clickListenerForCards(){
 clickListenerForCards();
 
 
-function showCurrentStateName(){
+function updateCurrentStateName(){
     getCurrentSaveState((data)=>{
         document.querySelector(".currentStateNameContainer").innerHTML = "Current State: "+data;
     })
 }
-showCurrentStateName();
 
 function clickListenerForOpenBtn(){
     document.querySelector(".f_d .openThisStateBtn").addEventListener("click",()=>{
         loadSaveState(document.querySelector(".f_d .f_name input").value)
-        showCurrentStateName();
+        updateCurrentStateName();
     })
 }
 clickListenerForOpenBtn();
+
+function clickListenerForDeleteBtn(){
+    document.querySelector(".f_d .ddb").addEventListener("click",()=>{
+        tconfirmationbox("Are You want to Delete "+document.querySelector(".f_d .f_name input").value+" ?",()=>{
+            deleteState(document.querySelector(".f_d .f_name input").value,()=>{
+                showSaveSateCards();
+                terrorbox("Deleted Successfully","201, 255, 172");
+            });
+        })
+        
+    })
+}
+clickListenerForDeleteBtn();

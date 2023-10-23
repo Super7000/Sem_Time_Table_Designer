@@ -300,9 +300,10 @@ export function deleteSubject(subjectName, func = () => { }) {
 }
 
 export function deleteState(stateName, func = () => { }) {
-    let statusValue;    console.log(url + "/io/saves/delete?=" + stateName)
+    let statusValue;    
+    console.log(url + "/io/saves/delete?name=" + stateName)
 
-    fetch(url + "/io/saves/delete?=" + stateName, {
+    fetch(url + "/io/saves/delete?name=" + stateName, {
         method: "DELETE"
     })
         .then(Response => {
