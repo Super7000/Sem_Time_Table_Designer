@@ -29,6 +29,7 @@ function saveBtnClickListener() {
             terrorbox("Please Enter a vaild name");
             return;
         }
+        //sem validation
         let semValue = document.querySelectorAll(".con input")[1].value.trim();
         if (semValue == "") {
             terrorbox("Please Enter a Number in semester");
@@ -44,6 +45,7 @@ function saveBtnClickListener() {
             terrorbox("Value must be in 1 to 8 range in semester");
             return;
         }
+        //lecture count validation
         let lecCount = document.querySelectorAll(".con input")[2].value.trim();
         if (lecCount == "") {
             lecCount = 4;
@@ -58,9 +60,19 @@ function saveBtnClickListener() {
             terrorbox("Value must be in range 0 to 40 in lecture count per week");
             return;
         }
+        //room code validation
         let rCode = document.querySelectorAll(".con input")[3].value.trim().toUpperCase();
         if (rCode == "") {
             terrorbox("Please Enter a Classroom name");
+            return;
+        }
+        try{
+            rCode = `[${rCode}]`;
+            rCode = JSON.stringify(rCode)
+            console.log(rCode)
+            rCode = JSON.parse(rCode);
+        } catch(err) {
+            terrorbox("Please Enter a Valid Room Code");
             return;
         }
 
@@ -148,7 +160,7 @@ function clickListenerForCards() {
                 let details = data;
                 document.querySelectorAll(".t_d .con input")[1].value = details["sem"];
                 document.querySelectorAll(".t_d .con input")[2].value = details["lectureCount"];
-                document.querySelectorAll(".t_d .con input")[3].value = details["roomCode"];
+                document.querySelectorAll(".t_d .con input")[3].value = details["roomCode"].slice(1,details["roomCode"].length-1);
                 document.querySelectorAll(".t_d .con input")[4].checked = details["isPractical"];
             })
         })
