@@ -306,7 +306,7 @@ function createTimeTable(semester) {
                     document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML = `${timeTableData[semester - 1][section][j - 1][i - 1][1]}`; //Subject Code Div
                     document.querySelector(`.week_${j} .class_${i} .period div:nth-child(2)`).innerHTML = `${timeTableData[semester - 1][section][j - 1][i - 1][0]}`; //Teacher Name Div
 
-                    //fetching data of the subject for room code
+                    //fetching data of the subject to check if it's a lab subject
                     if (document.querySelector(`.week_${j} .class_${i} .period div:nth-child(1)`).innerHTML != "Subject") {
                         try {
                             if (data[timeTableData[semester - 1][section][j - 1][i - 1][1]]["isPractical"] == true) {
@@ -330,12 +330,12 @@ function createTimeTable(semester) {
                                         periodSelector += 1;
                                         document.querySelector(`.week_${j} .class_${periodSelector}`).remove();
                                     }
-                                    document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = data[timeTableData[semester - 1][section][j - 1][i - 1][1]]["roomCode"];
+                                    document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = timeTableData[semester - 1][section][j - 1][i - 1][2];
                                     i += 2;
                                 }
                             } else {
 
-                                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = data[timeTableData[semester - 1][section][j - 1][i - 1][1]]["roomCode"];
+                                document.querySelector(`.week_${j} .class_${i} .period div:nth-child(3)`).innerHTML = timeTableData[semester - 1][section][j - 1][i - 1][2];
                             }
                         } catch (err) {
                             console.log("error in showing room code")
@@ -616,7 +616,7 @@ window.onload = () => {
 function storeScheduleData(data){
     for (let sem = 0; sem < data.length; sem++) {
         for (let sec = 0; sec <data[sem].length; sec++) {
-            timeTableData[sem * 2][sec+1] = data[sem][sec];
+            timeTableData[sem * 2][sec] = data[sem][sec];
         }
     }
     createTimeTable(document.querySelector(".sem_cards_container .cards div.active").innerHTML[4]);
