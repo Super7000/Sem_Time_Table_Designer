@@ -1,4 +1,4 @@
-import { getCurrentSaveState, getSaveStateList, saveCurrentState } from "./ServerDataFetcher.js";
+import { getCurrentSaveState } from "./ServerDataFetcher.js";
 import { terrorbox } from "./Util.js";
 
 //Printing menubar code because of long svg codes, it will make code navigation is easy for all html file

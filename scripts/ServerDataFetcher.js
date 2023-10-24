@@ -122,7 +122,7 @@ export function getTimeTableStructure(func) {
         });
 }
 
-export function saveCurrentState(name) {
+export function saveCurrentStateInNewFile(name,func=()=>{}) {
     let status;
     fetch(`${url}io/saves/save?name=${name}`)
         .then((Response) => {
@@ -131,11 +131,27 @@ export function saveCurrentState(name) {
         })
         .then((data) => {
             if (status != 200) {
-                console.log("Error in saving current state", data)
+                console.log("Error in saving current state in new file", data)
             }
-            terrorbox(`Current State is Saved in ${name.toUpperCase()}`, "201, 255, 172")
+            terrorbox(`Current State is Saved in ${name.toUpperCase()}`, "201, 255, 172");
+            func();
         })
 }
+
+// export function saveCurrentState() {
+//     let status;
+//     fetch(`${url}io/saves/save`)
+//         .then((Response) => {
+//             status = Response.status;
+//             return Response.text();
+//         })
+//         .then((data) => {
+//             if (status != 200) {
+//                 console.log("Error in saving current state", data)
+//             }
+//             terrorbox(`Current State is Saved`, "201, 255, 172")
+//         })
+// }
 
 export function getCurrentSaveState(func) {
     let status;
@@ -178,6 +194,7 @@ export function loadSaveState(name, func=()=>{}) {
             if (status != 200) {
                 console.log("Error in loading " + name + "state", data)
             }
+            terrorbox("Opend Sucessfully","201, 255, 172")
             func(data);
         });
 }
@@ -301,9 +318,9 @@ export function deleteSubject(subjectName, func = () => { }) {
 
 export function deleteState(stateName, func = () => { }) {
     let statusValue;    
-    console.log(url + "/io/saves/delete?name=" + stateName)
+    console.log(url + "io/saves/delete?name=" + stateName)
 
-    fetch(url + "/io/saves/delete?name=" + stateName, {
+    fetch(url + "io/saves/delete?name=" + stateName, {
         method: "DELETE"
     })
         .then(Response => {

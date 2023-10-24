@@ -67,10 +67,12 @@ function saveBtnClickListener() {
             return;
         }
         try{
-            rCode = `[${rCode}]`;
+            
             rCode = JSON.stringify(rCode)
+            rCode = `[${rCode}]`;
             console.log(rCode)
             rCode = JSON.parse(rCode);
+            console.log(rCode)
         } catch(err) {
             terrorbox("Please Enter a Valid Room Code");
             return;
@@ -81,7 +83,7 @@ function saveBtnClickListener() {
             sem: semValue,
             lectureCount: lecCount,
             isPractical: document.querySelectorAll(".con input")[4].checked,
-            roomCode: rCode
+            roomCodes: rCode
         }
         let m = new Map();
         m[val] = subjectData;
@@ -160,7 +162,7 @@ function clickListenerForCards() {
                 let details = data;
                 document.querySelectorAll(".t_d .con input")[1].value = details["sem"];
                 document.querySelectorAll(".t_d .con input")[2].value = details["lectureCount"];
-                document.querySelectorAll(".t_d .con input")[3].value = details["roomCode"].slice(1,details["roomCode"].length-1);
+                document.querySelectorAll(".t_d .con input")[3].value = details["roomCodes"];
                 document.querySelectorAll(".t_d .con input")[4].checked = details["isPractical"];
             })
         })
