@@ -65,11 +65,18 @@ function saveBtnClickListener() {
         if (rCode == "") {
             terrorbox("Please Enter a Classroom name");
             return;
-        } else if (typeof(rCode) !== 'string') {
-            terrorbox("Please Enter a Valid Room Code");
-            return;
         }
-        rCode = rCode.split(';')
+
+        try{
+            rCode = rCode.split(';');
+            let temp_rCode = [];
+            rCode.forEach((e)=>{temp_rCode.push(e.trim().toUpperCase())})
+            rCode = temp_rCode;
+        } catch(err) {
+            terrorbox("Please Enter a Valid Room Code");
+            return
+        }
+        
 
         //configuring data to send it on server
         let subjectData = {

@@ -214,6 +214,40 @@ to_m_mb_res();
 
 window.addEventListener("resize", to_m_mb_res)
 
+function inputBoxNavigationUsingKeypress(){
+    try{
+        //pressing any key in keyboard will lead to first input box of the page
+        document.addEventListener("keydown",(event)=>{
+            if(event.target.tagName != "INPUT")
+                document.querySelector(`input`).focus()
+        });
+        
+        //pressing "ENTER" and "DownArrow" will lead to next input box from current input box
+        const inputBoxes = document.querySelectorAll("input");
+        inputBoxes.forEach((e, i)=>{
+            e.addEventListener("keydown",(event)=>{
+                if(event.key === "Enter" || event.key === "ArrowDown"){
+                    let nextIndex = i+1;
+                    event.preventDefault();
+                    if (nextIndex < inputBoxes.length) {
+                        inputBoxes[nextIndex].focus(); // Focus on the next input element
+                    } else {
+                        document.querySelector("button").click();
+                    }
+                } else if(event.key === "ArrowUp") {
+                    let nextIndex = i-1;
+                    event.preventDefault();
+                    if (nextIndex >= 0) {
+                        inputBoxes[nextIndex].focus(); // Focus on the next input element
+                    }
+                }
+            })
+        })
+    } catch(err) {
+
+    }
+}
+inputBoxNavigationUsingKeypress();
 // let filenames = [];
 // getSaveStateList((data)=>{
 //     filenames = data;
