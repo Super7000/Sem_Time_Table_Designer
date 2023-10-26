@@ -218,7 +218,7 @@ function inputBoxNavigationUsingKeypress(){
     try{
         //pressing any key in keyboard will lead to first input box of the page
         document.addEventListener("keydown",(event)=>{
-            if(event.target.tagName != "INPUT")
+            if(event.target.tagName != "INPUT" && document.querySelector(`input`) != null)
                 document.querySelector(`input`).focus()
         });
         
