@@ -1,16 +1,6 @@
 import { deleteSubject, getSubject, getSubjectListShallow, saveSubject } from "./ServerDataFetcher.js";
 import { terrorbox, clickListenerForCardActivator, addCardClickListener } from "./Util.js";
 import { tconfirmationbox } from "./AddSub_and_AddTeac.js";
-//Printing HTML code of Card of each Subject
-// function showcards(){
-//     let s = "";
-//     let i = 8;
-//     for(i; i >= 1; i--){
-//         s += `<div class="d_card card">SUB${i}</div>`;
-//     }
-//     document.querySelector(".container .cards").innerHTML = document.querySelector(".container .cards").innerHTML + s;
-// }
-// showcards();
 
 const inputBoxes = document.querySelectorAll(".t_d .con input");
 
@@ -124,6 +114,7 @@ function saveSubjectDataAndDoBasicOperations(m) {
     })
 }
 
+//Printing HTML code of Card of each Subject
 function loadCards() {
     getSubjectListShallow((data) => {
         let s = `<div class="add card active">

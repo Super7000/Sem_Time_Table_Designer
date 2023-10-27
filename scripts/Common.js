@@ -214,28 +214,28 @@ to_m_mb_res();
 
 window.addEventListener("resize", to_m_mb_res)
 
-function inputBoxNavigationUsingKeypress(){
-    try{
+function inputBoxNavigationUsingKeypress() {
+    try {
         //pressing any key in keyboard will lead to first input box of the page
-        document.addEventListener("keydown",(event)=>{
-            if(event.target.tagName != "INPUT" && document.querySelector(`input`) != null)
+        document.addEventListener("keydown", (event) => {
+            if (event.target.tagName != "INPUT" && document.querySelector(`input`) != null)
                 document.querySelector(`input`).focus()
         });
-        
+
         //pressing "ENTER" and "DownArrow" will lead to next input box from current input box
         const inputBoxes = document.querySelectorAll("input");
-        inputBoxes.forEach((e, i)=>{
-            e.addEventListener("keydown",(event)=>{
-                if(event.key === "Enter" || event.key === "ArrowDown"){
-                    let nextIndex = i+1;
+        inputBoxes.forEach((e, i) => {
+            e.addEventListener("keydown", (event) => {
+                if (event.key === "Enter" || event.key === "ArrowDown") {
+                    let nextIndex = i + 1;
                     event.preventDefault();
                     if (nextIndex < inputBoxes.length) {
                         inputBoxes[nextIndex].focus(); // Focus on the next input element
                     } else {
                         document.querySelector("button").click();
                     }
-                } else if(event.key === "ArrowUp") {
-                    let nextIndex = i-1;
+                } else if (event.key === "ArrowUp") {
+                    let nextIndex = i - 1;
                     event.preventDefault();
                     if (nextIndex >= 0) {
                         inputBoxes[nextIndex].focus(); // Focus on the next input element
@@ -243,86 +243,23 @@ function inputBoxNavigationUsingKeypress(){
                 }
             })
         })
-    } catch(err) {
+    } catch (err) {
 
     }
 }
 inputBoxNavigationUsingKeypress();
-// let filenames = [];
-// getSaveStateList((data)=>{
-//     filenames = data;
-// })
-// function clickListenerForNewSaveStateInputBtn(){
-//     document.querySelector(".saveStateInputBtn").addEventListener("click",()=>{
-//         let filename = document.querySelector(`.saveStateBox input[type="text"]`).value.trim();
-//         if(filename==""){
-//             terrorbox("Please enter a vaild file name");
-//             return;
-//         }
-//         for(var i = 0; i < filenames.length; i++){
-//             if(filename.toUpperCase()==filenames[i]){
-//                 terrorbox("file already exists with this name");
-//                 return;
-//             }
-//         }
-//         saveCurrentState(filename);
-//         window.location.reload();
-//         document.querySelector(".saveStateBox.active").classList.remove("active");
-//         document.querySelector(".saveStateBoxBG.active").classList.remove("active");
-//     })
-// }
-// clickListenerForNewSaveStateInputBtn();
 
-// function clickListenerForSaveBtn(){
-//     document.querySelector(".link.save").addEventListener("click",()=>{
-//         getCurrentSaveState((data)=>{
-//             if(data=="null"){
-//                 document.querySelector(".link.newSave").click();
-//                 return
-//             }
-//             saveCurrentState(data);
-//         })
-//     })
-// }
-// clickListenerForSaveBtn();
 
-function showCurrentStateName(){
-    getCurrentSaveState((data)=>{
-        document.querySelector(".currentStateNameContainer").innerHTML = "Current State: "+data;
+function showCurrentStateName() {
+    getCurrentSaveState((data) => {
+        document.querySelector(".currentStateNameContainer").innerHTML = "Current State: " + data;
     })
 }
 showCurrentStateName();
-// Add click event listener funtion
-// function clickListener(s,a){
-//     document.querySelectorAll(s).forEach((o)=>{
-//         o.addEventListener("click",()=>{
-//             if (o != document.querySelector(s+a)) {
-//                 document.querySelector(s+a).classList.remove(a);
-//                 o.classList.add(a);
-//             }
-//         })
-//     })
-// }
 
-//toggle error box
 
-// function terrorbox(errMSg, color, timeout) {
-//     document.querySelector(".errorBox").classList.add("active");
-//     document.querySelector(".errorBox .errorMsg").innerHTML = errMSg;
-
-//     document.querySelector(".errorBox").style.cssText = `background: rgb(${color});`;
-//     document.querySelector(".close_err_btn.cross").addEventListener("click", () => {
-//         document.querySelector(".errorBox").classList.remove("active");
-//     })
-//     setTimeout(() => {
-//         if (document.querySelector(".errorBox.active") != null) {
-//             document.querySelector(".errorBox").classList.remove("active");
-//         };
-//     }, timeout);
-// }
-// terrorbox(`201, 255, 172`, `5000`);
-export function changeColor(){
-    document.documentElement.style.setProperty("--background","#3b3b3b")
-    document.documentElement.style.setProperty("--textColor","#fff")
-    document.documentElement.style.setProperty("--containerColor","rgba(107, 107, 107, 1)")
+export function changeColor() {
+    document.documentElement.style.setProperty("--background", "#3b3b3b")
+    document.documentElement.style.setProperty("--textColor", "#fff")
+    document.documentElement.style.setProperty("--containerColor", "rgba(107, 107, 107, 1)")
 }

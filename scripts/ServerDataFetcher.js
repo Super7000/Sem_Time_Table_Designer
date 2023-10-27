@@ -138,21 +138,6 @@ export function saveCurrentStateInNewFile(name,func=()=>{}) {
         })
 }
 
-// export function saveCurrentState() {
-//     let status;
-//     fetch(`${url}io/saves/save`)
-//         .then((Response) => {
-//             status = Response.status;
-//             return Response.text();
-//         })
-//         .then((data) => {
-//             if (status != 200) {
-//                 console.log("Error in saving current state", data)
-//             }
-//             terrorbox(`Current State is Saved`, "201, 255, 172")
-//         })
-// }
-
 export function getCurrentSaveState(func) {
     let status;
     fetch(`${url}io/saves/currentName`)

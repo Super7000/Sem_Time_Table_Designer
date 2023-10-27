@@ -1,4 +1,4 @@
-.mainInputContainer{
+.mainInputContainer {
     /* background: var(--background); */
     width: 90%;
     height: 90%;
@@ -9,36 +9,44 @@
     display: grid;
     grid-template-rows: auto 50px;
 }
-.mainInputContainer .inputContainer{
+
+.mainInputContainer .inputContainer {
     display: grid;
     grid-template-areas: 'a b'
-                            'c c'
-                            'd d';
+        'c c'
+        'd d';
     gap: 20px;
 }
-.mainInputContainer .inputContainers:nth-child(1){
+
+.mainInputContainer .inputContainers:nth-child(1) {
     grid-area: a;
 }
-.mainInputContainer .inputContainers:nth-child(2){
+
+.mainInputContainer .inputContainers:nth-child(2) {
     grid-area: b;
 }
-.mainInputContainer .inputContainers:nth-child(3){
+
+.mainInputContainer .inputContainers:nth-child(3) {
     grid-area: c;
 }
-.mainInputContainer .inputContainers:nth-child(4){
+
+.mainInputContainer .inputContainers:nth-child(4) {
     grid-area: d;
 }
+
 /* 
 .mainInputContainer .btnContainer{
     background-color: rgb(23, 51, 51);
 } */
-.mainInputContainer .inputContainers{
+
+.mainInputContainer .inputContainers {
     background: var(--background);
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(30, 144, 255, 0.3);
 }
-.mainInputContainer .inputContainers input{
+
+.mainInputContainer .inputContainers input {
     font-size: 18px;
     border: none;
     border-bottom: 2px solid dodgerblue;
@@ -49,7 +57,8 @@
     margin: 5px;
     background: rgba(0, 0, 0, 0.1);
 }
-.updateScheduleStructureBtn{
+
+.updateScheduleStructureBtn {
     background: dodgerblue;
     border: 0;
     padding: 8px 15px;

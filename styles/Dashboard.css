@@ -6,6 +6,7 @@
     height: 100%;
     margin: 0;
 }
+
 .left p {
     color: var(--textColor);
 }
@@ -75,6 +76,7 @@
 .container .left .scedule_container::-webkit-scrollbar {
     width: 7px;
 }
+
 .container .left .scedule_container::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 5px;
@@ -303,8 +305,8 @@
     align-content: center;
     background: var(--background);
 }
-.att_chart .preDefineErrMsg
-{
+
+.att_chart .preDefineErrMsg {
     color: var(--textColor);
     text-align: center;
 }

@@ -9,7 +9,7 @@
     max-height: 92vh;
     height: 100%;
     display: grid;
-    grid-template-columns: repeat(6,100px);
+    grid-template-columns: repeat(6, 100px);
     overflow-y: scroll;
     gap: 30px;
     scrollbar-width: none;
@@ -111,7 +111,8 @@
     grid-auto-flow: column;
     gap: 20px;
 }
-.t_d .openThisStateBtn{
+
+.t_d .openThisStateBtn {
     display: none;
 }
 
@@ -172,19 +173,19 @@
 
 @media (max-width: 1460px) {
     .cards {
-        grid-template-columns: repeat(5,100px);
+        grid-template-columns: repeat(5, 100px);
     }
 }
 
 @media (max-width: 1250px) {
     .cards {
-        grid-template-columns: repeat(4,100px);
+        grid-template-columns: repeat(4, 100px);
     }
 }
 
 @media (max-width: 1030px) {
     .cards {
-        grid-template-columns: repeat(3,100px);
+        grid-template-columns: repeat(3, 100px);
     }
 }
 

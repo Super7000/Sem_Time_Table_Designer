@@ -2,16 +2,6 @@ import { deleteTeacher, getTeacher, getTeacherList, saveTeacher, getSubjectListS
 import { terrorbox, clickListenerForCardActivator, addCardClickListener } from "./Util.js";
 import { tconfirmationbox } from "./AddSub_and_AddTeac.js";
 
-//Printing HTML code of Card of each sir
-// function showcards() {
-//     let s = "";
-//     let i = 35;
-//     for (i; i >= 1; i--) {
-//         s += `<div class="d_card card">SIR${i}</div>`;
-//     }
-//     document.querySelector(".container .cards").innerHTML += s;
-// }
-// showcards();
 
 const inputBoxes = document.querySelectorAll(".t_d .con input");
 
@@ -134,6 +124,8 @@ function saveTeacherDataAndDoBasicOperations(m) {
         tempCurrentTeacherData = m;
     })
 }
+
+//Printing HTML code of Card of each sir
 
 function loadCards() {
     getTeacherList((data) => {

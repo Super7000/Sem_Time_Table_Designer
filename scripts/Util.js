@@ -35,9 +35,9 @@ export function addCardClickListener() {
 
         }
         document.querySelector(".btn_con .ddb").style.display = "none";
-        try{            
+        try {
             document.querySelector(".btn_con .openThisStateBtn").style.display = "none";
-        } catch(err) {
+        } catch (err) {
 
         }
         document.querySelectorAll(".t_d .con input")[0].focus();
