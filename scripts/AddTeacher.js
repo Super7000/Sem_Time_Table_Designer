@@ -13,21 +13,25 @@ import { tconfirmationbox } from "./AddSub_and_AddTeac.js";
 // }
 // showcards();
 
+const inputBoxes = document.querySelectorAll(".t_d .con input");
+
+let tempCurrentTeacherData;
+
 let url = window.location.origin + "/" + "io/teachers";
 console.log(url)
 
 //fetching subject list for subject verification
 let subjectList = null;
-getSubjectListShallow((data)=>{
+getSubjectListShallow((data) => {
     subjectList = new Set(data);
 
-}, ()=>{
+}, () => {
     subjectList = "unavailable";
 });
 
 function saveBtnClickListener() {
     document.querySelector(".dsb").addEventListener("click", () => {
-        let val = document.querySelectorAll(".con input")[0].value.trim().toUpperCase();
+        let val = inputBoxes[0].value.trim().toUpperCase();
 
         //verifying teacher name
         if (val.length > 9) {
@@ -40,13 +44,16 @@ function saveBtnClickListener() {
         }
 
         //verifying subject
-        let subjectInput = document.querySelectorAll(".con input")[1].value.trim().toUpperCase();
+        let subjectInput = inputBoxes[1].value.trim().toUpperCase();
         if (subjectInput == "" && subjectInput == null) {
             terrorbox("Please enter at least one subject name");
             return;
         }
 
-        let subjectArray = subjectInput.split(",");
+        let subjectArray = [];
+        subjectInput.split(",").forEach((e) => {
+            subjectArray.push(e.trim());
+        });
 
         //Waiting for getSubjectList to succeed or fail
         while (subjectList === null);
@@ -59,7 +66,7 @@ function saveBtnClickListener() {
         }
 
         // verifying available time
-        let freeTimeInput = "[" + document.querySelectorAll(".con input")[2].value.trim() + "]";
+        let freeTimeInput = "[" + inputBoxes[2].value.trim() + "]";
         try {
             let jsonInput;
             try {
@@ -98,32 +105,35 @@ function saveBtnClickListener() {
         let found = false;
         //if same name is found then show re-write confirmation pop up
         document.querySelectorAll(".cards .d_card").forEach((e) => {
-            if(e.innerHTML==val){
+            if (e.innerHTML == val) {
                 found = true;
-                tconfirmationbox(`Are you want to rewrite ${val}`,()=>{
-                        //sending data to server
-                        console.log(JSON.stringify(m));
-                        saveTeacher(m, () => {
-                        //if data is updated in server then refresh cards in UI
-                        loadCards();
-                        document.querySelector(".add.card").click();
-                    }
-                )},()=>{e.click()})
+                tconfirmationbox(`Are you want to rewrite ${val}`, () => {
+                    //sending data to server
+                    saveTeacherDataAndDoBasicOperations(m);
+                }, () => { e.click() })
             }
 
         })
         //if not found then send the data to server
-        if(found==false){
-            console.log(JSON.stringify(m));
-            saveTeacher(m, () => {
-                //if data is updated in server then refresh cards in UI
-                loadCards();
-                document.querySelector(".add.card").click();
-            })
+        if (found == false) {
+            saveTeacherDataAndDoBasicOperations(m);
         }
     })
 }
 saveBtnClickListener();
+
+function saveTeacherDataAndDoBasicOperations(m) {
+    console.log(JSON.stringify(m));
+    saveTeacher(m, () => {
+        //if data is updated in server then refresh cards in UI
+        loadCards();
+        document.querySelector(".add.card").click();
+        inputBoxes.forEach((e) => {
+            e.style = "";
+        })
+        tempCurrentTeacherData = m;
+    })
+}
 
 function loadCards() {
     getTeacherList((data) => {
@@ -157,8 +167,8 @@ function loadCards() {
 }
 loadCards();
 
-document.querySelector(".ddb").addEventListener("click",()=>{
-    tconfirmationbox(`Are you really want to delete ${document.querySelector(".d_card.active").innerHTML}?`,()=>{
+document.querySelector(".ddb").addEventListener("click", () => {
+    tconfirmationbox(`Are you really want to delete ${document.querySelector(".d_card.active").innerHTML}?`, () => {
         deleteTeacher(document.querySelector(".d_card.active").innerHTML, () => {
             //if data is deleted in server then refresh cards in UI
             loadCards();
@@ -170,20 +180,57 @@ document.querySelector(".ddb").addEventListener("click",()=>{
 function clickListenerForCards() {
     document.querySelectorAll(".cards .d_card").forEach((e) => {
         e.addEventListener("click", () => {
-            document.querySelectorAll(".t_d .con input")[0].value = e.innerHTML;
+            inputBoxes.forEach((e) => {
+                e.style = "";
+            })
+            inputBoxes[0].value = e.innerHTML;
             document.querySelector(".btn_con .ddb").style.display = "block";
             if (document.querySelector(".dsb.new") != null) {
                 document.querySelector(".dsb.new").classList.remove("new");
                 document.querySelector(".dsb").classList.add("edit");
             }
             getTeacher(e.innerHTML, (data) => {
-                //if data is found in server then show it in details box
-                let details = data;
-                let time = JSON.stringify(details["freeTime"]);
-                document.querySelectorAll(".t_d .con input")[1].value = details["subjects"];
-                document.querySelectorAll(".t_d .con input")[2].value = time.slice(1, time.length - 1);
+                //if data is found in server then show it in details 
+                tempCurrentTeacherData = data;
+                let time = JSON.stringify(data["freeTime"]);
+                inputBoxes[1].value = data["subjects"];
+                inputBoxes[2].value = time.slice(1, time.length - 1);
             })
         })
     })
 }
 clickListenerForCards();
+
+
+//identifying changes in input box values
+inputBoxes[0].addEventListener("input", () => {
+    if (document.querySelector(".add.active") != null) return;
+    if (inputBoxes[0].value.trim() != document.querySelector(".d_card.active").innerHTML) {
+        inputBoxes[0].style.cssText = "background: rgba(255, 165, 0, 0.3);";
+    } else {
+        inputBoxes[0].style.cssText = "background: rgba(0,0,0,0.1);";
+    }
+
+})
+inputBoxes[1].addEventListener("input", () => {
+    if (document.querySelector(".add.active") != null) return;
+    let tempSubjectsData = [];
+    inputBoxes[1].value.trim().toUpperCase().split(",").forEach((e) => {
+        tempSubjectsData.push(e.trim());
+    });
+
+    if (JSON.stringify(tempSubjectsData) != JSON.stringify(tempCurrentTeacherData["subjects"])) {
+        inputBoxes[1].style.cssText = "background: rgba(255, 165, 0, 0.3);";
+    } else {
+        inputBoxes[1].style.cssText = "background: rgba(0,0,0,0.1);";
+    }
+})
+inputBoxes[2].addEventListener("input", () => {
+    if (document.querySelector(".add.active") != null) return;
+    if (`[${inputBoxes[2].value.trim()}]` != JSON.stringify(tempCurrentTeacherData["freeTime"])) {
+        inputBoxes[2].style.cssText = "background: rgba(255, 165, 0, 0.3);";
+    } else {
+        inputBoxes[2].style.cssText = "background: rgba(0,0,0,0.1);";
+    }
+
+})

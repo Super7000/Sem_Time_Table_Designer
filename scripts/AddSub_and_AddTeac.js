@@ -1,15 +1,15 @@
 import { clickListenerForCardActivator, addCardClickListener } from "./Util.js";
 
 // toggle confirmation box function
-export function tconfirmationbox(cmsg="",yesBtnFunc=()=>{},noBtnFunc=()=>{}) {
-    document.querySelector(".cBox .cMsg").innerHTML = cmsg;
+export function tconfirmationbox(messege = "", yesBtnFunc = () => { }, noBtnFunc = () => { }) {
+    document.querySelector(".cBox .cMsg").innerHTML = messege;
     document.querySelector(".cBox").classList.toggle("active");
     document.querySelector(".cBoxBG").classList.toggle("active");
-    document.querySelector(".cBtns .cBtn").addEventListener("click",()=>{
+    document.querySelector(".cBtns .cBtn").addEventListener("click", () => {
         yesBtnFunc();
         tconfirmationbox();
     });
-    document.querySelector(".cBtns .cancel_btn").addEventListener("click",()=>{
+    document.querySelector(".cBtns .cancel_btn").addEventListener("click", () => {
         noBtnFunc();
         tconfirmationbox();
     });

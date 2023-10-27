@@ -1,17 +1,15 @@
 .s_d .s_type input {
     appearance: none;
-    background: #fff;
+    background: rgba(0, 0, 0, 0.1);
     width: 65px;
     height: 30px;
     border-radius: 15px;
     transition: 0.5s;
-    box-shadow: inset 0px 0px 35px rgba(0, 0, 0, 0.3);
     border: none;
 }
 
 .s_d .s_type input:checked {
     background: dodgerblue;
-    box-shadow: none;
 }
 
 .s_d .s_type input::after {

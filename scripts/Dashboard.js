@@ -126,7 +126,7 @@ function createTimeTable(data,numberOfPeriodsPerDay=9) {
                                     <div class="period">
                                         <div>${data[j - 1][i - 1][2]}</div>
                                         <div>Sem ${data[j - 1][i - 1][0]}-${section[data[j - 1][i - 1][1]]}</div>                           
-                                        <div>${subjectList[data[j - 1][i - 1][2]]["roomCode"]}</div>
+                                        <div>${data[j - 1][i - 1][3]}</div>
                                     </div>
                                 </div>`;
                         i += 2;
@@ -136,7 +136,7 @@ function createTimeTable(data,numberOfPeriodsPerDay=9) {
                                     <div class="period">
                                         <div>${data[j - 1][i - 1][2]}</div>
                                         <div>Sem ${data[j - 1][i - 1][0]}-${section[data[j - 1][i - 1][1]]}</div>                           
-                                        <div>${subjectList[data[j - 1][i - 1][2]]["roomCode"]}</div>
+                                        <div>${data[j - 1][i - 1][3]}</div>
                                     </div>
                                 </div>`;
                         totalTimeSpendPerDay += 1;

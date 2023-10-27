@@ -12,13 +12,16 @@ import { tconfirmationbox } from "./AddSub_and_AddTeac.js";
 // }
 // showcards();
 
+const inputBoxes = document.querySelectorAll(".t_d .con input");
+
+let tempCurrentSubjectData;
 
 let url = window.location.origin + "/" + "io/subjects";
 console.log(url)
 
 function saveBtnClickListener() {
     document.querySelector(".dsb").addEventListener("click", () => {
-        let val = document.querySelectorAll(".con input")[0].value.trim().toUpperCase();
+        let val = inputBoxes[0].value.trim().toUpperCase();
 
         //form validating
         if (val.length > 9) {
@@ -30,7 +33,7 @@ function saveBtnClickListener() {
             return;
         }
         //sem validation
-        let semValue = document.querySelectorAll(".con input")[1].value.trim();
+        let semValue = inputBoxes[1].value.trim();
         if (semValue == "") {
             terrorbox("Please Enter a Number in semester");
             return;
@@ -46,7 +49,7 @@ function saveBtnClickListener() {
             return;
         }
         //lecture count validation
-        let lecCount = document.querySelectorAll(".con input")[2].value.trim();
+        let lecCount = inputBoxes[2].value.trim();
         if (lecCount == "") {
             lecCount = 4;
         }
@@ -61,62 +64,65 @@ function saveBtnClickListener() {
             return;
         }
         //room code validation
-        let rCode = document.querySelectorAll(".con input")[3].value.trim().toUpperCase();
+        let rCode = inputBoxes[3].value.trim().toUpperCase();
         if (rCode == "") {
             terrorbox("Please Enter a Classroom name");
             return;
         }
 
-        try{
+        try {
             rCode = rCode.split(';');
             let temp_rCode = [];
-            rCode.forEach((e)=>{temp_rCode.push(e.trim().toUpperCase())})
+            rCode.forEach((e) => { temp_rCode.push(e.trim()) })
             rCode = temp_rCode;
-        } catch(err) {
+        } catch (err) {
             terrorbox("Please Enter a Valid Room Code");
             return
         }
-        
+
 
         //configuring data to send it on server
         let subjectData = {
             sem: semValue,
             lectureCount: lecCount,
-            isPractical: document.querySelectorAll(".con input")[4].checked,
+            isPractical: inputBoxes[4].checked,
             roomCodes: rCode
         }
         let m = new Map();
         m[val] = subjectData;
-        
+
         let found = false;
         //if same name is found then show re-write confirmation pop up
         document.querySelectorAll(".cards .d_card").forEach((e) => {
-            if(e.innerHTML==val){
+            if (e.innerHTML == val) {
                 found = true;
-                tconfirmationbox(`Are you want to rewrite ${val}`,()=>{
-                        //sending data to server
-                        console.log(JSON.stringify(m));
-                        saveSubject(m, () => {
-                            //if data is updated in server then refresh cards in UI
-                            loadCards();
-                            document.querySelector(".add.card").click();
-                        }
-                )},()=>{e.click()})
+                tconfirmationbox(`Are you want to rewrite ${val}`, () => {
+                    //sending data to server
+                    saveSubjectDataAndDoBasicOperations(m);
+                }, () => { e.click() })
             }
 
         })
         //if not found then send the data to server
-        if(found==false){
-            console.log(JSON.stringify(m));
-            saveSubject(m, () => {
-                //if data is updated in server then refresh cards in UI
-                loadCards();
-                document.querySelector(".add.card").click();
-            })
+        if (found == false) {
+            saveSubjectDataAndDoBasicOperations(m);
         }
     })
 }
 saveBtnClickListener();
+
+function saveSubjectDataAndDoBasicOperations(m) {
+    console.log(JSON.stringify(m));
+    saveSubject(m, () => {
+        //if data is updated in server then refresh cards in UI
+        loadCards();
+        document.querySelector(".add.card").click();
+        inputBoxes.forEach((e) => {
+            e.style = "";
+        })
+        tempCurrentSubjectData = m;
+    })
+}
 
 function loadCards() {
     getSubjectListShallow((data) => {
@@ -136,8 +142,8 @@ function loadCards() {
 }
 loadCards();
 
-document.querySelector(".ddb").addEventListener("click",()=>{
-    tconfirmationbox(`Are you really want to delete ${document.querySelector(".d_card.active").innerHTML}?`,()=>{
+document.querySelector(".ddb").addEventListener("click", () => {
+    tconfirmationbox(`Are you really want to delete ${document.querySelector(".d_card.active").innerHTML}?`, () => {
         deleteSubject(document.querySelector(".d_card.active").innerHTML, () => {
             //if data is deleted in server then refresh cards in UI
             loadCards();
@@ -150,7 +156,10 @@ document.querySelector(".ddb").addEventListener("click",()=>{
 function clickListenerForCards() {
     document.querySelectorAll(".cards .d_card").forEach((e) => {
         e.addEventListener("click", () => {
-            document.querySelectorAll(".t_d .con input")[0].value = e.innerHTML;
+            inputBoxes.forEach((e) => {
+                e.style = "";
+            })
+            inputBoxes[0].value = e.innerHTML;
             document.querySelector(".btn_con .ddb").style.display = "block";
             if (document.querySelector(".dsb.new") != null) {
                 document.querySelector(".dsb.new").classList.remove("new");
@@ -159,13 +168,51 @@ function clickListenerForCards() {
 
             getSubject(e.innerHTML, (data) => {
                 //if data is found in server then show it in details box
-                let details = data;
-                document.querySelectorAll(".t_d .con input")[1].value = details["sem"];
-                document.querySelectorAll(".t_d .con input")[2].value = details["lectureCount"];
-                document.querySelectorAll(".t_d .con input")[3].value = details["roomCodes"].join('; ');
-                document.querySelectorAll(".t_d .con input")[4].checked = details["isPractical"];
+                tempCurrentSubjectData = data;
+                inputBoxes[1].value = data["sem"];
+                inputBoxes[2].value = data["lectureCount"];
+                inputBoxes[3].value = data["roomCodes"].join('; ');
+                inputBoxes[4].checked = data["isPractical"];
             })
         })
     })
 }
 clickListenerForCards();
+
+//identifying changes in input box values
+inputBoxes[0].addEventListener("input", () => {
+    if (document.querySelector(".add.active") != null) return;
+    if (inputBoxes[0].value.trim() != document.querySelector(".d_card.active").innerHTML) {
+        inputBoxes[0].style.cssText = "background: rgba(255, 165, 0, 0.3);";
+    } else {
+        inputBoxes[0].style.cssText = "background: rgba(0,0,0,0.1);";
+    }
+})
+inputBoxes[1].addEventListener("input", () => {
+    if (document.querySelector(".add.active") != null) return;
+    if (inputBoxes[1].value.trim() != tempCurrentSubjectData["sem"]) {
+        inputBoxes[1].style.cssText = "background: rgba(255, 165, 0, 0.3);";
+    } else {
+        inputBoxes[1].style.cssText = "background: rgba(0,0,0,0.1);";
+    }
+})
+inputBoxes[2].addEventListener("input", () => {
+    if (document.querySelector(".add.active") != null) return;
+    if (inputBoxes[2].value.trim() != tempCurrentSubjectData["lectureCount"]) {
+        inputBoxes[2].style.cssText = "background: rgba(255, 165, 0, 0.3);";
+    } else {
+        inputBoxes[2].style.cssText = "background: rgba(0,0,0,0.1);";
+    }
+})
+inputBoxes[3].addEventListener("input", () => {
+    if (document.querySelector(".add.active") != null) return;
+    let tempData = [];
+    inputBoxes[3].value.trim().toUpperCase().split(";").forEach((e) => {
+        tempData.push(e.trim());
+    })
+    if (JSON.stringify(tempData) != JSON.stringify(tempCurrentSubjectData["roomCodes"])) {
+        inputBoxes[3].style.cssText = "background: rgba(255, 165, 0, 0.3);";
+    } else {
+        inputBoxes[3].style.cssText = "background: rgba(0,0,0,0.1);";
+    }
+})
