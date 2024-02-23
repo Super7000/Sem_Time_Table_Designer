@@ -28,15 +28,31 @@ clickListenerForCardActivator();
 
 addCardClickListener();
 
+function match(l, key) {
+    var res = []
+    console.log("Search params: ",l,key)
+    
+    for (let i = 0; i < l.length; i++) {
+        
+        if (l[i].toLowerCase().indexOf(key.toLowerCase()) != -1) {
+            res.push(i)
+        }
+    }
+    console.log("Search result is", res)
+    return res
+}
+
 document.querySelector(".search-input").addEventListener("change",()=>{
+    console.log("worikg")
     let list = [];
     document.querySelectorAll(".d_card").forEach((e)=>{
         list.push(e.innerHTML);
         e.style.cssText = "display: none;";
     })
-    let result = match(list,document.querySelector(".search-input").innerHTML.trim());
+    let result = match(list,document.querySelector(".search-input").value.trim());
+    console.log(document.querySelector(".search-input").value.trim())
     result.forEach((e)=>{
-        document.querySelectorAll(".d_card")[e].style.cssText = "display: block;";
+        document.querySelectorAll(".d_card")[e].style.cssText = "display: grid;";
     })
 })
 //hello
