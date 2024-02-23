@@ -42,7 +42,7 @@ function match(l, key) {
     return res
 }
 
-document.querySelector(".search-input").addEventListener("change",()=>{
+document.querySelector(".search-input").addEventListener("input",()=>{
     console.log("worikg")
     let list = [];
     document.querySelectorAll(".d_card").forEach((e)=>{
