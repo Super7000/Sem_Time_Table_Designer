@@ -4,6 +4,17 @@
     gap: 20px;
 }
 
+.container .left-side-container{
+    display: grid;
+    grid-template-rows: 40px auto;
+    padding: 0 20px;
+}
+
+.cards-container{
+    display: grid;
+    grid-template-rows: 40px auto;
+}
+
 .cards {
     width: 100%;
     max-height: 92vh;
@@ -193,4 +204,19 @@
     .cards {
         grid-template-columns: 100px 100px;
     }
+}
+
+.search-container{
+    height: 100%;
+    display: grid;
+    align-items: center;
+}
+.search-container .search-input{
+    width: 150px;
+    height: 80%;
+    background: transparent;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #000;
+    padding: 0 10px;
 }

@@ -27,4 +27,16 @@ window.onload = function () {
 clickListenerForCardActivator();
 
 addCardClickListener();
+
+document.querySelector(".search-input").addEventListener("change",()=>{
+    let list = [];
+    document.querySelectorAll(".d_card").forEach((e)=>{
+        list.push(e.innerHTML);
+        e.style.cssText = "display: none;";
+    })
+    let result = match(list,document.querySelector(".search-input").innerHTML.trim());
+    result.forEach((e)=>{
+        document.querySelectorAll(".d_card")[e].style.cssText = "display: block;";
+    })
+})
 //hello
