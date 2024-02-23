@@ -32,38 +32,51 @@
                     
             </div>
             <div class="container">
-                <p class="currentStateNameContainer">Cureent State: <span class="currentStateName">Untitled</span></p>
-                <div class="cards">
-                    <div class="add card active">
-                        <svg height="32px" id="Layer_1" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <path d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"/>
-                        </svg>
+                <div class="left-side-container">
+                    <div class="currentStateNameContainer">Cureent State: <span class="currentStateName">Untitled</span></div>
+                
+                    <div class="cards-container">                    
+                        <div class="search-container">
+                            <input type="text" class="search-input" placeholder="Enter Teacher Name">
+                        </div>
+    
+                        <div class="cards">
+                            <div class="add card active">
+                                <svg height="32px" id="Layer_1" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <path d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="right-side-container">
+                    <div class="t_d"> <!--t_d = teacher details-->
+                        <div class="con heading">
+                            <div>Details</div>
+                        </div>
+                        <div class="con t_name">
+                            <div>Teacher Name</div>
+                            <input type="text" placeholder="Ex. SKB" required>
+                        </div>
+                        <div class="con s_names">
+                            <div>Subject Names</div>
+                            <input type="text" placeholder="Ex. PCC-CS501, PCC-CS502, .." required>
+                        </div>
+                        <div class="con a_time">
+                            <div>Avaiable Times</div>
+                            <input type="text" placeholder="Ex. [1,3],[2,5].. means [Mon,3rd Period].." required>
+                        </div>
+                        <div class="btn_con">    
+                            <button class="dsb new">Save</button> <!--dsb = details save button-->
+                            <button class="ddb">Delete</button>
+                        </div>
                     </div>
                 </div>
-                <div class="t_d"> <!--t_d = teacher details-->
-                    <div class="con heading">
-                        <div>Details</div>
-                    </div>
-                    <div class="con t_name">
-                        <div>Teacher Name</div>
-                        <input type="text" placeholder="Ex. SKB" required>
-                    </div>
-                    <div class="con s_names">
-                        <div>Subject Names</div>
-                        <input type="text" placeholder="Ex. PCC-CS501, PCC-CS502, .." required>
-                    </div>
-                    <div class="con a_time">
-                        <div>Avaiable Times</div>
-                        <input type="text" placeholder="Ex. [1,3],[2,5].. means [Mon,3rd Period].." required>
-                    </div>
-                    <div class="btn_con">    
-                        <button class="dsb new">Save</button> <!--dsb = details save button-->
-                        <button class="ddb">Delete</button>
-                    </div>
-                </div>
+
                 <div class="footer">
                     <div>Created by <a href="https://github.com/Super7000">Subrata Chowdhury</a> & <a href="https://github.com/srideep-banerjee">Srideep Banerjee</a> | All @Copyrights reserved</div>
-                    
                 </div>
             </div>
         

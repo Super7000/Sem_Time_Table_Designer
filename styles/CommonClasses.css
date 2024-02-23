@@ -163,11 +163,11 @@ body.active {
 
 
 
+.currentStateNameContainer{
+    overflow: hidden;
+}
 .currentStateNameContainer,
 .currentStateName {
-    position: absolute;
-    top: 5px;
-    left: 50px;
     font-size: 16px;
     color: var(--textColor);
     margin: 0;

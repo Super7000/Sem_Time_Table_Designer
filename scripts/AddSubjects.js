@@ -125,10 +125,9 @@ function loadCards() {
         for (let key of data) {
             s += `<div class="d_card card">${key}</div>`;
         }
-        document.querySelector(".container .cards").innerHTML = s;
+        document.querySelector(".add.card").insertAdjacentHTML("afterend",s);
         clickListenerForCardActivator();
         clickListenerForCards();
-        addCardClickListener();
     })
 }
 loadCards();
