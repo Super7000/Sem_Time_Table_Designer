@@ -1,3 +1,6 @@
+<h2>Please Use ReactJS version of this UI. Which can be found here: https://github.com/Super7000/Time-Table-Creator-ReactJS</h2>
+<h3>This project is not maintained any more. Please avoid using it.</h3>
+
 This repository contains frontend codes of the webapplication.
 
 This UI created using HTML, CSS and JS and it use some API requests to communicate with backend.
@@ -7,6 +10,8 @@ Backend Code is created using Java. It use genetic algorithm to create a time ta
 Backend codes is available [here](https://github.com/srideep-banerjee/TimeTableScheduler-Backend)
 
 # How to use this UI?
+<h3>This guide is for ReactJS version of this project this guide may not be very help full for this version of the project.</h3>
+
 ReactJS version of this project is available [here](https://github.com/Super7000/Time-Table-Creator-ReactJS).
 Below images are from ReactJS version of this project.
 
